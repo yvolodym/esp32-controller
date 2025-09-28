@@ -1,0 +1,23 @@
+menu "ESP32 Controller Configuration"
+
+    config CONTROLLER_RECEIVER_MAC
+        string "Receiver MAC Address"
+        default "94:3C:C6:33:71:68"
+        help
+            MAC address of the ESP-NOW receiver device
+
+    config CONTROLLER_SEND_DELAY_MS
+        int "Send delay in milliseconds"
+        range 10 1000
+        default 20
+        help
+            Delay between ESP-NOW transmissions
+
+    config CONTROLLER_JOYSTICK_DEADZONE
+        int "Joystick deadzone"
+        range 10 200
+        default 50
+        help
+            Deadzone for joystick input filtering
+
+endmenu
