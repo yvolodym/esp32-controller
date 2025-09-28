@@ -2,9 +2,10 @@ menu "ESP32 Controller Configuration"
 
     config CONTROLLER_RECEIVER_MAC
         string "Receiver MAC Address"
-        default "94:3C:C6:33:71:68"
+        default "FF:FF:FF:FF:FF:FF"
         help
-            MAC address of the ESP-NOW receiver device
+            MAC address of the ESP-NOW receiver device in format XX:XX:XX:XX:XX:XX
+            Use FF:FF:FF:FF:FF:FF for broadcast or set specific receiver MAC
 
     config CONTROLLER_SEND_DELAY_MS
         int "Send delay in milliseconds"

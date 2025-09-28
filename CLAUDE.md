@@ -86,7 +86,7 @@ idf.py size
 
 ## Development Notes
 
-- The project uses Russian comments in the source code
+- All code comments and log messages are in English
 - Battery level monitoring is implemented but may need calibration for specific battery types
 - Receiver MAC address is configurable via `idf.py menuconfig` under "ESP32 Controller Configuration"
 - Send delay and joystick deadzone are also configurable through menuconfig
