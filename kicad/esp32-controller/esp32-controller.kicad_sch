@@ -2,9 +2,418 @@
 	(version 20250114)
 	(generator "eeschema")
 	(generator_version "9.0")
-	(uuid 1b61a099-fa01-45c5-bfa6-c1f023697108)
+	(uuid "1b61a099-fa01-45c5-bfa6-c1f023697108")
 	(paper "A4")
-	(lib_symbols)
+	(lib_symbols
+		(symbol "PCM_yvolodym:Joystick_PS5"
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "U"
+				(at 0 16.51 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" "yvolodym.switches:Joystick_PS5"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "Joystick_PS5_0_1"
+				(rectangle
+					(start -5.08 13.97)
+					(end 5.08 -13.97)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "Joystick_PS5_1_1"
+				(pin passive line
+					(at -7.62 11.43 0)
+					(length 2.54)
+					(name "V"
+						(effects
+							(font
+								(size 0.762 0.762)
+							)
+						)
+					)
+					(number "V2"
+						(effects
+							(font
+								(size 0.762 0.762)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at -7.62 8.89 0)
+					(length 2.54)
+					(name "V+"
+						(effects
+							(font
+								(size 0.762 0.762)
+							)
+						)
+					)
+					(number "V1"
+						(effects
+							(font
+								(size 0.762 0.762)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at -7.62 6.35 0)
+					(length 2.54)
+					(name "V-"
+						(effects
+							(font
+								(size 0.762 0.762)
+							)
+						)
+					)
+					(number "V3"
+						(effects
+							(font
+								(size 0.762 0.762)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at -7.62 1.27 0)
+					(length 2.54)
+					(name "H"
+						(effects
+							(font
+								(size 0.762 0.762)
+							)
+						)
+					)
+					(number "H2"
+						(effects
+							(font
+								(size 0.762 0.762)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at -7.62 -1.27 0)
+					(length 2.54)
+					(name "H+"
+						(effects
+							(font
+								(size 0.762 0.762)
+							)
+						)
+					)
+					(number "H1"
+						(effects
+							(font
+								(size 0.762 0.762)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at -7.62 -3.81 0)
+					(length 2.54)
+					(name "H-"
+						(effects
+							(font
+								(size 0.762 0.762)
+							)
+						)
+					)
+					(number "H3"
+						(effects
+							(font
+								(size 0.762 0.762)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at -7.62 -8.89 0)
+					(length 2.54)
+					(name "SEL+"
+						(effects
+							(font
+								(size 0.762 0.762)
+							)
+						)
+					)
+					(number "B1A"
+						(effects
+							(font
+								(size 0.762 0.762)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at -7.62 -11.43 0)
+					(length 2.54)
+					(name "SEL-"
+						(effects
+							(font
+								(size 0.762 0.762)
+							)
+						)
+					)
+					(number "B2A"
+						(effects
+							(font
+								(size 0.762 0.762)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 2.54 -16.51 90)
+					(length 2.54)
+					(name "SHIELD"
+						(effects
+							(font
+								(size 0.762 0.762)
+							)
+						)
+					)
+					(number "S1"
+						(effects
+							(font
+								(size 0.762 0.762)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
+	)
+	(symbol
+		(lib_id "PCM_yvolodym:Joystick_PS5")
+		(at 101.6 60.96 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "3be05562-ba48-4c8f-9162-921c40a5d848")
+		(property "Reference" "U?"
+			(at 100.584 45.466 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "~"
+			(at 107.95 62.2299 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Footprint" "yvolodym.switches:Joystick_PS5"
+			(at 101.6 60.96 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 101.6 60.96 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 101.6 60.96 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "B2A"
+			(uuid "20416487-e00b-4ab0-b770-b75380c16c7e")
+		)
+		(pin "S1"
+			(uuid "301ffa78-7e66-4bbd-a0b6-cbaec3dd3878")
+		)
+		(pin "V3"
+			(uuid "47b70e43-a2c3-491a-84ff-91d0e5353a6e")
+		)
+		(pin "H3"
+			(uuid "fea8dbff-a6f3-4a58-b813-4222c9a5137e")
+		)
+		(pin "V1"
+			(uuid "d6ebfd47-b850-496c-afb0-09cecb58a3d0")
+		)
+		(pin "V2"
+			(uuid "0e6a7eb9-449f-4da3-8529-b6853ce6fb54")
+		)
+		(pin "H1"
+			(uuid "d9ca903e-dd00-49a3-b39a-e00bbdc18987")
+		)
+		(pin "H2"
+			(uuid "f55148e2-4c40-4005-84fd-1c39c94c0f29")
+		)
+		(pin "B1A"
+			(uuid "e3c2aabc-5a4b-4063-a3d6-0512af4d6518")
+		)
+		(instances
+			(project ""
+				(path "/1b61a099-fa01-45c5-bfa6-c1f023697108"
+					(reference "U?")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "PCM_yvolodym:Joystick_PS5")
+		(at 144.78 60.96 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "4048b63c-3a12-4f7b-b9bb-26c2b2f0b7ff")
+		(property "Reference" "U?"
+			(at 143.764 45.466 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "~"
+			(at 151.13 62.2299 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Footprint" "yvolodym.switches:Joystick_PS5"
+			(at 144.78 60.96 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 144.78 60.96 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 144.78 60.96 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "B2A"
+			(uuid "a0fd8cfa-e1ab-47b8-8d8c-7f5efafb1375")
+		)
+		(pin "S1"
+			(uuid "4794e0c8-655f-487b-a7c9-d3fb88f25acf")
+		)
+		(pin "V3"
+			(uuid "28c49e8e-cbc4-4729-8b97-95ef0becfaf7")
+		)
+		(pin "H3"
+			(uuid "086881aa-7a2c-448f-b91a-0516d20b4f42")
+		)
+		(pin "V1"
+			(uuid "6daef107-a2f2-4597-b98d-3d0b703d79f3")
+		)
+		(pin "V2"
+			(uuid "a61c9fca-b34f-4784-a754-3714cb6a308a")
+		)
+		(pin "H1"
+			(uuid "9748de28-52c9-4783-b6ef-d402153823ff")
+		)
+		(pin "H2"
+			(uuid "e512649c-e167-49e5-aed4-55f73dbb0721")
+		)
+		(pin "B1A"
+			(uuid "1c511a28-8884-40f3-92d4-2d0baef6f710")
+		)
+		(instances
+			(project "esp32-controller"
+				(path "/1b61a099-fa01-45c5-bfa6-c1f023697108"
+					(reference "U?")
+					(unit 1)
+				)
+			)
+		)
+	)
 	(sheet_instances
 		(path "/"
 			(page "1")
