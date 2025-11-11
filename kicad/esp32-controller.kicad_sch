@@ -211,7 +211,97 @@
 					)
 				)
 				(pin passive line
-					(at 2.54 -16.51 90)
+					(at 7.62 11.43 180)
+					(length 2.54)
+					(name "SEL+"
+						(effects
+							(font
+								(size 0.762 0.762)
+							)
+						)
+					)
+					(number "B1B"
+						(effects
+							(font
+								(size 0.762 0.762)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 7.62 8.89 180)
+					(length 2.54)
+					(name "SEL-"
+						(effects
+							(font
+								(size 0.762 0.762)
+							)
+						)
+					)
+					(number "B2B"
+						(effects
+							(font
+								(size 0.762 0.762)
+							)
+						)
+					)
+				)
+				(pin power_out line
+					(at 7.62 -2.54 180)
+					(length 2.54)
+					(name "SHIELD"
+						(effects
+							(font
+								(size 0.762 0.762)
+							)
+						)
+					)
+					(number "S4"
+						(effects
+							(font
+								(size 0.762 0.762)
+							)
+						)
+					)
+				)
+				(pin power_out line
+					(at 7.62 -5.08 180)
+					(length 2.54)
+					(name "SHIELD"
+						(effects
+							(font
+								(size 0.762 0.762)
+							)
+						)
+					)
+					(number "S3"
+						(effects
+							(font
+								(size 0.762 0.762)
+							)
+						)
+					)
+				)
+				(pin power_out line
+					(at 7.62 -7.62 180)
+					(length 2.54)
+					(name "SHIELD"
+						(effects
+							(font
+								(size 0.762 0.762)
+							)
+						)
+					)
+					(number "S2"
+						(effects
+							(font
+								(size 0.762 0.762)
+							)
+						)
+					)
+				)
+				(pin power_out line
+					(at 7.62 -10.16 180)
 					(length 2.54)
 					(name "SHIELD"
 						(effects
@@ -231,37 +321,342 @@
 			)
 			(embedded_fonts no)
 		)
+		(symbol "power:+3.3V"
+			(power)
+			(pin_numbers
+				(hide yes)
+			)
+			(pin_names
+				(offset 0)
+				(hide yes)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "#PWR"
+				(at 0 -3.81 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Value" "+3.3V"
+				(at 0 3.556 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" "Power symbol creates a global label with name \"+3.3V\""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_keywords" "global power"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "+3.3V_0_1"
+				(polyline
+					(pts
+						(xy -0.762 1.27) (xy 0 2.54)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 0 2.54) (xy 0.762 1.27)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 0 0) (xy 0 2.54)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "+3.3V_1_1"
+				(pin power_in line
+					(at 0 0 90)
+					(length 0)
+					(name "~"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
+		(symbol "power:GND"
+			(power)
+			(pin_numbers
+				(hide yes)
+			)
+			(pin_names
+				(offset 0)
+				(hide yes)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "#PWR"
+				(at 0 -6.35 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Value" "GND"
+				(at 0 -3.81 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_keywords" "global power"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "GND_0_1"
+				(polyline
+					(pts
+						(xy 0 0) (xy 0 -1.27) (xy 1.27 -1.27) (xy 0 -2.54) (xy -1.27 -1.27) (xy 0 -1.27)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "GND_1_1"
+				(pin power_in line
+					(at 0 0 270)
+					(length 0)
+					(name "~"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
+	)
+	(wire
+		(pts
+			(xy 95.25 76.2) (xy 95.25 81.28)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "0960d982-708a-49b0-bf32-70c6b4238f1e")
+	)
+	(wire
+		(pts
+			(xy 132.08 26.67) (xy 132.08 93.98)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "0f0ecea0-e1ac-43b5-92ab-96d064358fe5")
+	)
+	(wire
+		(pts
+			(xy 128.27 96.52) (xy 123.19 96.52)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "150a9ece-87b2-4907-90ee-1bd0aa78ed3d")
+	)
+	(wire
+		(pts
+			(xy 128.27 31.75) (xy 128.27 96.52)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "86de67e2-98bc-42ad-af76-69622c4d5368")
+	)
+	(wire
+		(pts
+			(xy 121.92 26.67) (xy 132.08 26.67)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "c6423af4-6299-42d1-9c87-01fba70c2ead")
+	)
+	(wire
+		(pts
+			(xy 132.08 93.98) (xy 123.19 93.98)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "e14a7c15-209b-4faf-b0f2-988379c4e2c1")
+	)
+	(wire
+		(pts
+			(xy 95.25 147.32) (xy 95.25 154.94)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "e68fd41c-e1e3-4a86-963b-4b229c2386ba")
+	)
+	(wire
+		(pts
+			(xy 121.92 31.75) (xy 128.27 31.75)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "ec8f7b55-92c8-4e8d-bdb9-4a3f49d35723")
 	)
 	(symbol
-		(lib_id "PCM_yvolodym:Joystick_PS5")
-		(at 101.6 60.96 0)
+		(lib_id "power:GND")
+		(at 95.25 154.94 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "3be05562-ba48-4c8f-9162-921c40a5d848")
-		(property "Reference" "U?"
-			(at 100.584 45.466 0)
+		(fields_autoplaced yes)
+		(uuid "2e94d453-b6e5-43cc-8380-55b6e156b65b")
+		(property "Reference" "#PWR014"
+			(at 95.25 161.29 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify left)
-			)
-		)
-		(property "Value" "~"
-			(at 107.95 62.2299 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
 				(hide yes)
 			)
 		)
-		(property "Footprint" "yvolodym.switches:Joystick_PS5"
-			(at 101.6 60.96 0)
+		(property "Value" "GND"
+			(at 95.25 160.02 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 95.25 154.94 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -270,7 +665,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 101.6 60.96 0)
+			(at 95.25 154.94 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -278,8 +673,8 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
-			(at 101.6 60.96 0)
+		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
+			(at 95.25 154.94 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -287,37 +682,13 @@
 				(hide yes)
 			)
 		)
-		(pin "B2A"
-			(uuid "20416487-e00b-4ab0-b770-b75380c16c7e")
-		)
-		(pin "S1"
-			(uuid "301ffa78-7e66-4bbd-a0b6-cbaec3dd3878")
-		)
-		(pin "V3"
-			(uuid "47b70e43-a2c3-491a-84ff-91d0e5353a6e")
-		)
-		(pin "H3"
-			(uuid "fea8dbff-a6f3-4a58-b813-4222c9a5137e")
-		)
-		(pin "V1"
-			(uuid "d6ebfd47-b850-496c-afb0-09cecb58a3d0")
-		)
-		(pin "V2"
-			(uuid "0e6a7eb9-449f-4da3-8529-b6853ce6fb54")
-		)
-		(pin "H1"
-			(uuid "d9ca903e-dd00-49a3-b39a-e00bbdc18987")
-		)
-		(pin "H2"
-			(uuid "f55148e2-4c40-4005-84fd-1c39c94c0f29")
-		)
-		(pin "B1A"
-			(uuid "e3c2aabc-5a4b-4063-a3d6-0512af4d6518")
+		(pin "1"
+			(uuid "1d6155be-315f-4d63-ab92-b60ee85a7c2e")
 		)
 		(instances
 			(project ""
 				(path "/1b61a099-fa01-45c5-bfa6-c1f023697108"
-					(reference "U?")
+					(reference "#PWR014")
 					(unit 1)
 				)
 			)
@@ -325,34 +696,32 @@
 	)
 	(symbol
 		(lib_id "PCM_yvolodym:Joystick_PS5")
-		(at 144.78 60.96 0)
+		(at 184.15 55.88 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "4048b63c-3a12-4f7b-b9bb-26c2b2f0b7ff")
-		(property "Reference" "U?"
-			(at 143.764 45.466 0)
+		(fields_autoplaced yes)
+		(uuid "6132db4d-a5bf-4828-b6f9-4f5a9cbfa35f")
+		(property "Reference" "U1"
+			(at 184.15 36.83 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify left)
 			)
 		)
-		(property "Value" "~"
-			(at 151.13 62.2299 0)
+		(property "Value" "PS4"
+			(at 184.15 39.37 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify left)
-				(hide yes)
 			)
 		)
-		(property "Footprint" "yvolodym.switches:Joystick_PS5"
-			(at 144.78 60.96 0)
+		(property "Footprint" "PCM_yvolodym:Joystick_PS5"
+			(at 184.15 55.88 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -361,7 +730,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 144.78 60.96 0)
+			(at 184.15 55.88 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -370,7 +739,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 144.78 60.96 0)
+			(at 184.15 55.88 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -378,38 +747,285 @@
 				(hide yes)
 			)
 		)
-		(pin "B2A"
-			(uuid "a0fd8cfa-e1ab-47b8-8d8c-7f5efafb1375")
-		)
-		(pin "S1"
-			(uuid "4794e0c8-655f-487b-a7c9-d3fb88f25acf")
-		)
-		(pin "V3"
-			(uuid "28c49e8e-cbc4-4729-8b97-95ef0becfaf7")
-		)
-		(pin "H3"
-			(uuid "086881aa-7a2c-448f-b91a-0516d20b4f42")
-		)
-		(pin "V1"
-			(uuid "6daef107-a2f2-4597-b98d-3d0b703d79f3")
-		)
-		(pin "V2"
-			(uuid "a61c9fca-b34f-4784-a754-3714cb6a308a")
-		)
-		(pin "H1"
-			(uuid "9748de28-52c9-4783-b6ef-d402153823ff")
+		(pin "B1B"
+			(uuid "6e3044b1-d193-45a2-abcc-6defbaedaec9")
 		)
 		(pin "H2"
-			(uuid "e512649c-e167-49e5-aed4-55f73dbb0721")
+			(uuid "69702633-ff9f-4734-979b-48e4c5dbbecd")
+		)
+		(pin "V1"
+			(uuid "fd28db88-b0f5-4981-abc4-d8a1ceb45c27")
+		)
+		(pin "V3"
+			(uuid "5ad7a074-1a77-428b-b88e-f3d6111f94be")
+		)
+		(pin "V2"
+			(uuid "7cf93e19-af87-4891-8de8-2bc5cdc76cdc")
+		)
+		(pin "H1"
+			(uuid "530220fd-4456-4711-95f0-05a792be73ca")
+		)
+		(pin "H3"
+			(uuid "82f1a4bc-212f-4264-8f79-79e582a55b85")
 		)
 		(pin "B1A"
-			(uuid "1c511a28-8884-40f3-92d4-2d0baef6f710")
+			(uuid "2c2efd77-5cb9-42ca-9519-f7f7372ab090")
+		)
+		(pin "B2A"
+			(uuid "c48d9874-8adb-485f-8488-dfcb43f09112")
+		)
+		(pin "S3"
+			(uuid "703b833c-230b-4f2b-b803-382634820e46")
+		)
+		(pin "S1"
+			(uuid "39d600b4-5aaf-4aab-af21-4655f62cd828")
+		)
+		(pin "B2B"
+			(uuid "f3208c3f-aff1-440f-b104-516a746b6ab4")
+		)
+		(pin "S2"
+			(uuid "8cf51112-cd4f-4dc7-8bf4-3f0b85968a57")
+		)
+		(pin "S4"
+			(uuid "9743105f-608c-4485-bbb3-68ce4d1f17d1")
+		)
+		(instances
+			(project ""
+				(path "/1b61a099-fa01-45c5-bfa6-c1f023697108"
+					(reference "U1")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "PCM_yvolodym:Joystick_PS5")
+		(at 184.15 119.38 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "c2d163b8-4dd5-4593-a418-c225605b5f25")
+		(property "Reference" "U2"
+			(at 184.15 100.33 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "PS4"
+			(at 184.15 102.87 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "PCM_yvolodym:Joystick_PS5"
+			(at 184.15 119.38 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 184.15 119.38 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 184.15 119.38 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "V3"
+			(uuid "f9d55d45-2e09-4b7a-a97b-ac41111c5b91")
+		)
+		(pin "H2"
+			(uuid "5cbcfa24-ec00-44b4-8d90-bbe57acb43f1")
+		)
+		(pin "H1"
+			(uuid "8b44d232-aaaa-4b4f-938c-77bb562b87c9")
+		)
+		(pin "V2"
+			(uuid "f8f98360-22e5-48c1-b702-44f965a9fd21")
+		)
+		(pin "V1"
+			(uuid "375c2ac7-6a0b-405b-b8f3-275a765390c0")
+		)
+		(pin "B2B"
+			(uuid "ae996667-ee94-45d1-a5c4-d16cf27d1d94")
+		)
+		(pin "H3"
+			(uuid "e8dde65f-bb6e-440d-b301-179495bcd11e")
+		)
+		(pin "B1B"
+			(uuid "6fed8386-818c-44c4-8f10-0f3d3430b510")
+		)
+		(pin "B1A"
+			(uuid "7ad5b260-7243-4711-bff3-4acc87d5ee89")
+		)
+		(pin "S4"
+			(uuid "bdf5023d-970d-44a5-80ff-e45d334a933c")
+		)
+		(pin "S3"
+			(uuid "4b8b54fb-836e-425a-8de7-abcd0bd167f2")
+		)
+		(pin "S2"
+			(uuid "d8d71868-65d6-4141-9910-bd05355cbed1")
+		)
+		(pin "B2A"
+			(uuid "ca745418-4489-4237-951a-9eb9a95d6385")
+		)
+		(pin "S1"
+			(uuid "7f24d39e-79f6-443b-a763-abb752c66f25")
+		)
+		(instances
+			(project ""
+				(path "/1b61a099-fa01-45c5-bfa6-c1f023697108"
+					(reference "U2")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:+3.3V")
+		(at 95.25 76.2 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "c4b0433b-a7e3-4b60-a7b1-df605f477c2c")
+		(property "Reference" "#PWR013"
+			(at 95.25 80.01 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "+3.3V"
+			(at 95.25 71.12 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 95.25 76.2 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 95.25 76.2 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"+3.3V\""
+			(at 95.25 76.2 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "d8bb5ebe-0053-4d0a-bf8b-695e273bbd11")
+		)
+		(instances
+			(project ""
+				(path "/1b61a099-fa01-45c5-bfa6-c1f023697108"
+					(reference "#PWR013")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(sheet
+		(at 80.01 16.51)
+		(size 41.91 31.75)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(fill
+			(color 0 0 0 0.0000)
+		)
+		(uuid "13eaefed-e598-4605-b03d-de27b94da232")
+		(property "Sheetname" "supply"
+			(at 80.01 15.7984 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "supply.kicad_sch"
+			(at 80.01 48.8446 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(pin "D+" input
+			(at 121.92 26.67 0)
+			(uuid "2b40fc4a-60d7-48c1-a365-7c44e220c86e")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(pin "D-" input
+			(at 121.92 31.75 0)
+			(uuid "9a50d2c3-159f-4406-a5f2-b30ee178b2e1")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
 		)
 		(instances
 			(project "esp32-controller"
 				(path "/1b61a099-fa01-45c5-bfa6-c1f023697108"
-					(reference "U?")
-					(unit 1)
+					(page "2")
 				)
 			)
 		)
