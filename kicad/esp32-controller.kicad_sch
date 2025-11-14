@@ -5928,7 +5928,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "10b7cd2c-eeb3-495e-83dd-f9707d16b8c2")
-		(property "Reference" "#PWR01"
+		(property "Reference" "#PWR02"
 			(at 48.26 26.67 0)
 			(effects
 				(font
@@ -5978,7 +5978,7 @@
 		(instances
 			(project "esp32-controller"
 				(path "/1b61a099-fa01-45c5-bfa6-c1f023697108"
-					(reference "#PWR01")
+					(reference "#PWR02")
 					(unit 1)
 				)
 			)
@@ -5994,7 +5994,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "12f81eeb-b089-42a1-841c-6fe3bc43bc33")
-		(property "Reference" "#PWR014"
+		(property "Reference" "#PWR019"
 			(at 165.1 118.11 0)
 			(effects
 				(font
@@ -6044,7 +6044,7 @@
 		(instances
 			(project ""
 				(path "/1b61a099-fa01-45c5-bfa6-c1f023697108"
-					(reference "#PWR014")
+					(reference "#PWR019")
 					(unit 1)
 				)
 			)
@@ -6059,7 +6059,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "251a448b-47d4-46e0-8f32-1ba48268cc30")
-		(property "Reference" "#PWR011"
+		(property "Reference" "#PWR014"
 			(at 139.7 46.99 0)
 			(effects
 				(font
@@ -6109,7 +6109,7 @@
 		(instances
 			(project "esp32-controller"
 				(path "/1b61a099-fa01-45c5-bfa6-c1f023697108"
-					(reference "#PWR011")
+					(reference "#PWR014")
 					(unit 1)
 				)
 			)
@@ -6125,7 +6125,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "2e94d453-b6e5-43cc-8380-55b6e156b65b")
-		(property "Reference" "#PWR04"
+		(property "Reference" "#PWR05"
 			(at 88.9 133.35 0)
 			(effects
 				(font
@@ -6175,7 +6175,7 @@
 		(instances
 			(project ""
 				(path "/1b61a099-fa01-45c5-bfa6-c1f023697108"
-					(reference "#PWR04")
+					(reference "#PWR05")
 					(unit 1)
 				)
 			)
@@ -6191,7 +6191,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "353bee7e-ee85-4da1-9098-df638796e151")
-		(property "Reference" "#PWR015"
+		(property "Reference" "#PWR020"
 			(at 223.52 105.41 0)
 			(effects
 				(font
@@ -6241,7 +6241,7 @@
 		(instances
 			(project ""
 				(path "/1b61a099-fa01-45c5-bfa6-c1f023697108"
-					(reference "#PWR015")
+					(reference "#PWR020")
 					(unit 1)
 				)
 			)
@@ -6650,7 +6650,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "4bff1243-662e-4766-bfd7-0dc6117a18c1")
-		(property "Reference" "#PWR016"
+		(property "Reference" "#PWR021"
 			(at 226.06 147.32 0)
 			(effects
 				(font
@@ -6700,7 +6700,7 @@
 		(instances
 			(project ""
 				(path "/1b61a099-fa01-45c5-bfa6-c1f023697108"
-					(reference "#PWR016")
+					(reference "#PWR021")
 					(unit 1)
 				)
 			)
@@ -6791,7 +6791,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "60c44baa-fc6f-4eb0-93b3-c71427c3708a")
-		(property "Reference" "#PWR032"
+		(property "Reference" "#PWR017"
 			(at 142.24 87.63 0)
 			(effects
 				(font
@@ -6841,7 +6841,7 @@
 		(instances
 			(project "esp32-controller"
 				(path "/1b61a099-fa01-45c5-bfa6-c1f023697108"
-					(reference "#PWR032")
+					(reference "#PWR017")
 					(unit 1)
 				)
 			)
@@ -6962,7 +6962,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "67d5fa0f-6835-477a-9556-759c21febf97")
-		(property "Reference" "#PWR05"
+		(property "Reference" "#PWR06"
 			(at 88.9 177.8 0)
 			(effects
 				(font
@@ -7012,7 +7012,7 @@
 		(instances
 			(project "esp32-controller"
 				(path "/1b61a099-fa01-45c5-bfa6-c1f023697108"
-					(reference "#PWR05")
+					(reference "#PWR06")
 					(unit 1)
 				)
 			)
@@ -7028,7 +7028,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "69c963a6-9409-46cb-b485-8add938ad1f3")
-		(property "Reference" "#PWR013"
+		(property "Reference" "#PWR018"
 			(at 165.1 64.77 0)
 			(effects
 				(font
@@ -7078,7 +7078,7 @@
 		(instances
 			(project ""
 				(path "/1b61a099-fa01-45c5-bfa6-c1f023697108"
-					(reference "#PWR013")
+					(reference "#PWR018")
 					(unit 1)
 				)
 			)
@@ -7239,7 +7239,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "7c7e677d-4bc3-4ebc-8f0e-442547735765")
-		(property "Reference" "#PWR033"
+		(property "Reference" "#PWR010"
 			(at 133.35 97.79 0)
 			(effects
 				(font
@@ -7289,7 +7289,7 @@
 		(instances
 			(project "esp32-controller"
 				(path "/1b61a099-fa01-45c5-bfa6-c1f023697108"
-					(reference "#PWR033")
+					(reference "#PWR010")
 					(unit 1)
 				)
 			)
@@ -7305,7 +7305,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "7d636c7a-409a-43ea-8e54-3fb42db3b03c")
-		(property "Reference" "#PWR06"
+		(property "Reference" "#PWR07"
 			(at 97.79 26.67 0)
 			(effects
 				(font
@@ -7355,7 +7355,7 @@
 		(instances
 			(project "esp32-controller"
 				(path "/1b61a099-fa01-45c5-bfa6-c1f023697108"
-					(reference "#PWR06")
+					(reference "#PWR07")
 					(unit 1)
 				)
 			)
@@ -7371,7 +7371,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "803240f7-a36b-41f4-b5b7-3085d352d0d6")
-		(property "Reference" "#PWR08"
+		(property "Reference" "#PWR09"
 			(at 97.79 187.96 0)
 			(effects
 				(font
@@ -7421,7 +7421,7 @@
 		(instances
 			(project "esp32-controller"
 				(path "/1b61a099-fa01-45c5-bfa6-c1f023697108"
-					(reference "#PWR08")
+					(reference "#PWR09")
 					(unit 1)
 				)
 			)
@@ -7706,7 +7706,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "8629e2bf-0df0-4d82-bbc0-b7adae5f123b")
-		(property "Reference" "#PWR031"
+		(property "Reference" "#PWR011"
 			(at 134.62 45.72 0)
 			(effects
 				(font
@@ -7756,7 +7756,7 @@
 		(instances
 			(project "esp32-controller"
 				(path "/1b61a099-fa01-45c5-bfa6-c1f023697108"
-					(reference "#PWR031")
+					(reference "#PWR011")
 					(unit 1)
 				)
 			)
@@ -7920,7 +7920,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "94a38718-12ad-4617-aa54-fa669429d486")
-		(property "Reference" "#PWR07"
+		(property "Reference" "#PWR08"
 			(at 97.79 59.69 0)
 			(effects
 				(font
@@ -7970,7 +7970,7 @@
 		(instances
 			(project "esp32-controller"
 				(path "/1b61a099-fa01-45c5-bfa6-c1f023697108"
-					(reference "#PWR07")
+					(reference "#PWR08")
 					(unit 1)
 				)
 			)
@@ -8049,7 +8049,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "94eaaaf3-598c-4ea4-85f3-16b8d303209b")
-		(property "Reference" "#PWR030"
+		(property "Reference" "#PWR016"
 			(at 142.24 35.56 0)
 			(effects
 				(font
@@ -8099,7 +8099,7 @@
 		(instances
 			(project "esp32-controller"
 				(path "/1b61a099-fa01-45c5-bfa6-c1f023697108"
-					(reference "#PWR030")
+					(reference "#PWR016")
 					(unit 1)
 				)
 			)
@@ -8114,7 +8114,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "9bccccef-f64c-4e3b-bb15-97d89e9a5583")
-		(property "Reference" "#PWR09"
+		(property "Reference" "#PWR012"
 			(at 138.43 99.06 0)
 			(effects
 				(font
@@ -8164,7 +8164,7 @@
 		(instances
 			(project "esp32-controller"
 				(path "/1b61a099-fa01-45c5-bfa6-c1f023697108"
-					(reference "#PWR09")
+					(reference "#PWR012")
 					(unit 1)
 				)
 			)
@@ -8243,7 +8243,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "aa71880b-d7f4-491d-91ea-0a65ff70c65b")
-		(property "Reference" "#PWR02"
+		(property "Reference" "#PWR03"
 			(at 48.26 59.69 0)
 			(effects
 				(font
@@ -8293,7 +8293,7 @@
 		(instances
 			(project "esp32-controller"
 				(path "/1b61a099-fa01-45c5-bfa6-c1f023697108"
-					(reference "#PWR02")
+					(reference "#PWR03")
 					(unit 1)
 				)
 			)
@@ -8308,7 +8308,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "b36c52cb-7320-4d65-8b5f-96d1c4273447")
-		(property "Reference" "#PWR010"
+		(property "Reference" "#PWR013"
 			(at 138.43 110.49 0)
 			(effects
 				(font
@@ -8358,7 +8358,7 @@
 		(instances
 			(project "esp32-controller"
 				(path "/1b61a099-fa01-45c5-bfa6-c1f023697108"
-					(reference "#PWR010")
+					(reference "#PWR013")
 					(unit 1)
 				)
 			)
@@ -8623,7 +8623,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "c4b0433b-a7e3-4b60-a7b1-df605f477c2c")
-		(property "Reference" "#PWR03"
+		(property "Reference" "#PWR04"
 			(at 73.66 78.74 0)
 			(effects
 				(font
@@ -8673,7 +8673,7 @@
 		(instances
 			(project ""
 				(path "/1b61a099-fa01-45c5-bfa6-c1f023697108"
-					(reference "#PWR03")
+					(reference "#PWR04")
 					(unit 1)
 				)
 			)
@@ -8688,7 +8688,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "c6b5be60-f88a-4d4f-aafe-d334302d49f6")
-		(property "Reference" "#PWR012"
+		(property "Reference" "#PWR015"
 			(at 139.7 59.69 0)
 			(effects
 				(font
@@ -8738,7 +8738,7 @@
 		(instances
 			(project "esp32-controller"
 				(path "/1b61a099-fa01-45c5-bfa6-c1f023697108"
-					(reference "#PWR012")
+					(reference "#PWR015")
 					(unit 1)
 				)
 			)
@@ -8754,7 +8754,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "ce9bbdfa-9098-44d4-90d5-645b15e667da")
-		(property "Reference" "#PWR029"
+		(property "Reference" "#PWR01"
 			(at 27.94 181.61 0)
 			(effects
 				(font
@@ -8804,7 +8804,7 @@
 		(instances
 			(project "esp32-controller"
 				(path "/1b61a099-fa01-45c5-bfa6-c1f023697108"
-					(reference "#PWR029")
+					(reference "#PWR01")
 					(unit 1)
 				)
 			)
