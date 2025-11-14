@@ -1235,6 +1235,89 @@
 			)
 			(embedded_fonts no)
 		)
+		(symbol "Mechanical:MountingHole"
+			(pin_names
+				(offset 1.016)
+			)
+			(exclude_from_sim yes)
+			(in_bom no)
+			(on_board yes)
+			(property "Reference" "H"
+				(at 0 5.08 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "MountingHole"
+				(at 0 3.175 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" "~"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" "Mounting Hole without connection"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_keywords" "mounting hole"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_fp_filters" "MountingHole*"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "MountingHole_0_1"
+				(circle
+					(center 0 0)
+					(radius 1.27)
+					(stroke
+						(width 1.27)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
 		(symbol "PCM_yvolodym:ESP32-WROVER-IB"
 			(exclude_from_sim no)
 			(in_bom yes)
@@ -3053,6 +3136,18 @@
 		(uuid "07fe958c-66f3-45a6-8d46-7cc5ab93dc32")
 	)
 	(junction
+		(at 27.94 175.26)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "0aaf5e71-dcc6-405d-934e-bee6e673bfdc")
+	)
+	(junction
+		(at 40.64 175.26)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "0bbb9f99-d73a-4771-ac3f-b88985518389")
+	)
+	(junction
 		(at 48.26 50.8)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -3189,6 +3284,12 @@
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "daa38c8d-0617-4065-8dca-4f79ab8bca98")
+	)
+	(junction
+		(at 31.75 175.26)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "f7ec4d22-7cc9-4732-baba-038b0dab5ec3")
 	)
 	(junction
 		(at 139.7 49.53)
@@ -3341,6 +3442,16 @@
 			(type default)
 		)
 		(uuid "02d10826-b2e4-49c2-8cbc-d05770fa2509")
+	)
+	(wire
+		(pts
+			(xy 31.75 175.26) (xy 27.94 175.26)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "04f8fc9c-6be2-481d-b70b-891074327e3f")
 	)
 	(wire
 		(pts
@@ -3634,6 +3745,16 @@
 	)
 	(wire
 		(pts
+			(xy 49.53 163.83) (xy 49.53 175.26)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "291a11d6-c660-4e35-839b-605244025d64")
+	)
+	(wire
+		(pts
 			(xy 133.35 44.45) (xy 146.05 44.45)
 		)
 		(stroke
@@ -3711,6 +3832,16 @@
 			(type default)
 		)
 		(uuid "330cffc1-465d-4ede-b625-3981c6ab77f5")
+	)
+	(wire
+		(pts
+			(xy 40.64 163.83) (xy 40.64 175.26)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "339a779b-e7b7-492c-b3e2-2518588dc5e3")
 	)
 	(wire
 		(pts
@@ -4124,6 +4255,16 @@
 	)
 	(wire
 		(pts
+			(xy 31.75 163.83) (xy 31.75 175.26)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "7240b84c-148c-4874-a15f-fcce432ed47d")
+	)
+	(wire
+		(pts
 			(xy 77.47 100.33) (xy 57.15 100.33)
 		)
 		(stroke
@@ -4374,6 +4515,16 @@
 	)
 	(wire
 		(pts
+			(xy 40.64 175.26) (xy 31.75 175.26)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "a1a52d5d-4184-4c2c-96f5-6b2d6fc93efb")
+	)
+	(wire
+		(pts
 			(xy 100.33 95.25) (xy 107.95 95.25)
 		)
 		(stroke
@@ -4491,6 +4642,16 @@
 			(type default)
 		)
 		(uuid "afe56e19-5528-488e-85d4-57b9a0084fb5")
+	)
+	(wire
+		(pts
+			(xy 21.59 163.83) (xy 21.59 175.26)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "b010d9fe-889f-4e59-b4e5-74bedce971ac")
 	)
 	(wire
 		(pts
@@ -4784,6 +4945,16 @@
 	)
 	(wire
 		(pts
+			(xy 21.59 175.26) (xy 27.94 175.26)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "dd8405fa-3809-4448-a631-394f14e28fea")
+	)
+	(wire
+		(pts
 			(xy 226.06 102.87) (xy 223.52 102.87)
 		)
 		(stroke
@@ -4811,6 +4982,16 @@
 			(type default)
 		)
 		(uuid "e22724cc-56e4-41f0-bd0f-efc8299bf4a0")
+	)
+	(wire
+		(pts
+			(xy 49.53 175.26) (xy 40.64 175.26)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "e311f0d4-c593-40d7-aee3-ca39b43ab978")
 	)
 	(wire
 		(pts
@@ -5381,6 +5562,69 @@
 			(justify left bottom)
 		)
 		(uuid "fe07a9dc-d707-46c1-99d6-c4fc16c234bc")
+	)
+	(symbol
+		(lib_id "Mechanical:MountingHole")
+		(at 31.75 163.83 0)
+		(unit 1)
+		(exclude_from_sim yes)
+		(in_bom no)
+		(on_board yes)
+		(dnp no)
+		(uuid "1000e2d1-403e-4dee-9acb-5448d715af15")
+		(property "Reference" "H2"
+			(at 34.29 162.5599 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "MountingHole"
+			(at 26.67 158.75 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "MountingHole:MountingHole_2.2mm_M2_DIN965_Pad"
+			(at 31.75 163.83 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 31.75 163.83 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Mounting Hole without connection"
+			(at 31.75 163.83 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(instances
+			(project "esp32-controller"
+				(path "/1b61a099-fa01-45c5-bfa6-c1f023697108"
+					(reference "H2")
+					(unit 1)
+				)
+			)
+		)
 	)
 	(symbol
 		(lib_id "power:+3.3V")
@@ -7245,6 +7489,69 @@
 		)
 	)
 	(symbol
+		(lib_id "Mechanical:MountingHole")
+		(at 49.53 163.83 0)
+		(unit 1)
+		(exclude_from_sim yes)
+		(in_bom no)
+		(on_board yes)
+		(dnp no)
+		(uuid "94a7bf92-34be-40af-8697-5df8cfd5fbdc")
+		(property "Reference" "H4"
+			(at 52.07 162.5599 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "MountingHole"
+			(at 44.45 158.75 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "MountingHole:MountingHole_2.2mm_M2_DIN965_Pad"
+			(at 49.53 163.83 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 49.53 163.83 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Mounting Hole without connection"
+			(at 49.53 163.83 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(instances
+			(project "esp32-controller"
+				(path "/1b61a099-fa01-45c5-bfa6-c1f023697108"
+					(reference "H4")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "power:GND")
 		(at 138.43 92.71 0)
 		(unit 1)
@@ -7304,6 +7611,69 @@
 			(project "esp32-controller"
 				(path "/1b61a099-fa01-45c5-bfa6-c1f023697108"
 					(reference "#PWR09")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Mechanical:MountingHole")
+		(at 40.64 163.83 0)
+		(unit 1)
+		(exclude_from_sim yes)
+		(in_bom no)
+		(on_board yes)
+		(dnp no)
+		(uuid "a84c6aae-bd79-400d-b0cc-4040a7f4836a")
+		(property "Reference" "H3"
+			(at 43.18 162.5599 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "MountingHole"
+			(at 34.544 167.894 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "MountingHole:MountingHole_2.2mm_M2_DIN965_Pad"
+			(at 40.64 163.83 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 40.64 163.83 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Mounting Hole without connection"
+			(at 40.64 163.83 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(instances
+			(project "esp32-controller"
+				(path "/1b61a099-fa01-45c5-bfa6-c1f023697108"
+					(reference "H3")
 					(unit 1)
 				)
 			)
@@ -7815,6 +8185,135 @@
 			(project "esp32-controller"
 				(path "/1b61a099-fa01-45c5-bfa6-c1f023697108"
 					(reference "#PWR012")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:GND")
+		(at 27.94 175.26 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "ce9bbdfa-9098-44d4-90d5-645b15e667da")
+		(property "Reference" "#PWR029"
+			(at 27.94 181.61 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "GND"
+			(at 27.94 180.34 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 27.94 175.26 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 27.94 175.26 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
+			(at 27.94 175.26 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "b8fb2de2-3653-47c9-8e6b-5f7af29c7dc3")
+		)
+		(instances
+			(project "esp32-controller"
+				(path "/1b61a099-fa01-45c5-bfa6-c1f023697108"
+					(reference "#PWR029")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Mechanical:MountingHole")
+		(at 21.59 163.83 0)
+		(unit 1)
+		(exclude_from_sim yes)
+		(in_bom no)
+		(on_board yes)
+		(dnp no)
+		(uuid "d2f4ff8c-a356-4b26-a469-a5707cb93cf7")
+		(property "Reference" "H1"
+			(at 24.13 162.5599 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "MountingHole"
+			(at 16.51 167.64 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "MountingHole:MountingHole_2.2mm_M2_DIN965_Pad"
+			(at 21.59 163.83 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 21.59 163.83 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Mounting Hole without connection"
+			(at 21.59 163.83 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(instances
+			(project "esp32-controller"
+				(path "/1b61a099-fa01-45c5-bfa6-c1f023697108"
+					(reference "H1")
 					(unit 1)
 				)
 			)
