@@ -410,7 +410,7 @@
 	(footprint "Resistor_SMD:R_1206_3216Metric"
 		(layer "F.Cu")
 		(uuid "0da386fc-b66e-442e-a93e-f3ba213226bd")
-		(at 129.5 90.5375 90)
+		(at 130.242857 90.5375 90)
 		(descr "Resistor SMD 1206 (3216 Metric), square (rectangular) end terminal, IPC-7351 nominal, (Body size source: IPC-SM-782 page 72, https://www.pcb-3d.com/wordpress/wp-content/uploads/ipc-sm-782a_amendment_1_and_2.pdf), generated with kicad-footprint-generator")
 		(tags "resistor")
 		(property "Reference" "R11"
@@ -1692,7 +1692,7 @@
 	(footprint "Capacitor_SMD:C_1206_3216Metric"
 		(layer "F.Cu")
 		(uuid "2f0b0b15-39e6-42ee-aa31-481cc6577e42")
-		(at 184.5925 73.13)
+		(at 184.525 72)
 		(descr "Capacitor SMD 1206 (3216 Metric), square (rectangular) end terminal, IPC-7351 nominal, (Body size source: IPC-SM-782 page 76, https://www.pcb-3d.com/wordpress/wp-content/uploads/ipc-sm-782a_amendment_1_and_2.pdf), generated with kicad-footprint-generator")
 		(tags "capacitor")
 		(property "Reference" "C2"
@@ -2142,7 +2142,7 @@
 	(footprint "Capacitor_SMD:C_1206_3216Metric"
 		(layer "F.Cu")
 		(uuid "3e6b8a81-26e4-4368-bfbc-cf4128c66b3b")
-		(at 184.5925 69.78)
+		(at 184.5925 67.5)
 		(descr "Capacitor SMD 1206 (3216 Metric), square (rectangular) end terminal, IPC-7351 nominal, (Body size source: IPC-SM-782 page 76, https://www.pcb-3d.com/wordpress/wp-content/uploads/ipc-sm-782a_amendment_1_and_2.pdf), generated with kicad-footprint-generator")
 		(tags "capacitor")
 		(property "Reference" "C1"
@@ -2367,7 +2367,7 @@
 	(footprint "Resistor_SMD:R_1206_3216Metric"
 		(layer "F.Cu")
 		(uuid "40b0e88b-0815-4e93-a1a8-0d479c1389be")
-		(at 138 90.5375 90)
+		(at 139.828571 90.5375 90)
 		(descr "Resistor SMD 1206 (3216 Metric), square (rectangular) end terminal, IPC-7351 nominal, (Body size source: IPC-SM-782 page 72, https://www.pcb-3d.com/wordpress/wp-content/uploads/ipc-sm-782a_amendment_1_and_2.pdf), generated with kicad-footprint-generator")
 		(tags "resistor")
 		(property "Reference" "R13"
@@ -4478,7 +4478,7 @@
 	(footprint "Resistor_SMD:R_1206_3216Metric"
 		(layer "F.Cu")
 		(uuid "74b499bd-f7d7-45ab-90ad-b97d7d7e464d")
-		(at 134 90.5375 90)
+		(at 135.035714 90.5375 90)
 		(descr "Resistor SMD 1206 (3216 Metric), square (rectangular) end terminal, IPC-7351 nominal, (Body size source: IPC-SM-782 page 72, https://www.pcb-3d.com/wordpress/wp-content/uploads/ipc-sm-782a_amendment_1_and_2.pdf), generated with kicad-footprint-generator")
 		(tags "resistor")
 		(property "Reference" "R12"
@@ -5262,7 +5262,7 @@
 			(roundrect_rratio 0.15)
 			(net 2 "GND")
 			(pinfunction "GND")
-			(pintype "power_out")
+			(pintype "power_in")
 			(uuid "c7ccd695-2225-4e1d-824c-beddb779d91a")
 		)
 		(pad "2" smd roundrect
@@ -5402,7 +5402,7 @@
 			(roundrect_rratio 0.15)
 			(net 2 "GND")
 			(pinfunction "GND")
-			(pintype "power_out")
+			(pintype "power_in")
 			(uuid "5d177a3f-bda4-4067-81c0-c3270ab38b3a")
 		)
 		(pad "16" smd roundrect
@@ -5612,7 +5612,7 @@
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.15)
 			(net 21 "/GPIO23")
-			(pinfunction "GPIO33")
+			(pinfunction "GPIO23")
 			(pintype "bidirectional")
 			(uuid "55841b68-7e48-4d9e-ab1c-bc5a45e89cf4")
 		)
@@ -5623,7 +5623,7 @@
 			(roundrect_rratio 0.15)
 			(net 2 "GND")
 			(pinfunction "GND")
-			(pintype "power_out")
+			(pintype "power_in")
 			(uuid "b8fcf9d4-87e5-4c35-b92f-583f85024c2e")
 		)
 		(pad "39" smd rect
@@ -5632,7 +5632,7 @@
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(net 2 "GND")
 			(pinfunction "GND")
-			(pintype "power_out")
+			(pintype "power_in")
 			(uuid "acb3054c-2ce4-44f2-a3bd-f32c912ba6d1")
 		)
 		(embedded_fonts no)
@@ -8426,7 +8426,7 @@
 			(drill 0.889)
 			(layers "*.Cu" "*.Mask")
 			(remove_unused_layers no)
-			(net 2 "GND")
+			(net 47 "/VRy")
 			(pinfunction "H+")
 			(pintype "passive")
 			(uuid "0593e53b-242c-4470-a035-a1f776c8062b")
@@ -8437,7 +8437,7 @@
 			(drill 0.889)
 			(layers "*.Cu" "*.Mask")
 			(remove_unused_layers no)
-			(net 47 "/VRy")
+			(net 3 "+3.3V")
 			(pinfunction "H")
 			(pintype "passive")
 			(uuid "31e07f1b-1184-4080-8b3c-4d5a72a80595")
@@ -8461,7 +8461,7 @@
 			(remove_unused_layers no)
 			(net 2 "GND")
 			(pinfunction "SHIELD")
-			(pintype "power_out")
+			(pintype "power_in")
 			(uuid "5f3de3be-db81-495d-a325-58a2796a1e1a")
 		)
 		(pad "S2" thru_hole circle
@@ -8472,7 +8472,7 @@
 			(remove_unused_layers no)
 			(net 2 "GND")
 			(pinfunction "SHIELD")
-			(pintype "power_out")
+			(pintype "power_in")
 			(uuid "6f3cc10f-76b0-475b-917d-dfbdaceaec02")
 		)
 		(pad "S3" thru_hole circle
@@ -8483,7 +8483,7 @@
 			(remove_unused_layers no)
 			(net 2 "GND")
 			(pinfunction "SHIELD")
-			(pintype "power_out")
+			(pintype "power_in")
 			(uuid "80e310be-8938-4c8b-8b4a-7ac99d8ab808")
 		)
 		(pad "S4" thru_hole circle
@@ -8494,7 +8494,7 @@
 			(remove_unused_layers no)
 			(net 2 "GND")
 			(pinfunction "SHIELD")
-			(pintype "power_out")
+			(pintype "power_in")
 			(uuid "6adf633d-9dd2-4403-8684-bf1478372e43")
 		)
 		(pad "V1" thru_hole circle
@@ -8503,7 +8503,7 @@
 			(drill 0.889)
 			(layers "*.Cu" "*.Mask")
 			(remove_unused_layers no)
-			(net 2 "GND")
+			(net 50 "/VRx")
 			(pinfunction "V+")
 			(pintype "passive")
 			(uuid "63ef5a63-a130-4862-adcc-b87c4fad4e82")
@@ -8514,7 +8514,7 @@
 			(drill 0.889)
 			(layers "*.Cu" "*.Mask")
 			(remove_unused_layers no)
-			(net 50 "/VRx")
+			(net 3 "+3.3V")
 			(pinfunction "V")
 			(pintype "passive")
 			(uuid "051e3f46-2b32-4a18-8840-3d4cd86d0ded")
@@ -10210,7 +10210,7 @@
 	(footprint "Resistor_SMD:R_1206_3216Metric"
 		(layer "F.Cu")
 		(uuid "cc1c615b-f806-4697-896b-6f9efac61616")
-		(at 125.45 90.5 90)
+		(at 125.45 90.5375 90)
 		(descr "Resistor SMD 1206 (3216 Metric), square (rectangular) end terminal, IPC-7351 nominal, (Body size source: IPC-SM-782 page 72, https://www.pcb-3d.com/wordpress/wp-content/uploads/ipc-sm-782a_amendment_1_and_2.pdf), generated with kicad-footprint-generator")
 		(tags "resistor")
 		(property "Reference" "R10"
@@ -10660,7 +10660,7 @@
 	(footprint "Resistor_SMD:R_1206_3216Metric"
 		(layer "F.Cu")
 		(uuid "cd95b242-54ab-45b7-80f5-8789c6982e26")
-		(at 153 90.5375 90)
+		(at 154.207143 90.5375 90)
 		(descr "Resistor SMD 1206 (3216 Metric), square (rectangular) end terminal, IPC-7351 nominal, (Body size source: IPC-SM-782 page 72, https://www.pcb-3d.com/wordpress/wp-content/uploads/ipc-sm-782a_amendment_1_and_2.pdf), generated with kicad-footprint-generator")
 		(tags "resistor")
 		(property "Reference" "R16"
@@ -11123,11 +11123,11 @@
 	(footprint "Diode_SMD:D_0603_1608Metric"
 		(layer "F.Cu")
 		(uuid "d84bbb01-e118-4c60-b62d-79fdc0c708e0")
-		(at 193 70.7125 90)
+		(at 168.2875 63.5)
 		(descr "Diode SMD 0603 (1608 Metric), square (rectangular) end terminal, IPC-7351 nominal, (Body size source: http://www.tortai-tech.com/upload/download/2011102023233369053.pdf), generated with kicad-footprint-generator")
 		(tags "diode")
 		(property "Reference" "D2"
-			(at 0 -1.43 90)
+			(at 0 -1.43 0)
 			(layer "F.SilkS")
 			(uuid "d86fa7a7-3531-444b-a8ed-6ef2fd03e967")
 			(effects
@@ -11138,7 +11138,7 @@
 			)
 		)
 		(property "Value" "YELLOW"
-			(at 0 1.43 90)
+			(at 0 1.43 0)
 			(layer "F.Fab")
 			(uuid "7f55f799-e184-4d7f-a8e6-d9d5b3d33e94")
 			(effects
@@ -11149,7 +11149,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 0 0 90)
+			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "c0356e37-76ae-48e1-aace-872c56105bac")
@@ -11161,7 +11161,7 @@
 			)
 		)
 		(property "Description" "Light emitting diode"
-			(at 0 0 90)
+			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "e70d3cf2-3de8-4998-b8e0-14743eb6d201")
@@ -11173,7 +11173,7 @@
 			)
 		)
 		(property "Sim.Pins" "1=K 2=A"
-			(at 0 0 90)
+			(at 0 0 0)
 			(unlocked yes)
 			(layer "F.Fab")
 			(hide yes)
@@ -11186,7 +11186,7 @@
 			)
 		)
 		(property "Sim.Device" ""
-			(at 0 0 90)
+			(at 0 0 0)
 			(unlocked yes)
 			(layer "F.Fab")
 			(hide yes)
@@ -11199,7 +11199,7 @@
 			)
 		)
 		(property "Sim.Type" ""
-			(at 0 0 90)
+			(at 0 0 0)
 			(unlocked yes)
 			(layer "F.Fab")
 			(hide yes)
@@ -11216,16 +11216,6 @@
 		(sheetname "/")
 		(sheetfile "esp32-controller.kicad_sch")
 		(attr smd)
-		(fp_line
-			(start 0.8 -0.735)
-			(end -1.485 -0.735)
-			(stroke
-				(width 0.12)
-				(type solid)
-			)
-			(layer "F.SilkS")
-			(uuid "4b55a0bf-1ecf-458d-afe9-54e40d3fb3e9")
-		)
 		(fp_line
 			(start -1.485 -0.735)
 			(end -1.485 0.735)
@@ -11247,14 +11237,14 @@
 			(uuid "c098dde3-ad7e-457e-a392-22d72499c1c7")
 		)
 		(fp_line
-			(start 1.48 -0.73)
-			(end 1.48 0.73)
+			(start 0.8 -0.735)
+			(end -1.485 -0.735)
 			(stroke
-				(width 0.05)
+				(width 0.12)
 				(type solid)
 			)
-			(layer "F.CrtYd")
-			(uuid "ad479237-8f0d-4a11-8a7b-86edfbc97f9d")
+			(layer "F.SilkS")
+			(uuid "4b55a0bf-1ecf-458d-afe9-54e40d3fb3e9")
 		)
 		(fp_line
 			(start -1.48 -0.73)
@@ -11267,16 +11257,6 @@
 			(uuid "c99ca82d-84b2-4a3e-87fd-69cb20661d5a")
 		)
 		(fp_line
-			(start 1.48 0.73)
-			(end -1.48 0.73)
-			(stroke
-				(width 0.05)
-				(type solid)
-			)
-			(layer "F.CrtYd")
-			(uuid "add42d65-1a3b-418c-aa38-52e2cd085f13")
-		)
-		(fp_line
 			(start -1.48 0.73)
 			(end -1.48 -0.73)
 			(stroke
@@ -11287,24 +11267,24 @@
 			(uuid "3ac7fed0-11c8-4c0c-92bc-cdca235d59a4")
 		)
 		(fp_line
-			(start 0.8 -0.4)
-			(end -0.5 -0.4)
+			(start 1.48 -0.73)
+			(end 1.48 0.73)
 			(stroke
-				(width 0.1)
+				(width 0.05)
 				(type solid)
 			)
-			(layer "F.Fab")
-			(uuid "743d93e6-a707-459a-9c47-411b82b3816d")
+			(layer "F.CrtYd")
+			(uuid "ad479237-8f0d-4a11-8a7b-86edfbc97f9d")
 		)
 		(fp_line
-			(start -0.5 -0.4)
-			(end -0.8 -0.1)
+			(start 1.48 0.73)
+			(end -1.48 0.73)
 			(stroke
-				(width 0.1)
+				(width 0.05)
 				(type solid)
 			)
-			(layer "F.Fab")
-			(uuid "493ce8b7-12dd-4605-b6ad-8d648b5e4d40")
+			(layer "F.CrtYd")
+			(uuid "add42d65-1a3b-418c-aa38-52e2cd085f13")
 		)
 		(fp_line
 			(start -0.8 -0.1)
@@ -11317,16 +11297,6 @@
 			(uuid "8058c2e4-6249-4a00-88d6-283f9c62851b")
 		)
 		(fp_line
-			(start 0.8 0.4)
-			(end 0.8 -0.4)
-			(stroke
-				(width 0.1)
-				(type solid)
-			)
-			(layer "F.Fab")
-			(uuid "7dd3421a-969f-499e-9f99-8b9e59cc427b")
-		)
-		(fp_line
 			(start -0.8 0.4)
 			(end 0.8 0.4)
 			(stroke
@@ -11336,8 +11306,38 @@
 			(layer "F.Fab")
 			(uuid "4a404ade-d801-4207-be25-90953753c530")
 		)
+		(fp_line
+			(start -0.5 -0.4)
+			(end -0.8 -0.1)
+			(stroke
+				(width 0.1)
+				(type solid)
+			)
+			(layer "F.Fab")
+			(uuid "493ce8b7-12dd-4605-b6ad-8d648b5e4d40")
+		)
+		(fp_line
+			(start 0.8 -0.4)
+			(end -0.5 -0.4)
+			(stroke
+				(width 0.1)
+				(type solid)
+			)
+			(layer "F.Fab")
+			(uuid "743d93e6-a707-459a-9c47-411b82b3816d")
+		)
+		(fp_line
+			(start 0.8 0.4)
+			(end 0.8 -0.4)
+			(stroke
+				(width 0.1)
+				(type solid)
+			)
+			(layer "F.Fab")
+			(uuid "7dd3421a-969f-499e-9f99-8b9e59cc427b")
+		)
 		(fp_text user "${REFERENCE}"
-			(at 0 0 90)
+			(at 0 0 0)
 			(layer "F.Fab")
 			(uuid "8d68606f-c752-43a1-a2fd-47161bfab8fd")
 			(effects
@@ -11348,7 +11348,7 @@
 			)
 		)
 		(pad "1" smd roundrect
-			(at -0.7875 0 90)
+			(at -0.7875 0)
 			(size 0.875 0.95)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
@@ -11358,7 +11358,7 @@
 			(uuid "e6722f88-358a-4c3e-a158-aac252ad28e1")
 		)
 		(pad "2" smd roundrect
-			(at 0.7875 0 90)
+			(at 0.7875 0)
 			(size 0.875 0.95)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
@@ -13799,7 +13799,7 @@
 			(drill 0.889)
 			(layers "*.Cu" "*.Mask")
 			(remove_unused_layers no)
-			(net 2 "GND")
+			(net 48 "/HRy")
 			(pinfunction "H+")
 			(pintype "passive")
 			(uuid "e25cf514-849b-44ea-90f5-4e0ac5c5e2d4")
@@ -13810,7 +13810,7 @@
 			(drill 0.889)
 			(layers "*.Cu" "*.Mask")
 			(remove_unused_layers no)
-			(net 48 "/HRy")
+			(net 3 "+3.3V")
 			(pinfunction "H")
 			(pintype "passive")
 			(uuid "4b643d5d-31f5-4abf-8de9-c4130adf11a8")
@@ -13834,7 +13834,7 @@
 			(remove_unused_layers no)
 			(net 2 "GND")
 			(pinfunction "SHIELD")
-			(pintype "power_out")
+			(pintype "power_in")
 			(uuid "8c3f824c-8aab-460c-bccd-b3dc8d8274c6")
 		)
 		(pad "S2" thru_hole circle
@@ -13845,7 +13845,7 @@
 			(remove_unused_layers no)
 			(net 2 "GND")
 			(pinfunction "SHIELD")
-			(pintype "power_out")
+			(pintype "power_in")
 			(uuid "4ff2791e-949f-4631-888b-b96b92a6bb1f")
 		)
 		(pad "S3" thru_hole circle
@@ -13856,7 +13856,7 @@
 			(remove_unused_layers no)
 			(net 2 "GND")
 			(pinfunction "SHIELD")
-			(pintype "power_out")
+			(pintype "power_in")
 			(uuid "037dc8d9-c4bb-441a-9697-5d0486c0ced0")
 		)
 		(pad "S4" thru_hole circle
@@ -13867,7 +13867,7 @@
 			(remove_unused_layers no)
 			(net 2 "GND")
 			(pinfunction "SHIELD")
-			(pintype "power_out")
+			(pintype "power_in")
 			(uuid "127c0c8d-88fa-43d1-8f89-2bcb22c873fb")
 		)
 		(pad "V1" thru_hole circle
@@ -13876,7 +13876,7 @@
 			(drill 0.889)
 			(layers "*.Cu" "*.Mask")
 			(remove_unused_layers no)
-			(net 2 "GND")
+			(net 62 "/HRx")
 			(pinfunction "V+")
 			(pintype "passive")
 			(uuid "9e9db602-11ca-4741-8e49-03882c1fcfa9")
@@ -13887,7 +13887,7 @@
 			(drill 0.889)
 			(layers "*.Cu" "*.Mask")
 			(remove_unused_layers no)
-			(net 62 "/HRx")
+			(net 3 "+3.3V")
 			(pinfunction "V")
 			(pintype "passive")
 			(uuid "a9592d6f-0d28-4ce6-9733-0983af42968b")
@@ -13972,7 +13972,7 @@
 	(footprint "Resistor_SMD:R_1206_3216Metric"
 		(layer "F.Cu")
 		(uuid "e9d1c407-b3f4-4b8a-b41f-6f5dca414687")
-		(at 143 90.5375 90)
+		(at 144.621429 90.5375 90)
 		(descr "Resistor SMD 1206 (3216 Metric), square (rectangular) end terminal, IPC-7351 nominal, (Body size source: IPC-SM-782 page 72, https://www.pcb-3d.com/wordpress/wp-content/uploads/ipc-sm-782a_amendment_1_and_2.pdf), generated with kicad-footprint-generator")
 		(tags "resistor")
 		(property "Reference" "R14"
@@ -14660,7 +14660,7 @@
 	(footprint "Resistor_SMD:R_1206_3216Metric"
 		(layer "F.Cu")
 		(uuid "eef31553-a65d-4c7d-bfcf-85d8fc528d6c")
-		(at 147.5 90.5375 90)
+		(at 149.414286 90.5375 90)
 		(descr "Resistor SMD 1206 (3216 Metric), square (rectangular) end terminal, IPC-7351 nominal, (Body size source: IPC-SM-782 page 72, https://www.pcb-3d.com/wordpress/wp-content/uploads/ipc-sm-782a_amendment_1_and_2.pdf), generated with kicad-footprint-generator")
 		(tags "resistor")
 		(property "Reference" "R15"
