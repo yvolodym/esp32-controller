@@ -412,7 +412,7 @@
 	(footprint "Resistor_SMD:R_1206_3216Metric"
 		(layer "F.Cu")
 		(uuid "0da386fc-b66e-442e-a93e-f3ba213226bd")
-		(at 130.242857 90.5375 90)
+		(at 130.2429 90.5375 90)
 		(descr "Resistor SMD 1206 (3216 Metric), square (rectangular) end terminal, IPC-7351 nominal, (Body size source: IPC-SM-782 page 72, https://www.pcb-3d.com/wordpress/wp-content/uploads/ipc-sm-782a_amendment_1_and_2.pdf), generated with kicad-footprint-generator")
 		(tags "resistor")
 		(property "Reference" "R11"
@@ -2369,7 +2369,7 @@
 	(footprint "Resistor_SMD:R_1206_3216Metric"
 		(layer "F.Cu")
 		(uuid "40b0e88b-0815-4e93-a1a8-0d479c1389be")
-		(at 139.828571 90.5375 90)
+		(at 139.8286 90.5375 90)
 		(descr "Resistor SMD 1206 (3216 Metric), square (rectangular) end terminal, IPC-7351 nominal, (Body size source: IPC-SM-782 page 72, https://www.pcb-3d.com/wordpress/wp-content/uploads/ipc-sm-782a_amendment_1_and_2.pdf), generated with kicad-footprint-generator")
 		(tags "resistor")
 		(property "Reference" "R13"
@@ -4480,7 +4480,7 @@
 	(footprint "Resistor_SMD:R_1206_3216Metric"
 		(layer "F.Cu")
 		(uuid "74b499bd-f7d7-45ab-90ad-b97d7d7e464d")
-		(at 135.035714 90.5375 90)
+		(at 135.0357 90.5375 90)
 		(descr "Resistor SMD 1206 (3216 Metric), square (rectangular) end terminal, IPC-7351 nominal, (Body size source: IPC-SM-782 page 72, https://www.pcb-3d.com/wordpress/wp-content/uploads/ipc-sm-782a_amendment_1_and_2.pdf), generated with kicad-footprint-generator")
 		(tags "resistor")
 		(property "Reference" "R12"
@@ -7173,7 +7173,7 @@
 	(footprint "PCM_yvolodym:Joystick_PS5"
 		(layer "F.Cu")
 		(uuid "96e86888-b5db-4f2b-b5e5-22c266aada42")
-		(at 185.985 113.604807)
+		(at 185.985 113.6048)
 		(property "Reference" "U2"
 			(at -0.015 -19.064805 0)
 			(unlocked yes)
@@ -10662,7 +10662,7 @@
 	(footprint "Resistor_SMD:R_1206_3216Metric"
 		(layer "F.Cu")
 		(uuid "cd95b242-54ab-45b7-80f5-8789c6982e26")
-		(at 154.207143 90.5375 90)
+		(at 154.2071 90.5375 90)
 		(descr "Resistor SMD 1206 (3216 Metric), square (rectangular) end terminal, IPC-7351 nominal, (Body size source: IPC-SM-782 page 72, https://www.pcb-3d.com/wordpress/wp-content/uploads/ipc-sm-782a_amendment_1_and_2.pdf), generated with kicad-footprint-generator")
 		(tags "resistor")
 		(property "Reference" "R16"
@@ -12546,7 +12546,7 @@
 	(footprint "PCM_yvolodym:Joystick_PS5"
 		(layer "F.Cu")
 		(uuid "e7e07d7a-3f23-4757-9cd6-84925b97136a")
-		(at 113.985 113.604807)
+		(at 113.985 113.6048)
 		(property "Reference" "U3"
 			(at 0.515 -4.104807 0)
 			(unlocked yes)
@@ -13974,7 +13974,7 @@
 	(footprint "Resistor_SMD:R_1206_3216Metric"
 		(layer "F.Cu")
 		(uuid "e9d1c407-b3f4-4b8a-b41f-6f5dca414687")
-		(at 144.621429 90.5375 90)
+		(at 144.6214 90.5375 90)
 		(descr "Resistor SMD 1206 (3216 Metric), square (rectangular) end terminal, IPC-7351 nominal, (Body size source: IPC-SM-782 page 72, https://www.pcb-3d.com/wordpress/wp-content/uploads/ipc-sm-782a_amendment_1_and_2.pdf), generated with kicad-footprint-generator")
 		(tags "resistor")
 		(property "Reference" "R14"
@@ -14662,7 +14662,7 @@
 	(footprint "Resistor_SMD:R_1206_3216Metric"
 		(layer "F.Cu")
 		(uuid "eef31553-a65d-4c7d-bfcf-85d8fc528d6c")
-		(at 149.414286 90.5375 90)
+		(at 149.4143 90.5375 90)
 		(descr "Resistor SMD 1206 (3216 Metric), square (rectangular) end terminal, IPC-7351 nominal, (Body size source: IPC-SM-782 page 72, https://www.pcb-3d.com/wordpress/wp-content/uploads/ipc-sm-782a_amendment_1_and_2.pdf), generated with kicad-footprint-generator")
 		(tags "resistor")
 		(property "Reference" "R15"
