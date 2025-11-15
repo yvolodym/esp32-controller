@@ -4690,7 +4690,7 @@
 				)
 			)
 		)
-		(property "Value" "~"
+		(property "Value" "Switch"
 			(at 190.5 135.89 0)
 			(effects
 				(font
