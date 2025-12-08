@@ -13,21 +13,20 @@
 #include <driver/gpio.h>
 #include <nvs_flash.h>
 #include <sdkconfig.h>
+#include "st7789_display.h"
 
 static const char *TAG = "ESP32_CONTROLLER";
 
 // ========== CONFIGURATION ========== //
-// Joystick 1
-#define JOY1_X_PIN ADC_CHANNEL_4  // GPIO32 - X-axis joystick 1
-#define JOY1_Y_PIN ADC_CHANNEL_5  // GPIO33 - Y-axis joystick 1
-// Joystick 2
+// Joystick 1 (Left Stick)
+#define JOY1_X_PIN ADC_CHANNEL_0  // GPIO36 - X-axis joystick 1
+#define JOY1_Y_PIN ADC_CHANNEL_3  // GPIO39 - Y-axis joystick 1
+// Joystick 2 (Right Stick)
 #define JOY2_X_PIN ADC_CHANNEL_6  // GPIO34 - X-axis joystick 2
 #define JOY2_Y_PIN ADC_CHANNEL_7  // GPIO35 - Y-axis joystick 2
 // Joystick buttons
-#define JOY1_BTN_PIN GPIO_NUM_12  // Joystick 1 button
-#define JOY2_BTN_PIN GPIO_NUM_14  // Joystick 2 button
-// Battery
-#define BATTERY_PIN ADC_CHANNEL_0 // GPIO36 - battery monitoring
+#define JOY1_BTN_PIN GPIO_NUM_25  // Joystick 1 button
+#define JOY2_BTN_PIN GPIO_NUM_26  // Joystick 2 button
 
 const uint32_t SEND_DELAY_MS = CONFIG_CONTROLLER_SEND_DELAY_MS; // Delay between transmissions (ms)
 const int DEADZONE = CONFIG_CONTROLLER_JOYSTICK_DEADZONE;      // Joystick deadzone
@@ -50,6 +49,9 @@ static uint8_t receiverMac[6];
 static adc_oneshot_unit_handle_t adc1_handle;
 static adc_cali_handle_t adc1_cali_handle = NULL;
 static bool adc_calibrated = false;
+
+// Display handle
+static st7789_display_t display = {0};
 
 // Transmission statistics
 static uint32_t send_success_count = 0;
@@ -121,7 +123,6 @@ static void init_adc(void) {
     ESP_ERROR_CHECK(adc_oneshot_config_channel(adc1_handle, JOY1_Y_PIN, &config));
     ESP_ERROR_CHECK(adc_oneshot_config_channel(adc1_handle, JOY2_X_PIN, &config));
     ESP_ERROR_CHECK(adc_oneshot_config_channel(adc1_handle, JOY2_Y_PIN, &config));
-    ESP_ERROR_CHECK(adc_oneshot_config_channel(adc1_handle, BATTERY_PIN, &config));
 
     // Initialize ADC calibration
 #if ADC_CALI_SCHEME_CURVE_FITTING_SUPPORTED
@@ -201,9 +202,8 @@ static void send_data(void) {
     txData.joy1_btn = !gpio_get_level(JOY1_BTN_PIN);
     txData.joy2_btn = !gpio_get_level(JOY2_BTN_PIN);
 
-    // Read battery
-    ESP_ERROR_CHECK(adc_oneshot_read(adc1_handle, BATTERY_PIN, &raw_value));
-    txData.batteryLevel = (uint8_t)(raw_value * 100 / 4095);
+    // Battery level (not implemented - set to 100%)
+    txData.batteryLevel = 100;
 
     // Send data
     esp_err_t result = esp_now_send(receiverMac, (uint8_t *)&txData, sizeof(txData));
@@ -225,8 +225,24 @@ static void send_data(void) {
 static void controller_task(void *pvParameters) {
     ESP_LOGI(TAG, "Controller ready to work");
 
+    uint32_t display_update_counter = 0;
+
     while (1) {
         send_data();
+
+        // Update display every 10th cycle (200ms with 20ms delay)
+        display_update_counter++;
+        if (display_update_counter >= 10) {
+            display_update_counter = 0;
+            if (display.initialized) {
+                st7789_display_joystick_data(&display,
+                    txData.joy1_x, txData.joy1_y,
+                    txData.joy2_x, txData.joy2_y,
+                    txData.joy1_btn, txData.joy2_btn,
+                    txData.batteryLevel);
+            }
+        }
+
         vTaskDelay(pdMS_TO_TICKS(SEND_DELAY_MS));
     }
 }
@@ -242,13 +258,43 @@ void app_main(void) {
     }
     ESP_ERROR_CHECK(ret);
 
+    // Initialize display first
+    ESP_LOGI(TAG, "Initializing ST7789 display...");
+    ret = st7789_init(&display);
+    if (ret == ESP_OK) {
+        // Clear screen with black
+        st7789_fill_screen(&display, ST7789_BLACK);
+
+        // Display welcome message
+        st7789_draw_string(&display, 40, 80, "ESP32 CONTROLLER", ST7789_CYAN, ST7789_BLACK);
+        st7789_draw_string(&display, 60, 100, "Initializing...", ST7789_WHITE, ST7789_BLACK);
+
+        ESP_LOGI(TAG, "Display initialized and welcome message shown");
+    } else {
+        ESP_LOGE(TAG, "Display initialization failed: %s", esp_err_to_name(ret));
+    }
+
     // Initialize components
     init_gpio();
     init_adc();
     init_wifi_espnow();
 
+    // Update display: System ready
+    if (display.initialized) {
+        st7789_fill_screen(&display, ST7789_BLACK);
+        st7789_draw_string(&display, 40, 80, "ESP32 CONTROLLER", ST7789_GREEN, ST7789_BLACK);
+        st7789_draw_string(&display, 70, 100, "System Ready!", ST7789_YELLOW, ST7789_BLACK);
+    }
+
     // Short delay for stabilization
-    vTaskDelay(pdMS_TO_TICKS(1000));
+    vTaskDelay(pdMS_TO_TICKS(2000));
+
+    // Clear screen for data display
+    if (display.initialized) {
+        st7789_fill_screen(&display, ST7789_BLACK);
+        st7789_draw_string(&display, 30, 10, "ESP32 CONTROLLER", ST7789_CYAN, ST7789_BLACK);
+        st7789_draw_string(&display, 50, 30, "Live Data:", ST7789_WHITE, ST7789_BLACK);
+    }
 
     // Create main task
     xTaskCreate(controller_task, "controller_task", 8192, NULL, 5, NULL);
