@@ -6,6 +6,9 @@
 * https://wolles-elektronikkiste.de/esp-now
 * https://github.com/SolderedElectronics/USB-UART-CH340C-converter-board-hardware-design
 
+### Joystik
+* https://tech.alpsalpine.com/e/products/detail/RKJXV122400R/
+
 ### PINS
 
 ##### ST7789 Display (SPI)
