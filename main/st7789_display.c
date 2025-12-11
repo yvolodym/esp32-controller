@@ -168,9 +168,9 @@ esp_err_t st7789_init(st7789_display_t *display) {
     uint8_t color_mode = 0x55; // 16-bit/pixel
     st7789_send_data(display, &color_mode, 1);
 
-    // Memory data access control
+    // Memory data access control (0x60 = Landscape mode: MV + MX bits set)
     st7789_send_cmd(display, ST7789_MADCTL);
-    uint8_t madctl = 0x00;
+    uint8_t madctl = 0x60;  // Landscape orientation
     st7789_send_data(display, &madctl, 1);
 
     // Inversion on
@@ -234,23 +234,33 @@ esp_err_t st7789_write_pixel(st7789_display_t *display, uint16_t x, uint16_t y, 
     return ESP_OK;
 }
 
-// Draw single character
+// Draw single character with scaling
 esp_err_t st7789_draw_char(st7789_display_t *display, uint16_t x, uint16_t y, char c, uint16_t color, uint16_t bg_color) {
     if (c < 32 || c > 90) c = 32; // Space for unsupported chars
 
     const uint8_t *glyph = font8x8[c - 32];
 
+    // Draw character with scaling
     for (int row = 0; row < FONT_HEIGHT; row++) {
         for (int col = 0; col < FONT_WIDTH; col++) {
             uint16_t pixel_color = (glyph[row] & (1 << col)) ? color : bg_color;
-            st7789_write_pixel(display, x + col, y + row, pixel_color);
+
+            // Draw scaled pixel (FONT_SCALE x FONT_SCALE block)
+            for (int sy = 0; sy < FONT_SCALE; sy++) {
+                for (int sx = 0; sx < FONT_SCALE; sx++) {
+                    st7789_write_pixel(display,
+                                     x + col * FONT_SCALE + sx,
+                                     y + row * FONT_SCALE + sy,
+                                     pixel_color);
+                }
+            }
         }
     }
 
     return ESP_OK;
 }
 
-// Draw string
+// Draw string with scaling
 esp_err_t st7789_draw_string(st7789_display_t *display, uint16_t x, uint16_t y, const char *str, uint16_t color, uint16_t bg_color) {
     uint16_t cursor_x = x;
     uint16_t cursor_y = y;
@@ -258,10 +268,10 @@ esp_err_t st7789_draw_string(st7789_display_t *display, uint16_t x, uint16_t y, 
     while (*str) {
         if (*str == '\n') {
             cursor_x = x;
-            cursor_y += FONT_HEIGHT + 2;
+            cursor_y += (FONT_HEIGHT * FONT_SCALE) + 2;
         } else {
             st7789_draw_char(display, cursor_x, cursor_y, *str, color, bg_color);
-            cursor_x += FONT_WIDTH;
+            cursor_x += (FONT_WIDTH * FONT_SCALE);
         }
         str++;
     }
@@ -269,27 +279,31 @@ esp_err_t st7789_draw_string(st7789_display_t *display, uint16_t x, uint16_t y, 
     return ESP_OK;
 }
 
-// Display joystick data
+// Display joystick data (landscape layout with scaled font)
 void st7789_display_joystick_data(st7789_display_t *display, int16_t joy1_x, int16_t joy1_y,
                                    int16_t joy2_x, int16_t joy2_y, bool joy1_btn, bool joy2_btn,
                                    uint8_t battery) {
     char buffer[64];
+    const uint16_t line_height = (FONT_HEIGHT * FONT_SCALE) + 4;  // Spacing between lines
+
+    // Display Title
+    st7789_draw_string(display, 10, 10, "ESP32 Controller", ST7789_CYAN, ST7789_BLACK);
 
     // Display Joystick 1
     snprintf(buffer, sizeof(buffer), "J1: X:%4d Y:%4d", joy1_x, joy1_y);
-    st7789_draw_string(display, 10, 60, buffer, ST7789_WHITE, ST7789_BLACK);
+    st7789_draw_string(display, 10, 10 + line_height * 2, buffer, ST7789_WHITE, ST7789_BLACK);
 
     snprintf(buffer, sizeof(buffer), "BTN: %s", joy1_btn ? "PRESSED" : "RELEASED");
-    st7789_draw_string(display, 10, 75, buffer, joy1_btn ? ST7789_GREEN : ST7789_RED, ST7789_BLACK);
+    st7789_draw_string(display, 10, 10 + line_height * 3, buffer, joy1_btn ? ST7789_GREEN : ST7789_RED, ST7789_BLACK);
 
     // Display Joystick 2
     snprintf(buffer, sizeof(buffer), "J2: X:%4d Y:%4d", joy2_x, joy2_y);
-    st7789_draw_string(display, 10, 100, buffer, ST7789_WHITE, ST7789_BLACK);
+    st7789_draw_string(display, 10, 10 + line_height * 5, buffer, ST7789_WHITE, ST7789_BLACK);
 
     snprintf(buffer, sizeof(buffer), "BTN: %s", joy2_btn ? "PRESSED" : "RELEASED");
-    st7789_draw_string(display, 10, 115, buffer, joy2_btn ? ST7789_GREEN : ST7789_RED, ST7789_BLACK);
+    st7789_draw_string(display, 10, 10 + line_height * 6, buffer, joy2_btn ? ST7789_GREEN : ST7789_RED, ST7789_BLACK);
 
     // Display Battery
     snprintf(buffer, sizeof(buffer), "BATTERY: %3d%%", battery);
-    st7789_draw_string(display, 10, 140, buffer, ST7789_YELLOW, ST7789_BLACK);
+    st7789_draw_string(display, 10, 10 + line_height * 8, buffer, ST7789_YELLOW, ST7789_BLACK);
 }

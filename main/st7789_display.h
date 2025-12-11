@@ -27,13 +27,16 @@
 #define ST7789_DISPON        0x29
 #define ST7789_INVON         0x21
 
-// Display dimensions
-#define ST7789_WIDTH         240
+// Display dimensions (landscape mode)
+#define ST7789_WIDTH         320
 #define ST7789_HEIGHT        240
 
 // Font dimensions (simple 8x8 font)
 #define FONT_WIDTH           8
 #define FONT_HEIGHT          8
+
+// Font scale factor (2x makes text twice as large)
+#define FONT_SCALE           2
 
 // Colors (RGB565 format)
 #define ST7789_BLACK         0x0000
