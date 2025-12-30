@@ -8,6 +8,8 @@
 
 ### Joystik
 * https://tech.alpsalpine.com/e/products/detail/RKJXV122400R/
+* https://hackaday.io/project/199327-tetizmol-gd0153/log/237836-e1r-hall-tmr-joystick-electrical-properties
+* https://hackaday.io/project/199327-tetizmol-gd0153/log/237786-br-ps5-hall-joysticks-and-espressif-adcs
 
 ### PINS
 
