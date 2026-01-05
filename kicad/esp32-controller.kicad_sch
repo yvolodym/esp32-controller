@@ -5575,7 +5575,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "MountingHole:MountingHole_2.2mm_M2_DIN965_Pad"
+		(property "Footprint" "MountingHole:MountingHole_2.7mm_Pad_Via"
 			(at 31.75 163.83 0)
 			(effects
 				(font
@@ -6196,7 +6196,7 @@
 		(dnp no)
 		(uuid "49dde12f-e472-4ff2-b695-7d51ccb5f796")
 		(property "Reference" "D1"
-			(at 43.942 123.698 0)
+			(at 49.276 122.174 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6204,7 +6204,7 @@
 			)
 		)
 		(property "Value" "YELLOW"
-			(at 43.942 126.238 0)
+			(at 51.054 124.206 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7594,7 +7594,7 @@
 			)
 		)
 		(property "Value" "MountingHole"
-			(at 44.45 158.75 0)
+			(at 46.228 158.75 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7602,7 +7602,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "MountingHole:MountingHole_2.2mm_M2_DIN965_Pad"
+		(property "Footprint" "MountingHole:MountingHole_2.7mm_Pad_Via"
 			(at 49.53 163.83 0)
 			(effects
 				(font
@@ -7797,7 +7797,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "MountingHole:MountingHole_2.2mm_M2_DIN965_Pad"
+		(property "Footprint" "MountingHole:MountingHole_2.7mm_Pad_Via"
 			(at 40.64 163.83 0)
 			(effects
 				(font
@@ -8465,7 +8465,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "MountingHole:MountingHole_2.2mm_M2_DIN965_Pad"
+		(property "Footprint" "MountingHole:MountingHole_2.7mm_Pad_Via"
 			(at 21.59 163.83 0)
 			(effects
 				(font
