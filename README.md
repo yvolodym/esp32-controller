@@ -12,6 +12,9 @@
 * https://hackaday.io/project/199327-tetizmol-gd0153/log/237786-br-ps5-hall-joysticks-and-espressif-adcs
 * https://github.com/dbenoy/thumbstick-breakout/blob/main/docs/board.png
 
+### LiPo-Lademodul
+* https://elektro.turanis.de/html/prj224/index.html
+
 ### PINS
 
 ##### ST7789 Display (SPI)
