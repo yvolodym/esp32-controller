@@ -5865,7 +5865,7 @@
 			(uuid "1d6155be-315f-4d63-ab92-b60ee85a7c2e")
 		)
 		(instances
-			(project ""
+			(project "esp32-controller"
 				(path "/1b61a099-fa01-45c5-bfa6-c1f023697108"
 					(reference "#PWR05")
 					(unit 1)
@@ -5931,7 +5931,7 @@
 			(uuid "599019f8-1f10-4dc7-9637-62f79a3ca7bd")
 		)
 		(instances
-			(project ""
+			(project "esp32-controller"
 				(path "/1b61a099-fa01-45c5-bfa6-c1f023697108"
 					(reference "#PWR020")
 					(unit 1)
@@ -6254,7 +6254,7 @@
 			(uuid "55cf16fc-5ecd-48b7-b087-de382aa350cb")
 		)
 		(instances
-			(project ""
+			(project "esp32-controller"
 				(path "/1b61a099-fa01-45c5-bfa6-c1f023697108"
 					(reference "D1")
 					(unit 1)
@@ -6390,7 +6390,7 @@
 			(uuid "590fc657-128c-435d-9d85-96f38a2062c7")
 		)
 		(instances
-			(project ""
+			(project "esp32-controller"
 				(path "/1b61a099-fa01-45c5-bfa6-c1f023697108"
 					(reference "#PWR021")
 					(unit 1)
@@ -6701,7 +6701,7 @@
 			(uuid "6d08e03e-aa39-4047-9cdb-40b3329029dd")
 		)
 		(instances
-			(project ""
+			(project "esp32-controller"
 				(path "/1b61a099-fa01-45c5-bfa6-c1f023697108"
 					(reference "U2")
 					(unit 1)
@@ -7149,7 +7149,7 @@
 			(uuid "65065c1d-414b-4331-9451-13046a6274a8")
 		)
 		(instances
-			(project ""
+			(project "esp32-controller"
 				(path "/1b61a099-fa01-45c5-bfa6-c1f023697108"
 					(reference "U1")
 					(unit 1)
@@ -8102,7 +8102,7 @@
 			(uuid "c6b345a7-72e0-4b6c-9007-0658690fbc11")
 		)
 		(instances
-			(project ""
+			(project "esp32-controller"
 				(path "/1b61a099-fa01-45c5-bfa6-c1f023697108"
 					(reference "D2")
 					(unit 1)
@@ -8168,7 +8168,7 @@
 			(uuid "d8bb5ebe-0053-4d0a-bf8b-695e273bbd11")
 		)
 		(instances
-			(project ""
+			(project "esp32-controller"
 				(path "/1b61a099-fa01-45c5-bfa6-c1f023697108"
 					(reference "#PWR04")
 					(unit 1)
@@ -8677,7 +8677,7 @@
 			(uuid "bcca3dec-40d0-4602-bdda-9e81a827e0d0")
 		)
 		(instances
-			(project ""
+			(project "esp32-controller"
 				(path "/1b61a099-fa01-45c5-bfa6-c1f023697108"
 					(reference "U4")
 					(unit 1)
@@ -8817,7 +8817,7 @@
 			(uuid "8432df04-7b21-40b5-afc1-3897b823876a")
 		)
 		(instances
-			(project ""
+			(project "esp32-controller"
 				(path "/1b61a099-fa01-45c5-bfa6-c1f023697108"
 					(reference "R2")
 					(unit 1)
@@ -8904,7 +8904,7 @@
 			(uuid "bb5a1044-a11c-4d85-877e-80c76dd1873c")
 		)
 		(instances
-			(project ""
+			(project "esp32-controller"
 				(path "/1b61a099-fa01-45c5-bfa6-c1f023697108"
 					(reference "J1")
 					(unit 1)
