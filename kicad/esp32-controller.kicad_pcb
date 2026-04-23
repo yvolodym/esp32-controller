@@ -12971,6 +12971,19 @@
 			(justify left bottom)
 		)
 	)
+	(gr_text "Version 3"
+		(at 198 116 90)
+		(layer "F.SilkS")
+		(uuid "25945a00-7d1b-430e-adb0-fae3f2819b73")
+		(effects
+			(font
+				(size 1.5 1.5)
+				(thickness 0.3)
+				(bold yes)
+			)
+			(justify left bottom)
+		)
+	)
 	(segment
 		(start 141 87.2125)
 		(end 142.1875 86.025)
