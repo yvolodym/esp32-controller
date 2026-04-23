@@ -3,3 +3,4 @@
 build/
 **/*-backups
 kicad/jlcpcb/
+**/*.lck
