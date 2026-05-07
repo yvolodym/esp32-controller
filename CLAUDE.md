@@ -109,7 +109,7 @@ VBAT ──── LTC4412 + SI2301 (ideal diode) ───────┘
 | D5 | — | — | removed; replaced by LTC4412+SI2301 |
 | D6 | SS14 | SMA | USB path diode |
 | U13 | LTC4412ES6 (marking: **LTA2**) | TSOT-23-6 | PowerPath controller |
-| Q1 | SI2301 | SOT-23 | P-ch MOSFET (VDS −20V, ID −2.8A, RDS 120mΩ) |
+| Q1 | SI2305 | SOT-23 | P-ch MOSFET (VDS −20V, ID −4.1A, RDS 105–130mΩ) |
 | U12 | AP2112K-3.3 | SOT-23-5 | LDO 3.3V, 600mA, 250mV dropout |
 
 ### LTC4412 wiring
