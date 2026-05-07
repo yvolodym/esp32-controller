@@ -1469,6 +1469,156 @@
 			)
 			(embedded_fonts no)
 		)
+		(symbol "Diode:SS14"
+			(pin_numbers
+				(hide yes)
+			)
+			(pin_names
+				(offset 1.016)
+				(hide yes)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "D"
+				(at 0 2.54 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "SS14"
+				(at 0 -2.54 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" "Diode_SMD:D_SMA"
+				(at 0 -4.445 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" "https://www.vishay.com/docs/88746/ss12.pdf"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" "40V 1A Schottky Diode, SMA"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_keywords" "diode Schottky"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_fp_filters" "D*SMA*"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "SS14_0_1"
+				(polyline
+					(pts
+						(xy -1.905 0.635) (xy -1.905 1.27) (xy -1.27 1.27) (xy -1.27 -1.27) (xy -0.635 -1.27) (xy -0.635 -0.635)
+					)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 1.27 1.27) (xy 1.27 -1.27) (xy -1.27 0) (xy 1.27 1.27)
+					)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 1.27 0) (xy -1.27 0)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "SS14_1_1"
+				(pin passive line
+					(at -3.81 0 0)
+					(length 2.54)
+					(name "K"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 3.81 0 180)
+					(length 2.54)
+					(name "A"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
 		(symbol "PCM_yvolodym:8205A"
 			(exclude_from_sim no)
 			(in_bom yes)
@@ -2359,20 +2509,15 @@
 			)
 			(embedded_fonts no)
 		)
-		(symbol "Regulator_Linear:AMS1117-3.3"
+		(symbol "Regulator_Linear:AP2112K-3.3"
+			(pin_names
+				(offset 0.254)
+			)
 			(exclude_from_sim no)
 			(in_bom yes)
 			(on_board yes)
 			(property "Reference" "U"
-				(at -3.81 3.175 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Value" "AMS1117-3.3"
-				(at 0 3.175 0)
+				(at -5.08 5.715 0)
 				(effects
 					(font
 						(size 1.27 1.27)
@@ -2380,8 +2525,17 @@
 					(justify left)
 				)
 			)
-			(property "Footprint" "Package_TO_SOT_SMD:SOT-223-3_TabPin2"
-				(at 0 5.08 0)
+			(property "Value" "AP2112K-3.3"
+				(at 0 5.715 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left)
+				)
+			)
+			(property "Footprint" "Package_TO_SOT_SMD:SOT-23-5"
+				(at 0 8.255 0)
 				(effects
 					(font
 						(size 1.27 1.27)
@@ -2389,8 +2543,8 @@
 					(hide yes)
 				)
 			)
-			(property "Datasheet" "http://www.advanced-monolithic.com/pdf/ds1117.pdf"
-				(at 2.54 -6.35 0)
+			(property "Datasheet" "https://www.diodes.com/assets/Datasheets/AP2112.pdf"
+				(at 0 2.54 0)
 				(effects
 					(font
 						(size 1.27 1.27)
@@ -2398,7 +2552,7 @@
 					(hide yes)
 				)
 			)
-			(property "Description" "1A Low Dropout regulator, positive, 3.3V fixed output, SOT-223"
+			(property "Description" "600mA low dropout linear regulator, with enable pin, 3.8V-6V input voltage range, 3.3V fixed positive output, SOT-23-5"
 				(at 0 0 0)
 				(effects
 					(font
@@ -2416,7 +2570,7 @@
 					(hide yes)
 				)
 			)
-			(property "ki_fp_filters" "SOT?223*TabPin2*"
+			(property "ki_fp_filters" "SOT?23?5*"
 				(at 0 0 0)
 				(effects
 					(font
@@ -2425,10 +2579,10 @@
 					(hide yes)
 				)
 			)
-			(symbol "AMS1117-3.3_0_1"
+			(symbol "AP2112K-3.3_0_1"
 				(rectangle
-					(start -5.08 -5.08)
-					(end 5.08 1.905)
+					(start -5.08 4.445)
+					(end 5.08 -5.08)
 					(stroke
 						(width 0.254)
 						(type default)
@@ -2438,11 +2592,29 @@
 					)
 				)
 			)
-			(symbol "AMS1117-3.3_1_1"
+			(symbol "AP2112K-3.3_1_1"
 				(pin power_in line
+					(at -7.62 2.54 0)
+					(length 2.54)
+					(name "VIN"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin input line
 					(at -7.62 0 0)
 					(length 2.54)
-					(name "VI"
+					(name "EN"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -2467,7 +2639,26 @@
 							)
 						)
 					)
-					(number "1"
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin no_connect line
+					(at 5.08 0 180)
+					(length 2.54)
+					(hide yes)
+					(name "NC"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "4"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -2476,16 +2667,16 @@
 					)
 				)
 				(pin power_out line
-					(at 7.62 0 180)
+					(at 7.62 2.54 180)
 					(length 2.54)
-					(name "VO"
+					(name "VOUT"
 						(effects
 							(font
 								(size 1.27 1.27)
 							)
 						)
 					)
-					(number "2"
+					(number "5"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -3008,28 +3199,22 @@
 		(uuid "2fdbe7f5-ef66-4455-b928-50cfbe2b54de")
 	)
 	(junction
-		(at 187.96 29.21)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "3163bd6f-a90c-481d-b022-13fbf1d430f3")
-	)
-	(junction
 		(at 77.47 69.85)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "344f6ab7-dae8-4f36-85ab-3b424b1fcdb5")
 	)
 	(junction
+		(at 195.58 59.69)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "44507120-2e20-4b60-a8f0-5c8c3325b66e")
+	)
+	(junction
 		(at 119.38 148.59)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "464b4db4-31b9-463f-adc5-81abebb04176")
-	)
-	(junction
-		(at 187.96 59.69)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "5a7a481b-78b0-4a64-944e-1a4e13ea5260")
 	)
 	(junction
 		(at 195.58 119.38)
@@ -3086,12 +3271,6 @@
 		(uuid "8ced2078-efe5-413c-b181-9943f8fa909c")
 	)
 	(junction
-		(at 170.18 59.69)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "90d071cd-a4df-443f-86eb-e4a9167fc827")
-	)
-	(junction
 		(at 176.53 148.59)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -3104,10 +3283,28 @@
 		(uuid "a1b2c3d4-e5f6-4789-abcd-ee0000000001")
 	)
 	(junction
+		(at 177.8 59.69)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "b4bb1f9b-115a-4dc6-bb83-154110b3e810")
+	)
+	(junction
+		(at 168.91 29.21)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "c23a6f78-eafd-460e-9107-b3b7185130d4")
+	)
+	(junction
 		(at 130.81 128.27)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "c8376d56-b83a-4b60-a4bc-814ffe094117")
+	)
+	(junction
+		(at 195.58 29.21)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "d055b1fb-e388-4eb0-8ca7-771fd51c4903")
 	)
 	(junction
 		(at 139.7 29.21)
@@ -3151,6 +3348,16 @@
 	)
 	(wire
 		(pts
+			(xy 177.8 39.37) (xy 177.8 59.69)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "05bb6649-5168-45dd-8a4b-502845a76fc7")
+	)
+	(wire
+		(pts
 			(xy 130.81 109.22) (xy 130.81 128.27)
 		)
 		(stroke
@@ -3171,6 +3378,16 @@
 	)
 	(wire
 		(pts
+			(xy 170.18 31.75) (xy 168.91 31.75)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "0b207edd-1319-4220-81c4-ae9a40a07ef5")
+	)
+	(wire
+		(pts
 			(xy 130.81 109.22) (xy 184.15 109.22)
 		)
 		(stroke
@@ -3181,7 +3398,7 @@
 	)
 	(wire
 		(pts
-			(xy 149.86 29.21) (xy 149.86 33.02)
+			(xy 149.86 29.21) (xy 149.86 40.64)
 		)
 		(stroke
 			(width 0)
@@ -3231,13 +3448,13 @@
 	)
 	(wire
 		(pts
-			(xy 170.18 59.69) (xy 187.96 59.69)
+			(xy 147.32 19.05) (xy 156.21 19.05)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "22035961-1e0a-4cdd-8cbd-1723b725bedf")
+		(uuid "23c80ceb-daf8-40e0-9b53-069291b02bf6")
 	)
 	(wire
 		(pts
@@ -3361,7 +3578,7 @@
 	)
 	(wire
 		(pts
-			(xy 149.86 40.64) (xy 149.86 59.69)
+			(xy 149.86 48.26) (xy 149.86 59.69)
 		)
 		(stroke
 			(width 0)
@@ -3521,7 +3738,7 @@
 	)
 	(wire
 		(pts
-			(xy 187.96 26.67) (xy 187.96 29.21)
+			(xy 195.58 26.67) (xy 195.58 29.21)
 		)
 		(stroke
 			(width 0)
@@ -3601,6 +3818,16 @@
 	)
 	(wire
 		(pts
+			(xy 168.91 29.21) (xy 170.18 29.21)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "7dca39e6-fa55-4087-b580-de3f28f3fa36")
+	)
+	(wire
+		(pts
 			(xy 119.38 148.59) (xy 119.38 149.86)
 		)
 		(stroke
@@ -3611,13 +3838,13 @@
 	)
 	(wire
 		(pts
-			(xy 170.18 36.83) (xy 170.18 59.69)
+			(xy 168.91 19.05) (xy 163.83 19.05)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "83284461-48b2-438f-9827-60873347e9dc")
+		(uuid "80dc28b7-6ee9-4c8f-86b8-807942abd1c7")
 	)
 	(wire
 		(pts
@@ -3631,7 +3858,7 @@
 	)
 	(wire
 		(pts
-			(xy 149.86 59.69) (xy 170.18 59.69)
+			(xy 149.86 59.69) (xy 177.8 59.69)
 		)
 		(stroke
 			(width 0)
@@ -3801,13 +4028,23 @@
 	)
 	(wire
 		(pts
-			(xy 149.86 29.21) (xy 162.56 29.21)
+			(xy 149.86 29.21) (xy 156.21 29.21)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "b24ffcb2-8de1-4d57-8384-a1c2328e9c20")
+		(uuid "b2b2c3d4-e5f6-4789-abcd-ee0000000060")
+	)
+	(wire
+		(pts
+			(xy 168.91 19.05) (xy 168.91 29.21)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "b2b2c3d4-e5f6-4789-abcd-ee0000000061")
 	)
 	(wire
 		(pts
@@ -3831,7 +4068,7 @@
 	)
 	(wire
 		(pts
-			(xy 177.8 29.21) (xy 187.96 29.21)
+			(xy 185.42 29.21) (xy 195.58 29.21)
 		)
 		(stroke
 			(width 0)
@@ -3881,7 +4118,7 @@
 	)
 	(wire
 		(pts
-			(xy 187.96 40.64) (xy 187.96 59.69)
+			(xy 195.58 48.26) (xy 195.58 59.69)
 		)
 		(stroke
 			(width 0)
@@ -3901,7 +4138,7 @@
 	)
 	(wire
 		(pts
-			(xy 187.96 29.21) (xy 187.96 33.02)
+			(xy 195.58 29.21) (xy 195.58 40.64)
 		)
 		(stroke
 			(width 0)
@@ -3928,6 +4165,16 @@
 			(type default)
 		)
 		(uuid "c9d80442-0e7b-4342-a170-2ceeb8deeb42")
+	)
+	(wire
+		(pts
+			(xy 177.8 59.69) (xy 195.58 59.69)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "ca989757-3095-4c0e-bb7f-93b1e20044e5")
 	)
 	(wire
 		(pts
@@ -4011,6 +4258,16 @@
 	)
 	(wire
 		(pts
+			(xy 163.83 29.21) (xy 168.91 29.21)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "d8c2b558-fa00-4d2c-ae04-489f13416c0d")
+	)
+	(wire
+		(pts
 			(xy 167.64 148.59) (xy 176.53 148.59)
 		)
 		(stroke
@@ -4091,7 +4348,7 @@
 	)
 	(wire
 		(pts
-			(xy 187.96 59.69) (xy 187.96 62.23)
+			(xy 195.58 59.69) (xy 195.58 62.23)
 		)
 		(stroke
 			(width 0)
@@ -4128,6 +4385,36 @@
 			(type default)
 		)
 		(uuid "f924b91e-abc9-4076-86f2-fc42fb68293f")
+	)
+	(wire
+		(pts
+			(xy 168.91 31.75) (xy 168.91 29.21)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "fbc397d3-d70e-4e54-9fe4-99affc33df90")
+	)
+	(label "VBAT"
+		(at 195.58 109.22 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "5eabd1f3-b649-48b7-8e09-56823a1a6cc6")
+	)
+	(label "VBAT"
+		(at 147.32 19.05 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "b2b2c3d4-e5f6-4789-abcd-ee0000000064")
 	)
 	(hierarchical_label "D-"
 		(shape input)
@@ -4319,7 +4606,7 @@
 	)
 	(symbol
 		(lib_id "power:GND")
-		(at 187.96 62.23 0)
+		(at 195.58 62.23 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -4328,7 +4615,7 @@
 		(fields_autoplaced yes)
 		(uuid "06de4470-579e-48ef-a7ac-f344d448e5fd")
 		(property "Reference" "#PWR032"
-			(at 187.96 68.58 0)
+			(at 195.58 68.58 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4337,7 +4624,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 187.96 67.31 0)
+			(at 195.58 67.31 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4345,7 +4632,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 187.96 62.23 0)
+			(at 195.58 62.23 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4354,7 +4641,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 187.96 62.23 0)
+			(at 195.58 62.23 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4363,7 +4650,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
-			(at 187.96 62.23 0)
+			(at 195.58 62.23 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4871,6 +5158,83 @@
 		)
 	)
 	(symbol
+		(lib_id "Regulator_Linear:AP2112K-3.3")
+		(at 177.8 31.75 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "583d01d5-4fe8-47de-98bf-6ccecca20749")
+		(property "Reference" "U12"
+			(at 177.8 22.86 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "AP2112K-3.3"
+			(at 177.8 25.4 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Package_TO_SOT_SMD:SOT-23-5"
+			(at 177.8 23.495 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://www.diodes.com/assets/Datasheets/AP2112.pdf"
+			(at 177.8 29.21 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "600mA low dropout linear regulator, with enable pin, 3.8V-6V input voltage range, 3.3V fixed positive output, SOT-23-5"
+			(at 177.8 31.75 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "e969dd1e-2184-43bd-a24b-a126a9406052")
+		)
+		(pin "3"
+			(uuid "77d139c8-55a7-479a-87a0-df23c0ae25e2")
+		)
+		(pin "5"
+			(uuid "0628e050-96fe-4c91-8311-87e4ec4e8e9b")
+		)
+		(pin "4"
+			(uuid "df0a7999-63c6-4757-8e34-5625c1fbebce")
+		)
+		(pin "2"
+			(uuid "733c17fe-f613-40c2-acf3-c04331ca3f63")
+		)
+		(instances
+			(project "esp32-controller"
+				(path "/1b61a099-fa01-45c5-bfa6-c1f023697108/13eaefed-e598-4605-b03d-de27b94da232"
+					(reference "U12")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "Device:R")
 		(at 119.38 142.24 180)
 		(unit 1)
@@ -4960,7 +5324,7 @@
 	)
 	(symbol
 		(lib_id "Device:C")
-		(at 149.86 36.83 0)
+		(at 149.86 44.45 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -4969,7 +5333,7 @@
 		(fields_autoplaced yes)
 		(uuid "5d6287f8-6a07-49dc-b968-9e10c89b14d6")
 		(property "Reference" "C5"
-			(at 153.67 35.5599 0)
+			(at 153.67 43.1799 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4978,7 +5342,7 @@
 			)
 		)
 		(property "Value" "10µF"
-			(at 153.67 38.0999 0)
+			(at 153.67 45.7199 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4987,7 +5351,7 @@
 			)
 		)
 		(property "Footprint" "Capacitor_SMD:C_1206_3216Metric"
-			(at 150.8252 40.64 0)
+			(at 150.8252 48.26 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4996,7 +5360,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 149.86 36.83 0)
+			(at 149.86 44.45 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5005,7 +5369,7 @@
 			)
 		)
 		(property "Description" "Unpolarized capacitor"
-			(at 149.86 36.83 0)
+			(at 149.86 44.45 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5014,7 +5378,7 @@
 			)
 		)
 		(property "Sim.Device" ""
-			(at 149.86 36.83 0)
+			(at 149.86 44.45 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5023,7 +5387,7 @@
 			)
 		)
 		(property "Sim.Type" ""
-			(at 149.86 36.83 0)
+			(at 149.86 44.45 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5145,7 +5509,7 @@
 	)
 	(symbol
 		(lib_id "power:+3.3V")
-		(at 187.96 26.67 0)
+		(at 195.58 26.67 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -5154,7 +5518,7 @@
 		(fields_autoplaced yes)
 		(uuid "64823861-68a9-4969-9d7a-b53ed3ca2163")
 		(property "Reference" "#PWR031"
-			(at 187.96 30.48 0)
+			(at 195.58 30.48 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5163,7 +5527,7 @@
 			)
 		)
 		(property "Value" "+3.3V"
-			(at 187.96 21.59 0)
+			(at 195.58 21.59 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5171,7 +5535,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 187.96 26.67 0)
+			(at 195.58 26.67 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5180,7 +5544,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 187.96 26.67 0)
+			(at 195.58 26.67 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5189,7 +5553,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"+3.3V\""
-			(at 187.96 26.67 0)
+			(at 195.58 26.67 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5384,6 +5748,73 @@
 		)
 	)
 	(symbol
+		(lib_id "Diode:SS14")
+		(at 160.02 19.05 180)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "7942d77f-b8b4-4b63-8e3a-c3197c4d8c76")
+		(property "Reference" "D5"
+			(at 165.608 14.224 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "SS14"
+			(at 165.862 17.018 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Diode_SMD:D_SMA"
+			(at 160.02 14.605 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://www.vishay.com/docs/88746/ss12.pdf"
+			(at 160.02 19.05 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "40V 1A Schottky Diode, SMA"
+			(at 160.02 19.05 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "62ae4723-17b9-4f28-b265-b9f41ac3a142")
+		)
+		(pin "2"
+			(uuid "3e6022da-8c9a-421b-a6f7-e4ea0e5672f8")
+		)
+		(instances
+			(project "esp32-controller"
+				(path "/1b61a099-fa01-45c5-bfa6-c1f023697108/13eaefed-e598-4605-b03d-de27b94da232"
+					(reference "D5")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "Device:R")
 		(at 148.59 133.35 180)
 		(unit 1)
@@ -5540,7 +5971,7 @@
 	)
 	(symbol
 		(lib_id "Device:C")
-		(at 187.96 36.83 0)
+		(at 195.58 44.45 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -5549,7 +5980,7 @@
 		(fields_autoplaced yes)
 		(uuid "90a1f445-a492-4ef1-9d30-37ab62baa3df")
 		(property "Reference" "C7"
-			(at 191.77 35.5599 0)
+			(at 199.39 43.1799 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5558,7 +5989,7 @@
 			)
 		)
 		(property "Value" "10µF"
-			(at 191.77 38.0999 0)
+			(at 199.39 45.7199 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5567,7 +5998,7 @@
 			)
 		)
 		(property "Footprint" "Capacitor_SMD:C_1206_3216Metric"
-			(at 188.9252 40.64 0)
+			(at 196.5452 48.26 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5576,7 +6007,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 187.96 36.83 0)
+			(at 195.58 44.45 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5585,7 +6016,7 @@
 			)
 		)
 		(property "Description" "Unpolarized capacitor"
-			(at 187.96 36.83 0)
+			(at 195.58 44.45 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5594,7 +6025,7 @@
 			)
 		)
 		(property "Sim.Device" ""
-			(at 187.96 36.83 0)
+			(at 195.58 44.45 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5603,7 +6034,7 @@
 			)
 		)
 		(property "Sim.Type" ""
-			(at 187.96 36.83 0)
+			(at 195.58 44.45 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7089,95 +7520,6 @@
 		)
 	)
 	(symbol
-		(lib_id "Regulator_Linear:AMS1117-3.3")
-		(at 170.18 29.21 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "e7de1734-5cf8-4587-8f53-dcdd312820f3")
-		(property "Reference" "U9"
-			(at 170.18 22.86 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "AMS1117-3.3"
-			(at 170.18 25.4 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" "Package_TO_SOT_SMD:SOT-223-3_TabPin2"
-			(at 170.18 24.13 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "http://www.advanced-monolithic.com/pdf/ds1117.pdf"
-			(at 172.72 35.56 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "1A Low Dropout regulator, positive, 3.3V fixed output, SOT-223"
-			(at 170.18 29.21 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Sim.Device" ""
-			(at 170.18 29.21 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Sim.Type" ""
-			(at 170.18 29.21 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "2"
-			(uuid "2f535f19-f5a8-447e-8cc7-786ac5451d96")
-		)
-		(pin "1"
-			(uuid "2ca2ffc4-bf2c-45e2-bb05-3b42c0a9c6a6")
-		)
-		(pin "3"
-			(uuid "7175d2ac-8bea-43ce-bcae-4a90a46de390")
-		)
-		(instances
-			(project "esp32-controller"
-				(path "/1b61a099-fa01-45c5-bfa6-c1f023697108/13eaefed-e598-4605-b03d-de27b94da232"
-					(reference "U9")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
 		(lib_id "power:+5V")
 		(at 246.38 36.83 0)
 		(unit 1)
@@ -7238,6 +7580,74 @@
 			(project "esp32-controller"
 				(path "/1b61a099-fa01-45c5-bfa6-c1f023697108/13eaefed-e598-4605-b03d-de27b94da232"
 					(reference "#PWR033")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Diode:SS14")
+		(at 160.02 29.21 180)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "f961cb93-ed25-4aa1-9e24-d67c940860a1")
+		(property "Reference" "D6"
+			(at 160.3375 22.86 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "SS14"
+			(at 160.3375 25.4 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Diode_SMD:D_SMA"
+			(at 160.02 24.765 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://www.vishay.com/docs/88746/ss12.pdf"
+			(at 160.02 29.21 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "40V 1A Schottky Diode, SMA"
+			(at 160.02 29.21 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "b4b007df-7be7-4a3e-935d-5411c9e7216f")
+		)
+		(pin "2"
+			(uuid "27981890-eb18-4859-a214-0f7edf2a6ccf")
+		)
+		(instances
+			(project "esp32-controller"
+				(path "/1b61a099-fa01-45c5-bfa6-c1f023697108/13eaefed-e598-4605-b03d-de27b94da232"
+					(reference "D6")
 					(unit 1)
 				)
 			)
