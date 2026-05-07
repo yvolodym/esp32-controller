@@ -14,12 +14,26 @@ An ESP32-based wireless game controller using ESP-NOW for low-latency peer-to-pe
 
 ### Data flow
 
-`app_main` initializes NVS → display → GPIO → ADC → WiFi/ESP-NOW, then spawns `controller_task` (stack: 8 KB, priority 5).
+```mermaid
+flowchart TD
+    A[app_main] --> NVS[NVS init]
+    NVS --> DISP_INIT[Display init]
+    DISP_INIT --> GPIO_INIT[GPIO init]
+    GPIO_INIT --> ADC_INIT[ADC init]
+    ADC_INIT --> WIFI[WiFi / ESP-NOW init]
+    WIFI --> TASK["spawn controller_task\nstack: 8 KB · priority: 5"]
 
-`controller_task` runs in a tight loop:
-1. Reads four ADC channels (joystick axes) + two GPIO pins (buttons) → fills `ControllerData`
-2. Sends via `esp_now_send` every `SEND_DELAY_MS` (default 20 ms / 50 Hz)
-3. Every 10th cycle (200 ms / 5 Hz) refreshes the ST7789 display
+    subgraph loop["controller_task — tight loop"]
+        direction TB
+        ADC["Read ADC ×4\njoystick axes"] --> CD[ControllerData]
+        BTN["Read GPIO ×2\nbuttons"] --> CD
+        CD --> SEND["esp_now_send\nevery 20 ms / 50 Hz"]
+        CD --> CYC{"10th cycle?\n200 ms / 5 Hz"}
+        CYC -->|yes| REFRESH[Refresh ST7789]
+    end
+
+    TASK --> loop
+```
 
 `ControllerData` struct (7 bytes sent over ESP-NOW):
 ```c
@@ -31,7 +45,18 @@ typedef struct {
 } ControllerData;
 ```
 
-Joystick calibration: raw 12-bit ADC → optional curve/line-fitting voltage calibration → mapped to −512…+512 with configurable deadzone.
+Joystick calibration pipeline:
+
+```mermaid
+flowchart LR
+    RAW["Raw 12-bit ADC"] --> CAL{"Calibration\nscheme"}
+    CAL -->|"curve fitting\n(preferred)"| VOLT[Voltage]
+    CAL -->|"line fitting\n(fallback)"| VOLT
+    CAL -->|"raw\n(fallback)"| VOLT
+    VOLT --> MAP["Map to −512…+512"]
+    MAP --> DZ["Apply deadzone"]
+    DZ --> OUT["ControllerData axis"]
+```
 
 ### Components
 
@@ -90,12 +115,17 @@ Automatic USB/battery switching — no manual intervention required.
 
 ### Topology
 
-```
-USB 5V ──── D6 (SS14, Vf≈0.3V) ────────────────┐
-                                                 ├──> VPWR ──> AP2112K-3.3 ──> +3.3V
-VBAT ──── LTC4412 + SI2301 (ideal diode) ───────┘
-  │
-  └──── TP4056 (charges LiPo when USB present)
+```mermaid
+graph LR
+    USB["USB 5V"]
+    VBAT["VBAT\nLiPo"]
+    VPWR(["VPWR"])
+    V33(["＋3.3 V"])
+
+    USB  -->|"D6 SS14\nVf ≈ 0.3 V"| VPWR
+    VBAT -->|"LTC4412 + SI2301\nideal diode · Vdrop ≈ 20 mV"| VPWR
+    VPWR -->|"U12 AP2112K-3.3\nLDO 600 mA · 250 mV dropout"| V33
+    USB  -->|"U5 TP4056\nCC/CV 1 A charger"| VBAT
 ```
 
 - **When USB present**: D6 conducts (VPWR ≈ 4.7V), SI2301 is reverse-biased by LTC4412 → battery isolated
