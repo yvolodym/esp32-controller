@@ -4,99 +4,90 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-This is an ESP32-based wireless game controller project that uses ESP-NOW protocol for low-latency communication. The controller reads input from two analog joysticks and their buttons, then transmits the data wirelessly to a receiver device.
+An ESP32-based wireless game controller using ESP-NOW for low-latency peer-to-peer communication. Reads two analog joysticks and transmits data to a receiver. Features an ST7789 SPI display showing live joystick values.
 
 ## Architecture
 
-- **Hardware Platform**: ESP32 (ESP-WROVER-Kit board)
-- **Framework**: Native ESP-IDF
-- **Communication Protocol**: ESP-NOW for peer-to-peer wireless communication
-- **Input Hardware**: 2 analog joysticks (X/Y axes) with push buttons
-- **Power Monitoring**: Battery level reading via ADC
+- **Hardware**: ESP32-WROVER-KIT, native ESP-IDF (no Arduino)
+- **Protocol**: ESP-NOW (no pairing, channel 1, no encryption)
+- **Display**: ST7789 320×240 SPI — driven by `main/st7789_display.c`
 
-### Key Components
+### Data flow
 
-- **Main Controller Logic** (`main/main.c`): Native ESP-IDF application handling joystick input, calibration, and ESP-NOW transmission
-- **Data Structure**: `ControllerData` struct containing joystick positions, button states, and battery level
-- **Hardware Configuration**: Pin definitions and calibration settings for dual joystick setup
-- **Configuration**: Kconfig-based configuration system for receiver MAC address and timing parameters
-- **KiCad PCB Design** (`kicad/esp32-controller/`): Hardware schematics and PCB layout
+`app_main` initializes NVS → display → GPIO → ADC → WiFi/ESP-NOW, then spawns `controller_task` (stack: 8 KB, priority 5).
+
+`controller_task` runs in a tight loop:
+1. Reads four ADC channels (joystick axes) + two GPIO pins (buttons) → fills `ControllerData`
+2. Sends via `esp_now_send` every `SEND_DELAY_MS` (default 20 ms / 50 Hz)
+3. Every 10th cycle (200 ms / 5 Hz) refreshes the ST7789 display
+
+`ControllerData` struct (7 bytes sent over ESP-NOW):
+```c
+typedef struct {
+    int16_t joy1_x, joy1_y;
+    int16_t joy2_x, joy2_y;
+    bool joy1_btn, joy2_btn;
+    uint8_t batteryLevel;  // hardcoded to 100 — not yet implemented
+} ControllerData;
+```
+
+Joystick calibration: raw 12-bit ADC → optional curve/line-fitting voltage calibration → mapped to −512…+512 with configurable deadzone.
+
+### Components
+
+- **`main/main.c`**: application entry point and controller loop
+- **`main/st7789_display.c` / `.h`**: ST7789 SPI driver with built-in 8×8 ASCII font (2× scale), RGB565 colors
+
+The `backup/` directory contains the original Arduino/PlatformIO implementation (Ukrainian comments) — useful as a reference for the earlier pin layout.
 
 ## Common Development Commands
 
-### Build and Flash
 ```bash
-# Configure the project (run once or when changing settings)
-idf.py menuconfig
-
-# Build the project
+idf.py menuconfig        # configure receiver MAC, send delay, deadzone
 idf.py build
-
-# Flash to ESP32
 idf.py flash
-
-# Build and flash in one command
-idf.py build flash
-
-# Monitor serial output
 idf.py monitor
-
-# Build, flash, and monitor in sequence
 idf.py build flash monitor
-
-# Clean build
-idf.py clean
-
-# Full clean (including sdkconfig)
-idf.py fullclean
+idf.py size              # check flash/RAM usage
+idf.py set-target esp32  # only needed when switching targets
+idf.py fullclean         # removes sdkconfig too
 ```
-
-### Configuration
-```bash
-# Open configuration menu
-idf.py menuconfig
-
-# Set target chip (if different from ESP32)
-idf.py set-target esp32
-
-# Show project size information
-idf.py size
-```
-
-## Configuration Files
-
-- **`CMakeLists.txt`**: Root build configuration for ESP-IDF
-- **`main/CMakeLists.txt`**: Main component build configuration
-- **`main/Kconfig.projbuild`**: Project-specific configuration options accessible via `idf.py menuconfig`
-- **`sdkconfig.defaults`**: Default ESP-IDF configuration with WiFi optimizations and SPIRAM support
-- **`sdkconfig`**: Generated configuration file (auto-generated, can be committed for reproducible builds)
-
-## Hardware Configuration
-
-### Pin Assignments
-- Joystick 1: X-axis (Pin 32), Y-axis (Pin 33), Button (Pin 12)
-- Joystick 2: X-axis (Pin 34), Y-axis (Pin 35), Button (Pin 14)
-- Battery Monitor: Pin 36 (ADC)
-
-### Key Parameters
-- **Communication**: ESP-NOW with configurable receiver MAC address
-- **Sampling Rate**: 20ms transmission interval (50Hz)
-- **Joystick Calibration**: Dead zone of 50 units, mapped to ±512 range
-- **WiFi Channel**: Channel 1, no encryption
-
-## Development Notes
-
-- All code comments and log messages are in English
-- Battery level monitoring is implemented but may need calibration for specific battery types
-- Receiver MAC address is configurable via `idf.py menuconfig` under "ESP32 Controller Configuration"
-- Send delay and joystick deadzone are also configurable through menuconfig
-- ESP_LOG is used for debugging output - adjust log level via menuconfig if needed
-- Project uses native ESP-IDF APIs for optimal performance and full hardware access
-- FreeRTOS task-based architecture allows for easy extension with additional features
 
 ## Configuration Parameters
 
-Access these via `idf.py menuconfig` -> "ESP32 Controller Configuration":
-- **Receiver MAC Address**: Target device MAC address for ESP-NOW communication
-- **Send Delay**: Transmission interval in milliseconds (default: 20ms)
-- **Joystick Deadzone**: Input filtering threshold (default: 50)
+`idf.py menuconfig` → "ESP32 Controller Configuration":
+- **Receiver MAC Address** — default `FF:FF:FF:FF:FF:FF` (broadcast)
+- **Send Delay (ms)** — range 10–1000, default 20
+- **Joystick Deadzone** — range 10–200, default 50
+
+## Hardware Pin Assignments
+
+### Joysticks (PS5-style Hall-effect)
+| Signal | GPIO | ADC |
+|---|---|---|
+| Joystick 1 X | GPIO36 | ADC1_CH0 |
+| Joystick 1 Y | GPIO39 | ADC1_CH3 |
+| Joystick 1 Button | GPIO25 | — |
+| Joystick 2 X | GPIO34 | ADC1_CH6 |
+| Joystick 2 Y | GPIO35 | ADC1_CH7 |
+| Joystick 2 Button | GPIO26 | — |
+
+Buttons use internal pull-up; active-low logic is inverted in software.
+
+### ST7789 Display (SPI / VSPI)
+| Signal | GPIO |
+|---|---|
+| SCK | GPIO18 |
+| MOSI | GPIO23 |
+| CS | GPIO5 |
+| DC | GPIO2 |
+| RST | GPIO4 |
+| Backlight | GPIO15 |
+
+## Key Notes
+
+- ADC uses `esp_adc/adc_oneshot` API with automatic calibration (curve fitting preferred, falls back to line fitting, then raw).
+- WiFi is initialized in STA mode solely to enable the ESP-NOW radio — no network association.
+- Battery level is **not implemented** (`batteryLevel` is hardcoded to 100).
+- `sdkconfig.defaults` enables SPIRAM, 240 MHz CPU, 80 MHz flash/SPIRAM, and WiFi buffer tuning.
+- Hardware reference datasheets are in `doc/`.
