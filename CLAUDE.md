@@ -84,6 +84,50 @@ Buttons use internal pull-up; active-low logic is inverted in software.
 | RST | GPIO4 |
 | Backlight | GPIO15 |
 
+## Power Supply Design (supply.kicad_sch)
+
+Automatic USB/battery switching — no manual intervention required.
+
+### Topology
+
+```
+USB 5V ──── D6 (SS14, Vf≈0.3V) ────────────────┐
+                                                 ├──> VPWR ──> AP2112K-3.3 ──> +3.3V
+VBAT ──── LTC4412 + SI2301 (ideal diode) ───────┘
+  │
+  └──── TP4056 (charges LiPo when USB present)
+```
+
+- **When USB present**: D6 conducts (VPWR ≈ 4.7V), SI2301 is reverse-biased by LTC4412 → battery isolated
+- **When USB absent**: SI2301 conducts (VPWR ≈ VBAT − 20mV), D6 reverse-biased → battery powers system
+
+### Components
+
+| Ref | Part | Package | Function |
+|---|---|---|---|
+| U5 | TP4056-42-ESOP8 | ESOP-8 | LiPo charger (1A, CC/CV) |
+| D5 | — | — | removed; replaced by LTC4412+SI2301 |
+| D6 | SS14 | SMA | USB path diode |
+| U13 | LTC4412ES6 (marking: **LTA2**) | TSOT-23-6 | PowerPath controller |
+| Q1 | SI2301 | SOT-23 | P-ch MOSFET (VDS −20V, ID −2.8A, RDS 120mΩ) |
+| U12 | AP2112K-3.3 | SOT-23-5 | LDO 3.3V, 600mA, 250mV dropout |
+
+### LTC4412 wiring
+- VIN + SENSE → VBAT
+- GATE → SI2301 Gate
+- CTL → VIN (always enabled)
+- STAT → optional (open or pulled up to signal USB presence)
+- SI2301: Source → VBAT, Drain → VPWR
+
+### Why AP2112K instead of AMS1117
+AMS1117 has 1.3V dropout — cannot regulate from LiPo (needs ≥4.6V in).
+AP2112K has 250mV dropout — works at VPWR = 3.72V (VBAT 3.7V − 20mV SI2301).
+
+### TP4056 notes
+- TEMP pin → VCC (not GND) when no NTC thermistor used; TEMP=GND permanently disables charging
+- EPAD → GND
+- CC1/CC2 on USB-C connector → 5.1kΩ pull-downs to GND (sink mode, required for USB-C chargers)
+
 ## Key Notes
 
 - ADC uses `esp_adc/adc_oneshot` API with automatic calibration (curve fitting preferred, falls back to line fitting, then raw).
