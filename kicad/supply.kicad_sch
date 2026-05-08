@@ -1345,6 +1345,296 @@
 			)
 			(embedded_fonts no)
 		)
+		(symbol "Device:Q_PMOS"
+			(pin_numbers
+				(hide yes)
+			)
+			(pin_names
+				(offset 0)
+				(hide yes)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "Q"
+				(at 5.08 1.27 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left)
+				)
+			)
+			(property "Value" "Q_PMOS"
+				(at 5.08 -1.27 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left)
+				)
+			)
+			(property "Footprint" ""
+				(at 5.08 2.54 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" "~"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" "P-MOSFET transistor"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_keywords" "PMOS P-MOS"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "Q_PMOS_0_1"
+				(polyline
+					(pts
+						(xy 0.254 1.905) (xy 0.254 -1.905)
+					)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 0.254 0) (xy -2.54 0)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 0.762 2.286) (xy 0.762 1.27)
+					)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 0.762 1.778) (xy 3.302 1.778) (xy 3.302 -1.778) (xy 0.762 -1.778)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 0.762 0.508) (xy 0.762 -0.508)
+					)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 0.762 -1.27) (xy 0.762 -2.286)
+					)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(circle
+					(center 1.651 0)
+					(radius 2.794)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 2.286 0) (xy 1.27 0.381) (xy 1.27 -0.381) (xy 2.286 0)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type outline)
+					)
+				)
+				(polyline
+					(pts
+						(xy 2.54 2.54) (xy 2.54 1.778)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(circle
+					(center 2.54 1.778)
+					(radius 0.254)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type outline)
+					)
+				)
+				(circle
+					(center 2.54 -1.778)
+					(radius 0.254)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type outline)
+					)
+				)
+				(polyline
+					(pts
+						(xy 2.54 -2.54) (xy 2.54 0) (xy 0.762 0)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 2.921 -0.381) (xy 3.683 -0.381)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 3.302 -0.381) (xy 2.921 0.254) (xy 3.683 0.254) (xy 3.302 -0.381)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "Q_PMOS_1_1"
+				(pin input line
+					(at -5.08 0 0)
+					(length 2.54)
+					(name "G"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "G"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 2.54 5.08 270)
+					(length 2.54)
+					(name "D"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "D"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 2.54 -5.08 90)
+					(length 2.54)
+					(name "S"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "S"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
 		(symbol "Device:R"
 			(pin_numbers
 				(hide yes)
@@ -2052,6 +2342,196 @@
 						)
 					)
 					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
+		(symbol "Power_Management:LTC4412xS6"
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "U"
+				(at -6.35 8.89 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "LTC4412xS6"
+				(at 6.35 8.89 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" "Package_TO_SOT_SMD:TSOT-23-6"
+				(at 16.51 -8.89 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" "https://www.analog.com/media/en/technical-documentation/data-sheets/4412fb.pdf"
+				(at 53.34 -5.08 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" "Low Loss PowerPath Controller, TSOT-23-6"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_keywords" "ideal-diode or-ing"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_fp_filters" "TSOT?23*"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "LTC4412xS6_0_1"
+				(rectangle
+					(start -7.62 7.62)
+					(end 7.62 -7.62)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type background)
+					)
+				)
+			)
+			(symbol "LTC4412xS6_1_1"
+				(pin power_in line
+					(at -10.16 2.54 0)
+					(length 2.54)
+					(name "VIN"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin input line
+					(at -10.16 -2.54 0)
+					(length 2.54)
+					(name "CTL"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "3"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin output line
+					(at 0 10.16 270)
+					(length 2.54)
+					(name "GATE"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "5"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin power_in line
+					(at 0 -10.16 90)
+					(length 2.54)
+					(name "GND"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin input line
+					(at 10.16 2.54 180)
+					(length 2.54)
+					(name "SENSE"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "6"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin open_collector line
+					(at 10.16 -2.54 180)
+					(length 2.54)
+					(name "STAT"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "4"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -3139,486 +3619,6 @@
 			)
 			(embedded_fonts no)
 		)
-		(symbol "Power_Management:LTC4412xS6"
-			(exclude_from_sim no)
-			(in_bom yes)
-			(on_board yes)
-			(property "Reference" "U"
-				(at -6.35 8.89 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Value" "LTC4412xS6"
-				(at 6.35 8.89 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Footprint" "Package_TO_SOT_SMD:TSOT-23-6"
-				(at 16.51 -8.89 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Datasheet" "https://www.analog.com/media/en/technical-documentation/data-sheets/4412fb.pdf"
-				(at 53.34 -5.08 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Description" "Low Loss PowerPath Controller, TSOT-23-6"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "ki_keywords" "ideal-diode or-ing"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "ki_fp_filters" "TSOT?23*"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(symbol "LTC4412xS6_0_1"
-				(rectangle
-					(start -7.62 7.62)
-					(end 7.62 -7.62)
-					(stroke
-						(width 0.254)
-						(type default)
-					)
-					(fill
-						(type background)
-					)
-				)
-			)
-			(symbol "LTC4412xS6_1_1"
-				(pin power_in line
-					(at -10.16 2.54 0)
-					(length 2.54)
-					(name "VIN"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "1"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin input line
-					(at -10.16 -2.54 0)
-					(length 2.54)
-					(name "CTL"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "3"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin output line
-					(at 0 10.16 270)
-					(length 2.54)
-					(name "GATE"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "5"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin power_in line
-					(at 0 -10.16 90)
-					(length 2.54)
-					(name "GND"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "2"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin input line
-					(at 10.16 2.54 180)
-					(length 2.54)
-					(name "SENSE"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "6"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin open_collector line
-					(at 10.16 -2.54 180)
-					(length 2.54)
-					(name "STAT"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "4"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-			)
-			(embedded_fonts no)
-		)
-		(symbol "Device:Q_PMOS"
-			(pin_numbers
-				(hide yes)
-			)
-			(pin_names
-				(offset 0)
-				(hide yes)
-			)
-			(exclude_from_sim no)
-			(in_bom yes)
-			(on_board yes)
-			(property "Reference" "Q"
-				(at 5.08 1.27 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(justify left)
-				)
-			)
-			(property "Value" "Q_PMOS"
-				(at 5.08 -1.27 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(justify left)
-				)
-			)
-			(property "Footprint" ""
-				(at 5.08 2.54 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Datasheet" "~"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Description" "P-MOSFET transistor"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "ki_keywords" "PMOS P-MOS"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(symbol "Q_PMOS_0_1"
-				(polyline
-					(pts
-						(xy 0.254 1.905) (xy 0.254 -1.905)
-					)
-					(stroke
-						(width 0.254)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 0.254 0) (xy -2.54 0)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 0.762 2.286) (xy 0.762 1.27)
-					)
-					(stroke
-						(width 0.254)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 0.762 1.778) (xy 3.302 1.778) (xy 3.302 -1.778) (xy 0.762 -1.778)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 0.762 0.508) (xy 0.762 -0.508)
-					)
-					(stroke
-						(width 0.254)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 0.762 -1.27) (xy 0.762 -2.286)
-					)
-					(stroke
-						(width 0.254)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(circle
-					(center 1.651 0)
-					(radius 2.794)
-					(stroke
-						(width 0.254)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 2.286 0) (xy 1.27 0.381) (xy 1.27 -0.381) (xy 2.286 0)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type outline)
-					)
-				)
-				(polyline
-					(pts
-						(xy 2.54 2.54) (xy 2.54 1.778)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(circle
-					(center 2.54 1.778)
-					(radius 0.254)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type outline)
-					)
-				)
-				(circle
-					(center 2.54 -1.778)
-					(radius 0.254)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type outline)
-					)
-				)
-				(polyline
-					(pts
-						(xy 2.54 -2.54) (xy 2.54 0) (xy 0.762 0)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 2.921 -0.381) (xy 3.683 -0.381)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 3.302 -0.381) (xy 2.921 0.254) (xy 3.683 0.254) (xy 3.302 -0.381)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-			)
-			(symbol "Q_PMOS_1_1"
-				(pin input line
-					(at -5.08 0 0)
-					(length 2.54)
-					(name "G"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "G"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin passive line
-					(at 2.54 5.08 270)
-					(length 2.54)
-					(name "D"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "D"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin passive line
-					(at 2.54 -5.08 90)
-					(length 2.54)
-					(name "S"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "S"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-			)
-			(embedded_fonts no)
-		)
 	)
 	(rectangle
 		(start 55.88 88.9)
@@ -3634,13 +3634,19 @@
 	)
 	(text "Charger"
 		(exclude_from_sim no)
-		(at 59.436 87.884 0)
+		(at 59.69 87.63 0)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
 		)
 		(uuid "57cf640f-f0b6-4aef-a5e1-a361ddd26a4c")
+	)
+	(junction
+		(at 241.3 95.25)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "03de16c5-da5b-44e0-a50d-b6c6d7a3eeb2")
 	)
 	(junction
 		(at 118.11 36.83)
@@ -3685,7 +3691,13 @@
 		(uuid "344f6ab7-dae8-4f36-85ab-3b424b1fcdb5")
 	)
 	(junction
-		(at 195.58 59.69)
+		(at 196.85 31.75)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "368d3b4e-f703-4518-bb01-dce52323ee37")
+	)
+	(junction
+		(at 223.52 59.69)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "44507120-2e20-4b60-a8f0-5c8c3325b66e")
@@ -3763,13 +3775,13 @@
 		(uuid "a1b2c3d4-e5f6-4789-abcd-ee0000000001")
 	)
 	(junction
-		(at 177.8 59.69)
+		(at 205.74 59.69)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "b4bb1f9b-115a-4dc6-bb83-154110b3e810")
 	)
 	(junction
-		(at 168.91 29.21)
+		(at 196.85 29.21)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "c23a6f78-eafd-460e-9107-b3b7185130d4")
@@ -3781,7 +3793,7 @@
 		(uuid "c8376d56-b83a-4b60-a4bc-814ffe094117")
 	)
 	(junction
-		(at 195.58 29.21)
+		(at 223.52 29.21)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "d055b1fb-e388-4eb0-8ca7-771fd51c4903")
@@ -3795,6 +3807,10 @@
 	(no_connect
 		(at 185.42 139.7)
 		(uuid "90c30405-eb15-4460-a997-8f248b289701")
+	)
+	(no_connect
+		(at 262.89 95.25)
+		(uuid "b563bc9a-a12f-4309-94f6-46bf47e42b35")
 	)
 	(wire
 		(pts
@@ -3828,7 +3844,17 @@
 	)
 	(wire
 		(pts
-			(xy 177.8 39.37) (xy 177.8 59.69)
+			(xy 252.73 78.74) (xy 252.73 82.55)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "0150014f-e7d6-49d0-a134-98c566a11e31")
+	)
+	(wire
+		(pts
+			(xy 205.74 39.37) (xy 205.74 59.69)
 		)
 		(stroke
 			(width 0)
@@ -3858,7 +3884,7 @@
 	)
 	(wire
 		(pts
-			(xy 170.18 31.75) (xy 168.91 31.75)
+			(xy 198.12 31.75) (xy 196.85 31.75)
 		)
 		(stroke
 			(width 0)
@@ -3875,6 +3901,16 @@
 			(type default)
 		)
 		(uuid "0c86eb06-abcc-4a6b-8dec-32ebdd8903eb")
+	)
+	(wire
+		(pts
+			(xy 242.57 90.17) (xy 241.3 90.17)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "0d420dc4-b8ff-4a15-a700-edb2c52ccdf7")
 	)
 	(wire
 		(pts
@@ -3895,6 +3931,16 @@
 			(type default)
 		)
 		(uuid "11528138-fbc1-4fbd-8ba1-9474c3247b93")
+	)
+	(wire
+		(pts
+			(xy 241.3 95.25) (xy 234.95 95.25)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "1bd15061-c4bb-41b3-b9d3-ad4aefa21427")
 	)
 	(wire
 		(pts
@@ -3928,7 +3974,7 @@
 	)
 	(wire
 		(pts
-			(xy 147.32 19.05) (xy 154.94 19.05)
+			(xy 173.99 45.72) (xy 176.53 45.72)
 		)
 		(stroke
 			(width 0)
@@ -4055,6 +4101,16 @@
 			(type default)
 		)
 		(uuid "3e83876c-30a7-451e-8d38-576ef22d9d1c")
+	)
+	(wire
+		(pts
+			(xy 241.3 90.17) (xy 241.3 95.25)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "42b13f0c-b441-4f6e-9290-9911c0e7a6ca")
 	)
 	(wire
 		(pts
@@ -4188,6 +4244,16 @@
 	)
 	(wire
 		(pts
+			(xy 262.89 90.17) (xy 267.97 90.17)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "59efb3ac-d9a1-4598-8528-678a88c254df")
+	)
+	(wire
+		(pts
 			(xy 195.58 132.08) (xy 195.58 139.7)
 		)
 		(stroke
@@ -4218,7 +4284,17 @@
 	)
 	(wire
 		(pts
-			(xy 195.58 26.67) (xy 195.58 29.21)
+			(xy 242.57 95.25) (xy 241.3 95.25)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "6627c68f-c543-46db-be39-cea683fb6996")
+	)
+	(wire
+		(pts
+			(xy 223.52 26.67) (xy 223.52 29.21)
 		)
 		(stroke
 			(width 0)
@@ -4268,6 +4344,16 @@
 	)
 	(wire
 		(pts
+			(xy 252.73 102.87) (xy 252.73 106.68)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "76dfe4c6-fb66-4204-b0b4-2c6a01de0313")
+	)
+	(wire
+		(pts
 			(xy 120.65 133.35) (xy 114.3 133.35)
 		)
 		(stroke
@@ -4298,7 +4384,7 @@
 	)
 	(wire
 		(pts
-			(xy 168.91 29.21) (xy 170.18 29.21)
+			(xy 196.85 29.21) (xy 198.12 29.21)
 		)
 		(stroke
 			(width 0)
@@ -4318,7 +4404,7 @@
 	)
 	(wire
 		(pts
-			(xy 168.91 19.05) (xy 165.1 19.05)
+			(xy 196.85 45.72) (xy 186.69 45.72)
 		)
 		(stroke
 			(width 0)
@@ -4338,7 +4424,7 @@
 	)
 	(wire
 		(pts
-			(xy 149.86 59.69) (xy 177.8 59.69)
+			(xy 149.86 59.69) (xy 205.74 59.69)
 		)
 		(stroke
 			(width 0)
@@ -4385,6 +4471,16 @@
 			(type default)
 		)
 		(uuid "8d8ce0c2-7887-480f-a427-b384cbb99f78")
+	)
+	(wire
+		(pts
+			(xy 181.61 36.83) (xy 181.61 38.1)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "8eeccc8a-c80c-4a72-ae64-01dbdbba33f2")
 	)
 	(wire
 		(pts
@@ -4518,7 +4614,7 @@
 	)
 	(wire
 		(pts
-			(xy 168.91 19.05) (xy 168.91 29.21)
+			(xy 196.85 45.72) (xy 196.85 31.75)
 		)
 		(stroke
 			(width 0)
@@ -4548,7 +4644,7 @@
 	)
 	(wire
 		(pts
-			(xy 185.42 29.21) (xy 195.58 29.21)
+			(xy 213.36 29.21) (xy 223.52 29.21)
 		)
 		(stroke
 			(width 0)
@@ -4598,7 +4694,7 @@
 	)
 	(wire
 		(pts
-			(xy 195.58 48.26) (xy 195.58 59.69)
+			(xy 223.52 48.26) (xy 223.52 59.69)
 		)
 		(stroke
 			(width 0)
@@ -4618,7 +4714,7 @@
 	)
 	(wire
 		(pts
-			(xy 195.58 29.21) (xy 195.58 40.64)
+			(xy 223.52 29.21) (xy 223.52 40.64)
 		)
 		(stroke
 			(width 0)
@@ -4648,7 +4744,7 @@
 	)
 	(wire
 		(pts
-			(xy 177.8 59.69) (xy 195.58 59.69)
+			(xy 205.74 59.69) (xy 223.52 59.69)
 		)
 		(stroke
 			(width 0)
@@ -4738,7 +4834,7 @@
 	)
 	(wire
 		(pts
-			(xy 163.83 29.21) (xy 168.91 29.21)
+			(xy 163.83 29.21) (xy 196.85 29.21)
 		)
 		(stroke
 			(width 0)
@@ -4828,7 +4924,7 @@
 	)
 	(wire
 		(pts
-			(xy 195.58 59.69) (xy 195.58 62.23)
+			(xy 223.52 59.69) (xy 223.52 62.23)
 		)
 		(stroke
 			(width 0)
@@ -4868,13 +4964,23 @@
 	)
 	(wire
 		(pts
-			(xy 168.91 31.75) (xy 168.91 29.21)
+			(xy 196.85 31.75) (xy 196.85 29.21)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
 		(uuid "fbc397d3-d70e-4e54-9fe4-99affc33df90")
+	)
+	(label "Q1_GATE"
+		(at 252.73 78.74 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "2c986b64-fd49-4a20-87eb-b29887279cea")
 	)
 	(label "VBAT"
 		(at 195.58 109.22 0)
@@ -4887,7 +4993,27 @@
 		(uuid "5eabd1f3-b649-48b7-8e09-56823a1a6cc6")
 	)
 	(label "VBAT"
-		(at 147.32 19.05 180)
+		(at 267.97 90.17 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "6e0e18f4-3e91-45a6-bbb7-25df77e7e4e2")
+	)
+	(label "Q1_GATE"
+		(at 181.61 36.83 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "7b847807-f195-4e80-a714-1f0f0223eb4f")
+	)
+	(label "VBAT"
+		(at 173.99 45.72 180)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -4895,6 +5021,16 @@
 			(justify right)
 		)
 		(uuid "b2b2c3d4-e5f6-4789-abcd-ee0000000064")
+	)
+	(label "VBAT"
+		(at 234.95 95.25 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "d9be919b-e405-420e-816d-0b905e19ad18")
 	)
 	(hierarchical_label "D-"
 		(shape input)
@@ -5086,7 +5222,7 @@
 	)
 	(symbol
 		(lib_id "power:GND")
-		(at 195.58 62.23 0)
+		(at 223.52 62.23 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -5095,7 +5231,7 @@
 		(fields_autoplaced yes)
 		(uuid "06de4470-579e-48ef-a7ac-f344d448e5fd")
 		(property "Reference" "#PWR033"
-			(at 195.58 68.58 0)
+			(at 223.52 68.58 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5104,7 +5240,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 195.58 67.31 0)
+			(at 223.52 67.31 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5112,7 +5248,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 195.58 62.23 0)
+			(at 223.52 62.23 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5121,7 +5257,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 195.58 62.23 0)
+			(at 223.52 62.23 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5130,7 +5266,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
-			(at 195.58 62.23 0)
+			(at 223.52 62.23 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5311,7 +5447,6 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(fields_autoplaced yes)
 		(uuid "2117ad11-8f16-47ad-a551-211059f3d43e")
 		(property "Reference" "#PWR027"
 			(at 118.11 49.53 0)
@@ -5323,7 +5458,7 @@
 			)
 		)
 		(property "Value" "+5V"
-			(at 118.11 58.42 0)
+			(at 121.412 52.324 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5639,7 +5774,7 @@
 	)
 	(symbol
 		(lib_id "Regulator_Linear:AP2112K-3.3")
-		(at 177.8 31.75 0)
+		(at 205.74 31.75 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -5648,7 +5783,7 @@
 		(fields_autoplaced yes)
 		(uuid "583d01d5-4fe8-47de-98bf-6ccecca20749")
 		(property "Reference" "U9"
-			(at 177.8 22.86 0)
+			(at 205.74 22.86 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5656,7 +5791,7 @@
 			)
 		)
 		(property "Value" "AP2112K-3.3"
-			(at 177.8 25.4 0)
+			(at 205.74 25.4 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5664,7 +5799,7 @@
 			)
 		)
 		(property "Footprint" "Package_TO_SOT_SMD:SOT-23-5"
-			(at 177.8 23.495 0)
+			(at 205.74 23.495 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5673,7 +5808,7 @@
 			)
 		)
 		(property "Datasheet" "https://www.diodes.com/assets/Datasheets/AP2112.pdf"
-			(at 177.8 29.21 0)
+			(at 205.74 29.21 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5682,7 +5817,7 @@
 			)
 		)
 		(property "Description" "600mA low dropout linear regulator, with enable pin, 3.8V-6V input voltage range, 3.3V fixed positive output, SOT-23-5"
-			(at 177.8 31.75 0)
+			(at 205.74 31.75 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5709,6 +5844,72 @@
 			(project "esp32-controller"
 				(path "/1b61a099-fa01-45c5-bfa6-c1f023697108/13eaefed-e598-4605-b03d-de27b94da232"
 					(reference "U9")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:GND")
+		(at 252.73 106.68 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "5969bb97-39c1-42bf-86ba-923fdbcc839e")
+		(property "Reference" "#PWR0100"
+			(at 252.73 113.03 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "GND"
+			(at 252.73 112.395 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 252.73 106.68 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 252.73 106.68 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
+			(at 252.73 106.68 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "febd54c5-8d03-4d26-85c4-d8da07bbfccc")
+		)
+		(instances
+			(project "esp32-controller"
+				(path "/1b61a099-fa01-45c5-bfa6-c1f023697108/13eaefed-e598-4605-b03d-de27b94da232"
+					(reference "#PWR0100")
 					(unit 1)
 				)
 			)
@@ -5989,7 +6190,7 @@
 	)
 	(symbol
 		(lib_id "power:+3.3V")
-		(at 195.58 26.67 0)
+		(at 223.52 26.67 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -5998,7 +6199,7 @@
 		(fields_autoplaced yes)
 		(uuid "64823861-68a9-4969-9d7a-b53ed3ca2163")
 		(property "Reference" "#PWR032"
-			(at 195.58 30.48 0)
+			(at 223.52 30.48 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6007,7 +6208,7 @@
 			)
 		)
 		(property "Value" "+3.3V"
-			(at 195.58 21.59 0)
+			(at 223.52 21.59 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6015,7 +6216,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 195.58 26.67 0)
+			(at 223.52 26.67 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6024,7 +6225,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 195.58 26.67 0)
+			(at 223.52 26.67 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6033,7 +6234,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"+3.3V\""
-			(at 195.58 26.67 0)
+			(at 223.52 26.67 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6134,6 +6335,78 @@
 			(project "esp32-controller"
 				(path "/1b61a099-fa01-45c5-bfa6-c1f023697108/13eaefed-e598-4605-b03d-de27b94da232"
 					(reference "R16")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:Q_PMOS")
+		(at 181.61 43.18 270)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "6b95ec3c-a016-4bc9-941c-d86acbca70db")
+		(property "Reference" "Q3"
+			(at 182.626 40.64 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "SI2305"
+			(at 173.736 40.386 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Package_TO_SOT_SMD:SOT-23"
+			(at 181.61 43.18 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 181.61 43.18 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "P-MOSFET transistor"
+			(at 181.61 43.18 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "G"
+			(uuid "d682b55c-b1c5-4dda-97bb-745b024be24e")
+		)
+		(pin "S"
+			(uuid "5420a58c-8188-42f5-a730-b357fb8d1f3d")
+		)
+		(pin "D"
+			(uuid "f8e841c7-a5d8-42da-b51b-93c2be8c623a")
+		)
+		(instances
+			(project "esp32-controller"
+				(path "/1b61a099-fa01-45c5-bfa6-c1f023697108/13eaefed-e598-4605-b03d-de27b94da232"
+					(reference "Q3")
 					(unit 1)
 				)
 			)
@@ -6384,7 +6657,7 @@
 	)
 	(symbol
 		(lib_id "Device:C")
-		(at 195.58 44.45 0)
+		(at 223.52 44.45 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -6393,7 +6666,7 @@
 		(fields_autoplaced yes)
 		(uuid "90a1f445-a492-4ef1-9d30-37ab62baa3df")
 		(property "Reference" "C7"
-			(at 199.39 43.1799 0)
+			(at 227.33 43.1799 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6402,7 +6675,7 @@
 			)
 		)
 		(property "Value" "10µF"
-			(at 199.39 45.7199 0)
+			(at 227.33 45.7199 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6411,7 +6684,7 @@
 			)
 		)
 		(property "Footprint" "Capacitor_SMD:C_1206_3216Metric"
-			(at 196.5452 48.26 0)
+			(at 224.4852 48.26 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6420,7 +6693,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 195.58 44.45 0)
+			(at 223.52 44.45 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6429,7 +6702,7 @@
 			)
 		)
 		(property "Description" "Unpolarized capacitor"
-			(at 195.58 44.45 0)
+			(at 223.52 44.45 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6438,7 +6711,7 @@
 			)
 		)
 		(property "Sim.Device" ""
-			(at 195.58 44.45 0)
+			(at 223.52 44.45 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6447,7 +6720,7 @@
 			)
 		)
 		(property "Sim.Type" ""
-			(at 195.58 44.45 0)
+			(at 223.52 44.45 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6929,6 +7202,86 @@
 			(project "esp32-controller"
 				(path "/1b61a099-fa01-45c5-bfa6-c1f023697108/13eaefed-e598-4605-b03d-de27b94da232"
 					(reference "#PWR022")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Power_Management:LTC4412xS6")
+		(at 252.73 92.71 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "ad368cbe-5726-47c7-a493-8cdff0e6f832")
+		(property "Reference" "U13"
+			(at 246.38 83.82 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "LTC4412"
+			(at 259.08 83.82 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Package_TO_SOT_SMD:TSOT-23-6"
+			(at 269.24 101.6 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://www.analog.com/media/en/technical-documentation/data-sheets/4412fb.pdf"
+			(at 252.73 92.71 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Low Loss PowerPath Controller, TSOT-23-6"
+			(at 252.73 92.71 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "6c7f5012-f2d2-4a33-8611-263f8ae60f73")
+		)
+		(pin "2"
+			(uuid "8c999360-f34f-499c-988f-63c4b314b732")
+		)
+		(pin "3"
+			(uuid "74a65a3e-7b4a-4e24-92c6-185912870e59")
+		)
+		(pin "4"
+			(uuid "da6c8964-926b-4c0a-aff2-a9122ea0473c")
+		)
+		(pin "5"
+			(uuid "af81508c-34b3-4f69-b469-c5d8731566d0")
+		)
+		(pin "6"
+			(uuid "2af9b643-0063-489b-8948-5c91a9a5e49a")
+		)
+		(instances
+			(project "esp32-controller"
+				(path "/1b61a099-fa01-45c5-bfa6-c1f023697108/13eaefed-e598-4605-b03d-de27b94da232"
+					(reference "U13")
 					(unit 1)
 				)
 			)
@@ -8152,258 +8505,5 @@
 				)
 			)
 		)
-	)	(symbol
-		(lib_id "Device:Q_PMOS")
-		(at 160.02 16.51 270)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "6b95ec3c-a016-4bc9-941c-d86acbca70db")
-		(property "Reference" "Q3"
-			(at 165.1 14.605 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "SI2305"
-			(at 165.1 17.145 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" "Package_TO_SOT_SMD:SOT-23"
-			(at 160.02 16.51 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "~"
-			(at 160.02 16.51 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "P-MOSFET transistor"
-			(at 160.02 16.51 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "G" (uuid "d682b55c-b1c5-4dda-97bb-745b024be24e"))
-		(pin "S" (uuid "5420a58c-8188-42f5-a730-b357fb8d1f3d"))
-		(pin "D" (uuid "f8e841c7-a5d8-42da-b51b-93c2be8c623a"))
-		(instances
-			(project "esp32-controller"
-				(path "/1b61a099-fa01-45c5-bfa6-c1f023697108/13eaefed-e598-4605-b03d-de27b94da232"
-					(reference "Q3")
-					(unit 1)
-				)
-			)
-		)
 	)
-	(symbol
-		(lib_id "Power_Management:LTC4412xS6")
-		(at 140.97 73.66 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "ad368cbe-5726-47c7-a493-8cdff0e6f832")
-		(property "Reference" "U13"
-			(at 134.62 64.77 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "LTC4412"
-			(at 147.32 64.77 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" "Package_TO_SOT_SMD:TSOT-23-6"
-			(at 157.48 82.55 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "https://www.analog.com/media/en/technical-documentation/data-sheets/4412fb.pdf"
-			(at 140.97 73.66 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "Low Loss PowerPath Controller, TSOT-23-6"
-			(at 140.97 73.66 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1" (uuid "6c7f5012-f2d2-4a33-8611-263f8ae60f73"))
-		(pin "2" (uuid "8c999360-f34f-499c-988f-63c4b314b732"))
-		(pin "3" (uuid "74a65a3e-7b4a-4e24-92c6-185912870e59"))
-		(pin "4" (uuid "da6c8964-926b-4c0a-aff2-a9122ea0473c"))
-		(pin "5" (uuid "af81508c-34b3-4f69-b469-c5d8731566d0"))
-		(pin "6" (uuid "2af9b643-0063-489b-8948-5c91a9a5e49a"))
-		(instances
-			(project "esp32-controller"
-				(path "/1b61a099-fa01-45c5-bfa6-c1f023697108/13eaefed-e598-4605-b03d-de27b94da232"
-					(reference "U13")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "power:GND")
-		(at 140.97 83.82 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "5969bb97-39c1-42bf-86ba-923fdbcc839e")
-		(property "Reference" "#PWR0100"
-			(at 140.97 90.17 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Value" "GND"
-			(at 140.97 89.535 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 140.97 83.82 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" ""
-			(at 140.97 83.82 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
-			(at 140.97 83.82 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1" (uuid "febd54c5-8d03-4d26-85c4-d8da07bbfccc"))
-		(instances
-			(project "esp32-controller"
-				(path "/1b61a099-fa01-45c5-bfa6-c1f023697108/13eaefed-e598-4605-b03d-de27b94da232"
-					(reference "#PWR0100")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(label "Q1_GATE"
-		(at 160.02 11.43 90)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "7b847807-f195-4e80-a714-1f0f0223eb4f")
-	)
-	(label "Q1_GATE"
-		(at 140.97 63.5 90)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "2c986b64-fd49-4a20-87eb-b29887279cea")
-	)
-	(label "VBAT"
-		(at 130.81 71.12 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "3374098d-d2d0-4a22-8be9-df3b4f6f915c")
-	)
-	(label "VBAT"
-		(at 130.81 76.2 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "d9be919b-e405-420e-816d-0b905e19ad18")
-	)
-	(label "VBAT"
-		(at 151.13 71.12 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "6e0e18f4-3e91-45a6-bbb7-25df77e7e4e2")
-	)
-	(no_connect
-		(at 151.13 76.20)
-		(uuid "b563bc9a-a12f-4309-94f6-46bf47e42b35")
-	)
-
 )
