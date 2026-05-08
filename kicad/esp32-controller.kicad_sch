@@ -1052,7 +1052,7 @@
 						)
 					)
 				)
-				(pin power_out line
+				(pin power_in line
 					(at 0 15.24 270)
 					(length 2.54)
 					(name "V3"
@@ -2059,7 +2059,7 @@
 					)
 				)
 			)
-			(property "Footprint" "PCM_yvolodym.Joystick_Analog"
+			(property "Footprint" "PCM_yvolodym:Joystick_Analog"
 				(at 0 0 0)
 				(effects
 					(font
@@ -2560,7 +2560,7 @@
 						)
 					)
 				)
-				(pin open_collector line
+				(pin passive line
 					(at 2.54 5.08 270)
 					(length 2.54)
 					(name "C"
@@ -2578,7 +2578,7 @@
 						)
 					)
 				)
-				(pin open_emitter line
+				(pin passive line
 					(at 2.54 -5.08 90)
 					(length 2.54)
 					(name "E"
@@ -3019,6 +3019,113 @@
 					(at 0 0 270)
 					(length 0)
 					(name "~"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
+		(symbol "Mechanical:MountingHole_Pad"
+			(pin_numbers
+				(hide yes)
+			)
+			(pin_names
+				(offset 1.016)
+				(hide yes)
+			)
+			(exclude_from_sim no)
+			(in_bom no)
+			(on_board yes)
+			(property "Reference" "H"
+				(at 0 6.35 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "MountingHole_Pad"
+				(at 0 4.445 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" "~"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" "Mounting Hole with connection"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_keywords" "mounting hole"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_fp_filters" "MountingHole*Pad*"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "MountingHole_Pad_0_1"
+				(circle
+					(center 0 1.27)
+					(radius 1.27)
+					(stroke
+						(width 1.27)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "MountingHole_Pad_1_1"
+				(pin input line
+					(at 0 -2.54 90)
+					(length 2.54)
+					(name "1"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -5549,8 +5656,8 @@
 		)
 	)
 	(symbol
-		(lib_id "Mechanical:MountingHole")
-		(at 31.75 163.83 0)
+		(lib_id "Mechanical:MountingHole_Pad")
+		(at 31.75 161.29000000000002 0)
 		(unit 1)
 		(exclude_from_sim yes)
 		(in_bom no)
@@ -5566,7 +5673,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "MountingHole"
+		(property "Value" "MountingHole_Pad"
 			(at 26.67 158.75 0)
 			(effects
 				(font
@@ -7576,8 +7683,8 @@
 		)
 	)
 	(symbol
-		(lib_id "Mechanical:MountingHole")
-		(at 49.53 163.83 0)
+		(lib_id "Mechanical:MountingHole_Pad")
+		(at 49.53 161.29000000000002 0)
 		(unit 1)
 		(exclude_from_sim yes)
 		(in_bom no)
@@ -7593,7 +7700,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "MountingHole"
+		(property "Value" "MountingHole_Pad"
 			(at 46.228 158.75 0)
 			(effects
 				(font
@@ -7771,8 +7878,8 @@
 		)
 	)
 	(symbol
-		(lib_id "Mechanical:MountingHole")
-		(at 40.64 163.83 0)
+		(lib_id "Mechanical:MountingHole_Pad")
+		(at 40.64 161.29000000000002 0)
 		(unit 1)
 		(exclude_from_sim yes)
 		(in_bom no)
@@ -7788,7 +7895,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "MountingHole"
+		(property "Value" "MountingHole_Pad"
 			(at 34.544 167.894 0)
 			(effects
 				(font
@@ -8439,8 +8546,8 @@
 		)
 	)
 	(symbol
-		(lib_id "Mechanical:MountingHole")
-		(at 21.59 163.83 0)
+		(lib_id "Mechanical:MountingHole_Pad")
+		(at 21.59 161.29000000000002 0)
 		(unit 1)
 		(exclude_from_sim yes)
 		(in_bom no)
@@ -8456,7 +8563,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "MountingHole"
+		(property "Value" "MountingHole_Pad"
 			(at 16.51 167.64 0)
 			(effects
 				(font

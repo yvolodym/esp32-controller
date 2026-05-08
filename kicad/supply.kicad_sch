@@ -1996,7 +1996,7 @@
 						)
 					)
 				)
-				(pin output line
+				(pin passive line
 					(at -7.62 -7.62 0)
 					(length 2.54)
 					(name "D1"
@@ -2050,7 +2050,7 @@
 						)
 					)
 				)
-				(pin output line
+				(pin passive line
 					(at 7.62 -7.62 180)
 					(length 2.54)
 					(name "D2"
@@ -4671,28 +4671,7 @@
 			(type default)
 		)
 		(uuid "bda8e7b7-ff8c-43bf-9f47-39feb64bb856")
-	)
-	(wire
-		(pts
-			(xy 184.15 104.14) (xy 184.15 109.22)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "beea376b-f64f-4f7e-bd11-d33023c130c2")
-	)
-	(wire
-		(pts
-			(xy 93.98 135.89) (xy 90.17 135.89)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "c1d25df6-0f75-4a64-a0bc-74e6bf240fcc")
-	)
-	(wire
+	)	(wire
 		(pts
 			(xy 223.52 48.26) (xy 223.52 59.69)
 		)
@@ -4801,18 +4780,7 @@
 			(type default)
 		)
 		(uuid "cf8e2bf6-f20a-4d8c-9115-723493194676")
-	)
-	(wire
-		(pts
-			(xy 90.17 135.89) (xy 90.17 138.43)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "d2143b71-e96e-4143-a8ec-080abb6853ac")
-	)
-	(wire
+	)	(wire
 		(pts
 			(xy 163.83 132.08) (xy 163.83 133.35)
 		)
@@ -5368,72 +5336,6 @@
 			(project "esp32-controller"
 				(path "/1b61a099-fa01-45c5-bfa6-c1f023697108/13eaefed-e598-4605-b03d-de27b94da232"
 					(reference "C6")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "power:GND")
-		(at 90.17 138.43 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "17a7c691-4e9d-448d-bbd7-1ce6c64bbbf1")
-		(property "Reference" "#PWR024"
-			(at 90.17 144.78 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Value" "GND"
-			(at 90.17 143.51 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 90.17 138.43 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" ""
-			(at 90.17 138.43 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
-			(at 90.17 138.43 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "96c27479-6929-4787-aabc-81df5c560a2b")
-		)
-		(instances
-			(project "esp32-controller"
-				(path "/1b61a099-fa01-45c5-bfa6-c1f023697108/13eaefed-e598-4605-b03d-de27b94da232"
-					(reference "#PWR024")
 					(unit 1)
 				)
 			)
@@ -7898,72 +7800,6 @@
 		)
 	)
 	(symbol
-		(lib_id "power:+3.3V")
-		(at 184.15 104.14 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "cd488c0e-051d-4652-8e1a-a10d56048331")
-		(property "Reference" "#PWR031"
-			(at 184.15 107.95 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Value" "+3.3V"
-			(at 184.15 99.06 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 184.15 104.14 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" ""
-			(at 184.15 104.14 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "Power symbol creates a global label with name \"+3.3V\""
-			(at 184.15 104.14 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "2a76c4fc-81f0-443d-b376-c2a64be58f2a")
-		)
-		(instances
-			(project "esp32-controller"
-				(path "/1b61a099-fa01-45c5-bfa6-c1f023697108/13eaefed-e598-4605-b03d-de27b94da232"
-					(reference "#PWR031")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
 		(lib_id "Device:R")
 		(at 81.28 125.73 180)
 		(unit 1)
@@ -8506,4 +8342,161 @@
 			)
 		)
 	)
+	(symbol
+		(lib_id "power:PWR_FLAG")
+		(at 196.85 26.67 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "a5b0095a-5b13-486b-888f-c3c0e09ad37e")
+		(property "Reference" "#FLG04"
+			(at 114.3 22.225 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "PWR_FLAG"
+			(at 114.3 19.05 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 114.3 24.13 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 114.3 24.13 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Special symbol for telling ERC where power comes from"
+			(at 114.3 24.13 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "987975bc-5bd2-40f1-8828-02ea5319689b")
+		)
+		(instances
+			(project "esp32-controller"
+				(path "/1b61a099-fa01-45c5-bfa6-c1f023697108/13eaefed-e598-4605-b03d-de27b94da232"
+					(reference "#FLG04")
+					(unit 1)
+				)
+			)
+		)
+	)	(wire
+		(pts
+			(xy 196.85 26.67) (xy 196.85 29.21)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "0e83fecd-2a2e-4499-8c13-c662bff23162")
+	)
+
+	(no_connect
+		(at 93.98 135.89)
+		(uuid "e4954df5-d49c-4c52-841f-74771efab697")
+	)
+
+	(symbol
+		(lib_id "power:PWR_FLAG")
+		(at 255.27 102.87 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "90d248be-766d-4385-b781-d8bfec9a367c")
+		(property "Reference" "#FLG05"
+			(at 114.3 22.225 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "PWR_FLAG"
+			(at 114.3 19.05 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 114.3 24.13 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 114.3 24.13 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Special symbol for telling ERC where power comes from"
+			(at 114.3 24.13 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "e8fc18d7-9a65-4042-b9dd-c2e0973dcfe4")
+		)
+		(instances
+			(project "esp32-controller"
+				(path "/1b61a099-fa01-45c5-bfa6-c1f023697108/13eaefed-e598-4605-b03d-de27b94da232"
+					(reference "#FLG05")
+					(unit 1)
+				)
+			)
+		)
+	)	(wire
+		(pts
+			(xy 255.27 102.87) (xy 252.73 102.87)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "5cd9a7e4-049e-45ed-b075-d9f62cfba88e")
+	)
+
 )
