@@ -4548,6 +4548,16 @@
 	)
 	(wire
 		(pts
+			(xy 162.56 45.72) (xy 166.37 45.72)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "a1b2c3d4-e5f6-4789-abcd-1f0000000002")
+	)
+	(wire
+		(pts
 			(xy 101.6 146.05) (xy 101.6 148.59)
 		)
 		(stroke
@@ -4976,7 +4986,7 @@
 		)
 		(uuid "5eabd1f3-b649-48b7-8e09-56823a1a6cc6")
 	)
-	(label "VBAT"
+	(label "VPWR"
 		(at 267.97 90.17 0)
 		(effects
 			(font
@@ -4996,8 +5006,18 @@
 		)
 		(uuid "7b847807-f195-4e80-a714-1f0f0223eb4f")
 	)
+	(label "VPWR"
+		(at 180.34 29.21 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "a1b2c3d4-e5f6-4789-abcd-1f0000000001")
+	)
 	(label "VBAT"
-		(at 173.99 45.72 180)
+		(at 162.56 45.72 180)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -5929,10 +5949,9 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(fields_autoplaced yes)
 		(uuid "5d6287f8-6a07-49dc-b968-9e10c89b14d6")
 		(property "Reference" "C5"
-			(at 153.67 43.1799 0)
+			(at 151.638 39.37 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5941,7 +5960,7 @@
 			)
 		)
 		(property "Value" "10µF"
-			(at 153.67 45.7199 0)
+			(at 151.384 41.91 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6277,7 +6296,7 @@
 			)
 		)
 		(property "Value" "SI2305"
-			(at 173.736 40.386 90)
+			(at 182.626 38.354 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6920,6 +6939,74 @@
 			(project "esp32-controller"
 				(path "/1b61a099-fa01-45c5-bfa6-c1f023697108/13eaefed-e598-4605-b03d-de27b94da232"
 					(reference "U7")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Diode:SS14")
+		(at 170.18 45.72 180)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "a1b2c3d4-e5f6-4789-abcd-1f0000000007")
+		(property "Reference" "D7"
+			(at 170.4975 39.37 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "SS14"
+			(at 170.4975 41.91 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Diode_SMD:D_SMA"
+			(at 170.18 41.275 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://www.vishay.com/docs/88746/ss12.pdf"
+			(at 170.18 45.72 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "40V 1A Schottky Diode, SMA"
+			(at 170.18 45.72 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "a1b2c3d4-e5f6-4789-abcd-1f0000000071")
+		)
+		(pin "2"
+			(uuid "a1b2c3d4-e5f6-4789-abcd-1f0000000072")
+		)
+		(instances
+			(project "esp32-controller"
+				(path "/1b61a099-fa01-45c5-bfa6-c1f023697108/13eaefed-e598-4605-b03d-de27b94da232"
+					(reference "D7")
 					(unit 1)
 				)
 			)

@@ -113,6 +113,12 @@ Buttons use internal pull-up; active-low logic is inverted in software.
 
 Automatic USB/battery switching — no manual intervention required.
 
+### Requirements
+
+1. **USB connected** → ESP32 is powered from USB **and** the LiPo cell is charged.
+2. **USB disconnected** → ESP32 is powered from the LiPo cell.
+3. The crossover between USB and battery must happen **automatically**, with **no external control** (no switch, no MCU GPIO, no jumper). It must be fully analog/self-contained on the supply schematic.
+
 ### Topology
 
 ```mermaid
@@ -123,10 +129,12 @@ graph LR
     V33(["＋3.3 V"])
 
     USB  -->|"D6 SS14\nVf ≈ 0.3 V"| VPWR
-    VBAT -->|"U13 LTC4412 + Q3 SI2305\nideal diode · Vdrop ≈ 20 mV"| VPWR
+    VBAT -->|"D7 SS14 + Q3 SI2305 (LTC4412)\nVf ≈ 0.3 V + Vds ≈ 20 mV"| VPWR
     VPWR -->|"U9 AP2112K-3.3\nLDO 600 mA · 250 mV dropout"| V33
     USB  -->|"U5 TP4056\nCC/CV 1 A charger"| VBAT
 ```
+
+D7 is an inline Schottky between VBAT and Q3 source. It blocks Q3's intrinsic body-diode from injecting current into the battery whenever USB pulls VPWR above VBAT — without this diode the TP4056 charge path is bypassed during bulk charging. Cost: an extra ~0.3 V drop in the battery → load path; see voltage budget below.
 
 - **When USB present**: D6 conducts (VPWR ≈ 4.7V), Q3 is reverse-biased by LTC4412 → battery isolated
 - **When USB absent**: Q3 conducts (VPWR ≈ VBAT − 20mV), D6 reverse-biased → battery powers system
@@ -138,6 +146,7 @@ graph LR
 | U5 | TP4056-42-ESOP8 | ESOP-8 | LiPo charger (1A, CC/CV) |
 | D5 | — | — | removed; replaced by LTC4412 + Q3 (SI2305) |
 | D6 | SS14 | SMA | USB path diode |
+| D7 | SS14 | SMA | Battery path series Schottky — blocks Q3 body-diode reverse current |
 | U13 | LTC4412ES6 (marking: **LTA2**) | TSOT-23-6 | PowerPath controller |
 | Q3 | SI2305 | SOT-23 | P-ch MOSFET (VDS −20V, ID −4.1A, RDS 105–130mΩ) |
 | U9 | AP2112K-3.3 | SOT-23-5 | LDO 3.3V, 600mA, 250mV dropout |
@@ -145,22 +154,57 @@ graph LR
 > Q1 and Q2 are NPN BJTs (BCW66G) used by the CH340C UART auto-reset circuit, so the PowerPath PMOS is **Q3**.
 
 ### LTC4412 wiring
-- VIN + SENSE → VBAT
-- GATE → Q3 (SI2305) Gate (net `Q1_GATE`)
+- VIN → VBAT (chip is powered from the battery so it remains alive when USB is absent)
+- SENSE → VPWR (load-side / Q3 drain — required for the chip to detect when USB pulls VPWR above VBAT and turn Q3 off; do **not** tie SENSE to VBAT)
 - CTL → VIN (always enabled)
+- GATE → Q3 (SI2305) Gate (net `Q1_GATE`)
 - STAT → not connected
 - Q3 (SI2305): Source → VBAT, Drain → VPWR
 - PWR_FLAG #FLG04 on VPWR (declares the rail as externally supplied for ERC)
 
 ### Why AP2112K instead of AMS1117
 AMS1117 has 1.3V dropout — cannot regulate from LiPo (needs ≥4.6V in).
-AP2112K has 250mV dropout — works at VPWR = 3.72V (VBAT 3.7V − 20mV Q3).
+AP2112K has 250mV dropout — usable across the LiPo range, but only marginally now that D7 is inline; see budget below.
+
+### Battery-path voltage budget (with D7 inline)
+
+VPWR (battery side) = VBAT − Vf(D7) − Vds(Q3) ≈ VBAT − 0.32 V at light load.
+
+| VBAT | VPWR | AP2112K +3.3V output | Notes |
+|---|---|---|---|
+| 4.20 V (full) | ≈ 3.88 V | 3.30 V (in regulation) | margin 330 mV |
+| 3.70 V (nominal) | ≈ 3.38 V | ≈ 3.13 V (in dropout) | ESP32 still functional |
+| 3.30 V (low) | ≈ 2.98 V | ≈ 2.73 V | below ESP32 brown-out (~3.0 V), system shuts down |
+
+D7's ~0.3 V drop costs roughly 0.3 V of usable battery range compared to a no-Schottky design. If that becomes a problem, two options that don't have the dropout penalty: (a) replace D7 with a low-Vf SBR (e.g. SBR05U30LP, Vf ≈ 0.21 V at 0.5 A), or (b) drop D7 entirely and add a back-to-back PMOS pair so neither body diode can conduct in the unwanted direction.
 
 ### TP4056 notes
 - TEMP pin → VCC (not GND) when no NTC thermistor used; TEMP=GND permanently disables charging
 - EPAD → GND
 - CC1/CC2 on USB-C connector → 5.1kΩ pull-downs to GND (sink mode, required for USB-C chargers)
 - ~STDBY (pin 6) is `no_connect` — no charge-complete LED indicator wired in this design
+
+### Verification against requirements (status: 2026-05-08)
+
+Source of truth: `kicad-cli sch export netlist --format kicadsexpr` against `kicad/esp32-controller.kicad_sch`. Reviewed only the schematic, not the PCB.
+
+**What is correctly implemented:**
+- USB → VPWR path: D6 (SS14) anode on VBUS, cathode on VPWR; AP2112K Vin/EN tied to VPWR. Forward-biased with USB present, reverse-biased without. ✓
+- TP4056 charge path: VBUS → U5 V_CC, CE tied high (always enabled), TEMP tied high (NTC disabled by design), PROG resistor sets I_CHG. BAT pin → VBAT through DW01A + 8205A protection cell. Charges whenever USB is present. ✓
+- VPWR → +3.3V via U9 AP2112K-3.3, EN tied to Vin (regulator always on). ✓
+- Switching strategy is fully analog (LTC4412 + PMOS + Schottky); no GPIO, switch, or jumper involved → satisfies the "no external control" requirement at the topology level. ✓
+
+**Resolved — `U13` SENSE pin wiring (fixed 2026-05-08):**
+
+Per the LTC4412 datasheet (Figure 1 and Electrical Characteristics V_FR / V_RTO), `SENSE` must be connected to the **load side of the external PMOS** (i.e. Q3 drain = VPWR). The chip switches the PMOS off when `V_SENSE − V_IN > 20 mV` — that is what gives "auxiliary supply detected → disconnect battery from load".
+
+Previously `SENSE` (U13 pin 6) was tied to **VBAT** (same net as VIN + CTL). With that wiring the chip could not detect USB presence and kept Q3 fully on, short-circuiting the TP4056 charge path through Q3's channel.
+
+The fix relabelled U13's SENSE stub wire to `VPWR` and added a matching `VPWR` net label on the D6→AP2112K rail, so SENSE now joins the same net as Q3 drain, D6 cathode, and U9 Vin/EN. Verified via `kicad-cli sch export netlist`: U13 pin 6 is on `/supply/VPWR`; VBAT contains only VIN, CTL, Q3 source, and the TP4056 BAT pin.
+
+**Resolved — PMOS body-diode path (fixed 2026-05-08):**
+
+D7 (SS14) was added in series between VBAT and Q3 source (anode = VBAT, cathode = Q3 source). The Schottky is reverse-biased whenever VPWR > VBAT, so Q3's body-diode current path back into the battery is blocked. Verified via netlist: `Net-(D7-K)` contains exactly D7 K and Q3 S; VBAT now contains D7 A in place of the former direct Q3-source connection. Trade-off: ~0.3 V additional drop in the battery → load path, documented in the voltage budget table above.
 
 ### ERC pin-type tweaks (embedded library copies)
 A few stock symbols had `pin_type` annotations that triggered ERC false-positives once the supply network was complete. The **embedded** copies in the schematic file have been adjusted (the upstream libraries are unchanged, hence the resulting `lib_symbol_mismatch` warnings are expected):
