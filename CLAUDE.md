@@ -123,40 +123,50 @@ graph LR
     V33(["＋3.3 V"])
 
     USB  -->|"D6 SS14\nVf ≈ 0.3 V"| VPWR
-    VBAT -->|"LTC4412 + SI2301\nideal diode · Vdrop ≈ 20 mV"| VPWR
-    VPWR -->|"U12 AP2112K-3.3\nLDO 600 mA · 250 mV dropout"| V33
+    VBAT -->|"U13 LTC4412 + Q3 SI2305\nideal diode · Vdrop ≈ 20 mV"| VPWR
+    VPWR -->|"U9 AP2112K-3.3\nLDO 600 mA · 250 mV dropout"| V33
     USB  -->|"U5 TP4056\nCC/CV 1 A charger"| VBAT
 ```
 
-- **When USB present**: D6 conducts (VPWR ≈ 4.7V), SI2301 is reverse-biased by LTC4412 → battery isolated
-- **When USB absent**: SI2301 conducts (VPWR ≈ VBAT − 20mV), D6 reverse-biased → battery powers system
+- **When USB present**: D6 conducts (VPWR ≈ 4.7V), Q3 is reverse-biased by LTC4412 → battery isolated
+- **When USB absent**: Q3 conducts (VPWR ≈ VBAT − 20mV), D6 reverse-biased → battery powers system
 
 ### Components
 
 | Ref | Part | Package | Function |
 |---|---|---|---|
 | U5 | TP4056-42-ESOP8 | ESOP-8 | LiPo charger (1A, CC/CV) |
-| D5 | — | — | removed; replaced by LTC4412+SI2301 |
+| D5 | — | — | removed; replaced by LTC4412 + Q3 (SI2305) |
 | D6 | SS14 | SMA | USB path diode |
 | U13 | LTC4412ES6 (marking: **LTA2**) | TSOT-23-6 | PowerPath controller |
-| Q1 | SI2305 | SOT-23 | P-ch MOSFET (VDS −20V, ID −4.1A, RDS 105–130mΩ) |
-| U12 | AP2112K-3.3 | SOT-23-5 | LDO 3.3V, 600mA, 250mV dropout |
+| Q3 | SI2305 | SOT-23 | P-ch MOSFET (VDS −20V, ID −4.1A, RDS 105–130mΩ) |
+| U9 | AP2112K-3.3 | SOT-23-5 | LDO 3.3V, 600mA, 250mV dropout |
+
+> Q1 and Q2 are NPN BJTs (BCW66G) used by the CH340C UART auto-reset circuit, so the PowerPath PMOS is **Q3**.
 
 ### LTC4412 wiring
 - VIN + SENSE → VBAT
-- GATE → SI2301 Gate
+- GATE → Q3 (SI2305) Gate (net `Q1_GATE`)
 - CTL → VIN (always enabled)
-- STAT → optional (open or pulled up to signal USB presence)
-- SI2301: Source → VBAT, Drain → VPWR
+- STAT → not connected
+- Q3 (SI2305): Source → VBAT, Drain → VPWR
+- PWR_FLAG #FLG04 on VPWR (declares the rail as externally supplied for ERC)
 
 ### Why AP2112K instead of AMS1117
 AMS1117 has 1.3V dropout — cannot regulate from LiPo (needs ≥4.6V in).
-AP2112K has 250mV dropout — works at VPWR = 3.72V (VBAT 3.7V − 20mV SI2301).
+AP2112K has 250mV dropout — works at VPWR = 3.72V (VBAT 3.7V − 20mV Q3).
 
 ### TP4056 notes
 - TEMP pin → VCC (not GND) when no NTC thermistor used; TEMP=GND permanently disables charging
 - EPAD → GND
 - CC1/CC2 on USB-C connector → 5.1kΩ pull-downs to GND (sink mode, required for USB-C chargers)
+- ~STDBY (pin 6) is `no_connect` — no charge-complete LED indicator wired in this design
+
+### ERC pin-type tweaks (embedded library copies)
+A few stock symbols had `pin_type` annotations that triggered ERC false-positives once the supply network was complete. The **embedded** copies in the schematic file have been adjusted (the upstream libraries are unchanged, hence the resulting `lib_symbol_mismatch` warnings are expected):
+- `Simulation_SPICE:NPN` — Q1/Q2 collector & emitter `open_collector`/`open_emitter` → `passive`
+- `PCM_yvolodym:8205A` — D1/D2 drains `output` → `passive`
+- `Interface_USB:CH340C` — V3 pin `power_output` → `power_input` (CH340C runs in self-power mode with V3 tied to VCC externally)
 
 ## Key Notes
 
