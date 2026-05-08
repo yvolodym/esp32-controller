@@ -156,7 +156,7 @@ D7 is an inline Schottky between VBAT and Q3 source. It blocks Q3's intrinsic bo
 ### LTC4412 wiring
 - VIN → VBAT (chip is powered from the battery so it remains alive when USB is absent)
 - SENSE → VPWR (load-side / Q3 drain — required for the chip to detect when USB pulls VPWR above VBAT and turn Q3 off; do **not** tie SENSE to VBAT)
-- CTL → VIN (always enabled)
+- CTL → GND (CTL is active-low: low or open allows the PFET to switch normally; CTL high *forces* the PFET off — datasheet Description and CTL section, V_IH ≥ 0.9 V)
 - GATE → Q3 (SI2305) Gate (net `Q1_GATE`)
 - STAT → not connected
 - Q3 (SI2305): Source → VBAT, Drain → VPWR
@@ -205,6 +205,12 @@ The fix relabelled U13's SENSE stub wire to `VPWR` and added a matching `VPWR` n
 **Resolved — PMOS body-diode path (fixed 2026-05-08):**
 
 D7 (SS14) was added in series between VBAT and Q3 source (anode = VBAT, cathode = Q3 source). The Schottky is reverse-biased whenever VPWR > VBAT, so Q3's body-diode current path back into the battery is blocked. Verified via netlist: `Net-(D7-K)` contains exactly D7 K and Q3 S; VBAT now contains D7 A in place of the former direct Q3-source connection. Trade-off: ~0.3 V additional drop in the battery → load path, documented in the voltage budget table above.
+
+**Resolved — U12 CTL pin tied to VBAT (fixed 2026-05-08):**
+
+The LTC4412 CTL pin is active-low: a logic high *forces* the external PFET off (datasheet, Description, page 1: "The control (CTL) input enables the user to force the primary MOSFET off"). Previously U12 pin 3 (CTL) was wired to the same net as VIN (VBAT, ≈ 3.7–4.2 V) — well above V_IH = 0.9 V — so the chip held GATE deasserted and Q3 was permanently off. With USB unplugged the load saw no battery path and the system did not power up.
+
+The fix removed the vertical stub between U12 pin 1 and pin 3 and tied CTL directly to GND via a power symbol. Verified via netlist: U12 pin 3 (CTL) is now on `GND`; VBAT no longer lists U12 pin 3.
 
 ### ERC pin-type tweaks (embedded library copies)
 A few stock symbols had `pin_type` annotations that triggered ERC false-positives once the supply network was complete. The **embedded** copies in the schematic file have been adjusted (the upstream libraries are unchanged, hence the resulting `lib_symbol_mismatch` warnings are expected):
