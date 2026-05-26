@@ -27,9 +27,13 @@
 #define ST7789_DISPON        0x29
 #define ST7789_INVON         0x21
 
-// Display dimensions (landscape mode)
+// Display dimensions (1.9" 170x320 panel, landscape mode)
 #define ST7789_WIDTH         320
-#define ST7789_HEIGHT        240
+#define ST7789_HEIGHT        170
+
+// Pixel offset for 1.9" T190X7 panel (Landscape, MADCTL=0x60)
+#define ST7789_X_OFFSET      0
+#define ST7789_Y_OFFSET      35
 
 // Font dimensions (simple 8x8 font)
 #define FONT_WIDTH           8

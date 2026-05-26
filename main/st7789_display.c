@@ -192,17 +192,19 @@ esp_err_t st7789_init(st7789_display_t *display) {
 
 // Set drawing window
 esp_err_t st7789_set_window(st7789_display_t *display, uint16_t x0, uint16_t y0, uint16_t x1, uint16_t y1) {
-    // Column address set
+    x0 += ST7789_X_OFFSET;
+    x1 += ST7789_X_OFFSET;
+    y0 += ST7789_Y_OFFSET;
+    y1 += ST7789_Y_OFFSET;
+
     st7789_send_cmd(display, ST7789_CASET);
     uint8_t col_data[4] = {x0 >> 8, x0 & 0xFF, x1 >> 8, x1 & 0xFF};
     st7789_send_data(display, col_data, 4);
 
-    // Row address set
     st7789_send_cmd(display, ST7789_RASET);
     uint8_t row_data[4] = {y0 >> 8, y0 & 0xFF, y1 >> 8, y1 & 0xFF};
     st7789_send_data(display, row_data, 4);
 
-    // Write to RAM
     st7789_send_cmd(display, ST7789_RAMWR);
 
     return ESP_OK;
