@@ -3,15 +3,15 @@
 // (50% Duty, 0 V / 3.3 V) aus, damit jede Leitung mit dem Oszilloskop
 // auf Durchgang/Kontaktprobleme geprueft werden kann.
 //
-// J1 Pinbelegung (laut Schaltplan, verifiziert):
-//   Pin 1 = +3.3 V        (statisch)
-//   Pin 2 = GPIO18  (SCK) -> 1 kHz
-//   Pin 3 = GPIO23  (MOSI)-> 1 kHz
-//   Pin 4 = GPIO4   (RST) -> 1 kHz
-//   Pin 5 = GPIO2   (DC)  -> 1 kHz
-//   Pin 6 = GPIO5   (CS)  -> 1 kHz
-//   Pin 7 = GPIO15  (BL)  -> 1 kHz
-//   Pin 8 = nc            (floating, kein Signal)
+// J1 Pinbelegung (laut Schaltplan, verifiziert via KiCad):
+//   Pin 1 = GPIO15 (BLK)  -> 1 kHz
+//   Pin 2 = GPIO5  (CS)   -> 1 kHz
+//   Pin 3 = GPIO2  (DC)   -> 1 kHz
+//   Pin 4 = GPIO4  (RES)  -> 1 kHz
+//   Pin 5 = GPIO23 (SDA)  -> 1 kHz
+//   Pin 6 = GPIO18 (SCL)  -> 1 kHz
+//   Pin 7 = +3.3 V        (statisch DC, kein Signal)
+//   Pin 8 = GND           (0 V, kein Signal)
 
 #include <freertos/FreeRTOS.h>
 #include <freertos/task.h>
