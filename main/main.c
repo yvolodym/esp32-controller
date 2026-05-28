@@ -229,7 +229,17 @@ static void send_data(void) {
     txData.joy1_btn = !gpio_get_level(JOY1_BTN_PIN);
     txData.joy2_btn = !gpio_get_level(JOY2_BTN_PIN);
 
-    // Battery level (not implemented - set to 100%)
+    // TODO(battery-sense): replace the hardcoded 100% with a real VBAT reading.
+    //   Hardware prerequisite: 220k/100k divider from VBAT to GPIO36 (SENSOR_VP,
+    //   ADC1_CH0) with 100nF to GND — added on supply.kicad_sch (R17/R18/C9,
+    //   net VBAT_SENSE). Ratio 0.3125: VBAT 4.2V→1.31V, 3.0V→0.94V (within the
+    //   linear ADC region at ATTEN_DB_12).
+    //   Software steps when hardware is populated:
+    //     1. Add ADC_CHANNEL_0 (GPIO36) to adc1_handle init in init_adc().
+    //     2. Calibrate with the existing curve/line-fit fallback used for the joysticks.
+    //     3. Average 16–64 samples, then map mV → percent via LiPo discharge curve
+    //        (or linear 3.0V=0%, 4.2V=100% as a first cut).
+    //     4. Replace the literal below with the result.
     txData.batteryLevel = 100;
 
     // Send data

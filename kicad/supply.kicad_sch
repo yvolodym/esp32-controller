@@ -3711,6 +3711,12 @@
 		(uuid "464b4db4-31b9-463f-adc5-81abebb04176")
 	)
 	(junction
+		(at 130.81 109.22)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "477f200f-f6ad-4919-89b8-a14e71b49634")
+	)
+	(junction
 		(at 195.58 119.38)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -4380,6 +4386,16 @@
 	)
 	(wire
 		(pts
+			(xy 130.81 105.41) (xy 130.81 109.22)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "7d319dc8-91ae-48c7-b550-aa3abcdd7c43")
+	)
+	(wire
+		(pts
 			(xy 196.85 29.21) (xy 198.12 29.21)
 		)
 		(stroke
@@ -5017,6 +5033,17 @@
 			(justify right)
 		)
 		(uuid "b2b2c3d4-e5f6-4789-abcd-ee0000000064")
+	)
+	(hierarchical_label "HVBAT"
+		(shape input)
+		(at 130.81 105.41 90)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "0f28bac7-a7fc-4f91-917c-3ec2e8d539fe")
 	)
 	(hierarchical_label "D-"
 		(shape input)
