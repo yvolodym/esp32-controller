@@ -168,9 +168,9 @@ esp_err_t st7789_init(st7789_display_t *display) {
     uint8_t color_mode = 0x55; // 16-bit/pixel
     st7789_send_data(display, &color_mode, 1);
 
-    // Memory data access control (0x60 = Landscape mode: MV + MX bits set)
+    // Memory data access control (0xA0 = Landscape rotated 180°: MV + MY bits set)
     st7789_send_cmd(display, ST7789_MADCTL);
-    uint8_t madctl = 0x60;  // Landscape orientation
+    uint8_t madctl = 0xA0;  // Landscape orientation, 180° rotated
     st7789_send_data(display, &madctl, 1);
 
     // Inversion on
@@ -291,15 +291,15 @@ void st7789_display_joystick_data(st7789_display_t *display, int16_t joy1_x, int
     // Display Title
     st7789_draw_string(display, 10, 10, "ESP32 Controller", ST7789_CYAN, ST7789_BLACK);
 
-    // Display Joystick 1
-    snprintf(buffer, sizeof(buffer), "J1: X:%4d Y:%4d", joy1_x, joy1_y);
+    // Display Joystick 1 (Right)
+    snprintf(buffer, sizeof(buffer), "RIGHT: X:%4d Y:%4d", joy1_x, joy1_y);
     st7789_draw_string(display, 10, 10 + line_height * 2, buffer, ST7789_WHITE, ST7789_BLACK);
 
     snprintf(buffer, sizeof(buffer), "BTN: %s", joy1_btn ? "PRESSED" : "RELEASED");
     st7789_draw_string(display, 10, 10 + line_height * 3, buffer, joy1_btn ? ST7789_GREEN : ST7789_RED, ST7789_BLACK);
 
-    // Display Joystick 2
-    snprintf(buffer, sizeof(buffer), "J2: X:%4d Y:%4d", joy2_x, joy2_y);
+    // Display Joystick 2 (Left)
+    snprintf(buffer, sizeof(buffer), "LEFT: X:%4d Y:%4d", joy2_x, joy2_y);
     st7789_draw_string(display, 10, 10 + line_height * 5, buffer, ST7789_WHITE, ST7789_BLACK);
 
     snprintf(buffer, sizeof(buffer), "BTN: %s", joy2_btn ? "PRESSED" : "RELEASED");

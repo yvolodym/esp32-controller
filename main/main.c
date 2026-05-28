@@ -50,6 +50,11 @@ static adc_oneshot_unit_handle_t adc1_handle;
 static adc_cali_handle_t adc1_cali_handle = NULL;
 static bool adc_calibrated = false;
 
+// Per-axis center reference (set by calibrate_joystick_centers at boot).
+// Order: J1_X, J1_Y, J2_X, J2_Y. Stored in the same coordinate space as
+// the post-voltage-calibration ADC value used in calibrateJoystick().
+static int joy_centers[4] = {2048, 2048, 2048, 2048};
+
 // Display handle
 static st7789_display_t display = {0};
 
@@ -78,20 +83,42 @@ static void espnow_send_cb(const uint8_t *mac_addr, esp_now_send_status_t status
     }
 }
 
-// Joystick calibration
-static int16_t calibrateJoystick(int rawValue) {
-    int voltage = rawValue;
-
-    // Use calibrated voltage if available
+// Convert raw ADC reading to voltage-calibrated equivalent (0..4095 space).
+static int adc_to_calibrated(int rawValue) {
     if (adc_calibrated && adc1_cali_handle != NULL) {
+        int voltage = rawValue;
         adc_cali_raw_to_voltage(adc1_cali_handle, rawValue, &voltage);
-        // Convert mV to ADC equivalent range (0-3300mV to 0-4095)
-        rawValue = (voltage * 4095) / 3300;
+        return (voltage * 4095) / 3300;
     }
+    return rawValue;
+}
 
-    int16_t mapped = (int16_t)((rawValue - 2048) * 512 / 2048);  // Map 0-4095 to -512..512
+// Joystick calibration — uses per-axis center captured at boot.
+static int16_t calibrateJoystick(int rawValue, int center) {
+    int v = adc_to_calibrated(rawValue);
+    int16_t mapped = (int16_t)((v - center) * 512 / 2048);
     if (abs(mapped) < DEADZONE) return 0;
     return mapped;
+}
+
+// Sample all 4 axes with sticks at rest and store the average as the zero reference.
+static void calibrate_joystick_centers(void) {
+    const int SAMPLES = 32;
+    const adc_channel_t channels[4] = {JOY1_X_PIN, JOY1_Y_PIN, JOY2_X_PIN, JOY2_Y_PIN};
+    int sums[4] = {0};
+    for (int s = 0; s < SAMPLES; s++) {
+        for (int i = 0; i < 4; i++) {
+            int raw;
+            ESP_ERROR_CHECK(adc_oneshot_read(adc1_handle, channels[i], &raw));
+            sums[i] += adc_to_calibrated(raw);
+        }
+        vTaskDelay(pdMS_TO_TICKS(5));
+    }
+    for (int i = 0; i < 4; i++) {
+        joy_centers[i] = sums[i] / SAMPLES;
+    }
+    ESP_LOGI(TAG, "Joystick centers: J1=(%d,%d) J2=(%d,%d)",
+             joy_centers[0], joy_centers[1], joy_centers[2], joy_centers[3]);
 }
 
 // GPIO initialization for buttons
@@ -187,16 +214,16 @@ static void send_data(void) {
 
     // Read joysticks
     ESP_ERROR_CHECK(adc_oneshot_read(adc1_handle, JOY1_X_PIN, &raw_value));
-    txData.joy1_x = calibrateJoystick(raw_value);
+    txData.joy1_x = calibrateJoystick(raw_value, joy_centers[0]);
 
     ESP_ERROR_CHECK(adc_oneshot_read(adc1_handle, JOY1_Y_PIN, &raw_value));
-    txData.joy1_y = calibrateJoystick(raw_value);
+    txData.joy1_y = calibrateJoystick(raw_value, joy_centers[1]);
 
     ESP_ERROR_CHECK(adc_oneshot_read(adc1_handle, JOY2_X_PIN, &raw_value));
-    txData.joy2_x = calibrateJoystick(raw_value);
+    txData.joy2_x = calibrateJoystick(raw_value, joy_centers[2]);
 
     ESP_ERROR_CHECK(adc_oneshot_read(adc1_handle, JOY2_Y_PIN, &raw_value));
-    txData.joy2_y = calibrateJoystick(raw_value);
+    txData.joy2_y = calibrateJoystick(raw_value, joy_centers[3]);
 
     // Read buttons (invert due to PULLUP)
     txData.joy1_btn = !gpio_get_level(JOY1_BTN_PIN);
@@ -277,6 +304,7 @@ void app_main(void) {
     // Initialize components
     init_gpio();
     init_adc();
+    calibrate_joystick_centers();
     init_wifi_espnow();
 
     // Update display: System ready
