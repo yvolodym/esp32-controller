@@ -210,16 +210,24 @@ esp_err_t st7789_set_window(st7789_display_t *display, uint16_t x0, uint16_t y0,
     return ESP_OK;
 }
 
-// Fill screen with color
+// Fill screen with color — chunked SPI transfers
 esp_err_t st7789_fill_screen(st7789_display_t *display, uint16_t color) {
     st7789_set_window(display, 0, 0, ST7789_WIDTH - 1, ST7789_HEIGHT - 1);
 
-    // Prepare color data (big endian)
-    uint8_t color_data[2] = {color >> 8, color & 0xFF};
+    #define CHUNK_PIXELS 512
+    static uint8_t chunk_buf[CHUNK_PIXELS * 2];
+    uint8_t hi = color >> 8;
+    uint8_t lo = color & 0xFF;
+    for (int i = 0; i < CHUNK_PIXELS; i++) {
+        chunk_buf[i * 2]     = hi;
+        chunk_buf[i * 2 + 1] = lo;
+    }
 
-    // Send color for each pixel
-    for (int i = 0; i < ST7789_WIDTH * ST7789_HEIGHT; i++) {
-        st7789_send_data(display, color_data, 2);
+    int remaining = ST7789_WIDTH * ST7789_HEIGHT;
+    while (remaining > 0) {
+        int n = remaining > CHUNK_PIXELS ? CHUNK_PIXELS : remaining;
+        st7789_send_data(display, chunk_buf, n * 2);
+        remaining -= n;
     }
 
     return ESP_OK;
@@ -236,44 +244,55 @@ esp_err_t st7789_write_pixel(st7789_display_t *display, uint16_t x, uint16_t y, 
     return ESP_OK;
 }
 
-// Draw single character with scaling
-esp_err_t st7789_draw_char(st7789_display_t *display, uint16_t x, uint16_t y, char c, uint16_t color, uint16_t bg_color) {
+// Draw single character at given integer scale — one window + one SPI transfer per char
+#define ST7789_MAX_DRAW_SCALE 4
+esp_err_t st7789_draw_char_scaled(st7789_display_t *display, uint16_t x, uint16_t y, char c, uint16_t color, uint16_t bg_color, uint8_t scale) {
     if (c < 32 || c > 90) c = 32; // Space for unsupported chars
+    if (scale < 1) scale = 1;
+    if (scale > ST7789_MAX_DRAW_SCALE) scale = ST7789_MAX_DRAW_SCALE;
 
     const uint8_t *glyph = font8x8[c - 32];
+    const uint16_t w = FONT_WIDTH * scale;
+    const uint16_t h = FONT_HEIGHT * scale;
 
-    // Draw character with scaling
+    const uint8_t fg[2] = {color >> 8, color & 0xFF};
+    const uint8_t bg[2] = {bg_color >> 8, bg_color & 0xFF};
+
+    // Worst-case buffer at MAX scale: 8*4 * 8*4 * 2 = 2048 bytes
+    static uint8_t pixbuf[FONT_WIDTH * ST7789_MAX_DRAW_SCALE * FONT_HEIGHT * ST7789_MAX_DRAW_SCALE * 2];
+
+    int idx = 0;
     for (int row = 0; row < FONT_HEIGHT; row++) {
-        for (int col = 0; col < FONT_WIDTH; col++) {
-            uint16_t pixel_color = (glyph[row] & (1 << col)) ? color : bg_color;
-
-            // Draw scaled pixel (FONT_SCALE x FONT_SCALE block)
-            for (int sy = 0; sy < FONT_SCALE; sy++) {
-                for (int sx = 0; sx < FONT_SCALE; sx++) {
-                    st7789_write_pixel(display,
-                                     x + col * FONT_SCALE + sx,
-                                     y + row * FONT_SCALE + sy,
-                                     pixel_color);
+        for (int sy = 0; sy < scale; sy++) {
+            for (int col = 0; col < FONT_WIDTH; col++) {
+                const uint8_t *px = (glyph[row] & (1 << col)) ? fg : bg;
+                for (int sx = 0; sx < scale; sx++) {
+                    pixbuf[idx++] = px[0];
+                    pixbuf[idx++] = px[1];
                 }
             }
         }
     }
 
+    st7789_set_window(display, x, y, x + w - 1, y + h - 1);
+    st7789_send_data(display, pixbuf, w * h * 2);
+
     return ESP_OK;
 }
 
-// Draw string with scaling
-esp_err_t st7789_draw_string(st7789_display_t *display, uint16_t x, uint16_t y, const char *str, uint16_t color, uint16_t bg_color) {
+// Draw string at given integer scale
+esp_err_t st7789_draw_string_scaled(st7789_display_t *display, uint16_t x, uint16_t y, const char *str, uint16_t color, uint16_t bg_color, uint8_t scale) {
+    if (scale < 1) scale = 1;
     uint16_t cursor_x = x;
     uint16_t cursor_y = y;
 
     while (*str) {
         if (*str == '\n') {
             cursor_x = x;
-            cursor_y += (FONT_HEIGHT * FONT_SCALE) + 2;
+            cursor_y += (FONT_HEIGHT * scale) + 2;
         } else {
-            st7789_draw_char(display, cursor_x, cursor_y, *str, color, bg_color);
-            cursor_x += (FONT_WIDTH * FONT_SCALE);
+            st7789_draw_char_scaled(display, cursor_x, cursor_y, *str, color, bg_color, scale);
+            cursor_x += (FONT_WIDTH * scale);
         }
         str++;
     }
@@ -281,31 +300,45 @@ esp_err_t st7789_draw_string(st7789_display_t *display, uint16_t x, uint16_t y, 
     return ESP_OK;
 }
 
-// Display joystick data (landscape layout with scaled font)
+esp_err_t st7789_draw_char(st7789_display_t *display, uint16_t x, uint16_t y, char c, uint16_t color, uint16_t bg_color) {
+    return st7789_draw_char_scaled(display, x, y, c, color, bg_color, FONT_SCALE);
+}
+
+esp_err_t st7789_draw_string(st7789_display_t *display, uint16_t x, uint16_t y, const char *str, uint16_t color, uint16_t bg_color) {
+    return st7789_draw_string_scaled(display, x, y, str, color, bg_color, FONT_SCALE);
+}
+
+// Horizontally center a string on the display at row y for the given scale.
+esp_err_t st7789_draw_string_centered(st7789_display_t *display, uint16_t y, const char *str, uint16_t color, uint16_t bg_color, uint8_t scale) {
+    if (scale < 1) scale = 1;
+    size_t len = strlen(str);
+    uint16_t text_w = (uint16_t)(len * FONT_WIDTH * scale);
+    uint16_t x = (text_w >= ST7789_WIDTH) ? 0 : (ST7789_WIDTH - text_w) / 2;
+    return st7789_draw_string_scaled(display, x, y, str, color, bg_color, scale);
+}
+
+// Display joystick deviation and battery in a compact, smaller font.
+// (Button state and title intentionally omitted per user request.)
 void st7789_display_joystick_data(st7789_display_t *display, int16_t joy1_x, int16_t joy1_y,
                                    int16_t joy2_x, int16_t joy2_y, bool joy1_btn, bool joy2_btn,
                                    uint8_t battery) {
+    (void)joy1_btn;
+    (void)joy2_btn;
+
     char buffer[64];
-    const uint16_t line_height = (FONT_HEIGHT * FONT_SCALE) + 4;  // Spacing between lines
+    const uint8_t scale = FONT_SCALE;
+    const uint16_t line_height = (FONT_HEIGHT * scale) + 6;
+    const uint16_t x_left = 10;
+    uint16_t y = 10;
 
-    // Display Title
-    st7789_draw_string(display, 10, 10, "ESP32 Controller", ST7789_CYAN, ST7789_BLACK);
+    snprintf(buffer, sizeof(buffer), "RIGHT %+5d %+5d", joy1_x, joy1_y);
+    st7789_draw_string_scaled(display, x_left, y, buffer, ST7789_WHITE, ST7789_BLACK, scale);
+    y += line_height;
 
-    // Display Joystick 1 (Right)
-    snprintf(buffer, sizeof(buffer), "RIGHT: X:%4d Y:%4d", joy1_x, joy1_y);
-    st7789_draw_string(display, 10, 10 + line_height * 2, buffer, ST7789_WHITE, ST7789_BLACK);
+    snprintf(buffer, sizeof(buffer), "LEFT  %+5d %+5d", joy2_x, joy2_y);
+    st7789_draw_string_scaled(display, x_left, y, buffer, ST7789_WHITE, ST7789_BLACK, scale);
+    y += line_height;
 
-    snprintf(buffer, sizeof(buffer), "BTN: %s", joy1_btn ? "PRESSED" : "RELEASED");
-    st7789_draw_string(display, 10, 10 + line_height * 3, buffer, joy1_btn ? ST7789_GREEN : ST7789_RED, ST7789_BLACK);
-
-    // Display Joystick 2 (Left)
-    snprintf(buffer, sizeof(buffer), "LEFT: X:%4d Y:%4d", joy2_x, joy2_y);
-    st7789_draw_string(display, 10, 10 + line_height * 5, buffer, ST7789_WHITE, ST7789_BLACK);
-
-    snprintf(buffer, sizeof(buffer), "BTN: %s", joy2_btn ? "PRESSED" : "RELEASED");
-    st7789_draw_string(display, 10, 10 + line_height * 6, buffer, joy2_btn ? ST7789_GREEN : ST7789_RED, ST7789_BLACK);
-
-    // Display Battery
-    snprintf(buffer, sizeof(buffer), "BATTERY: %3d%%", battery);
-    st7789_draw_string(display, 10, 10 + line_height * 8, buffer, ST7789_YELLOW, ST7789_BLACK);
+    snprintf(buffer, sizeof(buffer), "BATTERY %3d%%   ", battery);
+    st7789_draw_string_scaled(display, x_left, y, buffer, ST7789_YELLOW, ST7789_BLACK, scale);
 }

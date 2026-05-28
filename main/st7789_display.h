@@ -64,6 +64,9 @@ esp_err_t st7789_set_window(st7789_display_t *display, uint16_t x0, uint16_t y0,
 esp_err_t st7789_write_pixel(st7789_display_t *display, uint16_t x, uint16_t y, uint16_t color);
 esp_err_t st7789_draw_string(st7789_display_t *display, uint16_t x, uint16_t y, const char *str, uint16_t color, uint16_t bg_color);
 esp_err_t st7789_draw_char(st7789_display_t *display, uint16_t x, uint16_t y, char c, uint16_t color, uint16_t bg_color);
+esp_err_t st7789_draw_string_scaled(st7789_display_t *display, uint16_t x, uint16_t y, const char *str, uint16_t color, uint16_t bg_color, uint8_t scale);
+esp_err_t st7789_draw_char_scaled(st7789_display_t *display, uint16_t x, uint16_t y, char c, uint16_t color, uint16_t bg_color, uint8_t scale);
+esp_err_t st7789_draw_string_centered(st7789_display_t *display, uint16_t y, const char *str, uint16_t color, uint16_t bg_color, uint8_t scale);
 void st7789_display_joystick_data(st7789_display_t *display, int16_t joy1_x, int16_t joy1_y, int16_t joy2_x, int16_t joy2_y, bool joy1_btn, bool joy2_btn, uint8_t battery);
 
 #endif // ST7789_DISPLAY_H

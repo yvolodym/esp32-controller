@@ -289,12 +289,11 @@ void app_main(void) {
     ESP_LOGI(TAG, "Initializing ST7789 display...");
     ret = st7789_init(&display);
     if (ret == ESP_OK) {
-        // Clear screen with black
+        // Display 320x170 — two centered lines at FONT_SCALE=2 (16x16 px chars).
+        // Vertical center of two 16 px lines + 10 px gap = (170-42)/2 = 64.
         st7789_fill_screen(&display, ST7789_BLACK);
-
-        // Display welcome message
-        st7789_draw_string(&display, 40, 80, "ESP32 CONTROLLER", ST7789_CYAN, ST7789_BLACK);
-        st7789_draw_string(&display, 60, 100, "Initializing...", ST7789_WHITE, ST7789_BLACK);
+        st7789_draw_string_centered(&display, 64, "ESP32 CONTROLLER", ST7789_CYAN, ST7789_BLACK, FONT_SCALE);
+        st7789_draw_string_centered(&display, 90, "INITIALIZING...", ST7789_WHITE, ST7789_BLACK, FONT_SCALE);
 
         ESP_LOGI(TAG, "Display initialized and welcome message shown");
     } else {
@@ -310,8 +309,8 @@ void app_main(void) {
     // Update display: System ready
     if (display.initialized) {
         st7789_fill_screen(&display, ST7789_BLACK);
-        st7789_draw_string(&display, 40, 80, "ESP32 CONTROLLER", ST7789_GREEN, ST7789_BLACK);
-        st7789_draw_string(&display, 70, 100, "System Ready!", ST7789_YELLOW, ST7789_BLACK);
+        st7789_draw_string_centered(&display, 64, "ESP32 CONTROLLER", ST7789_GREEN, ST7789_BLACK, FONT_SCALE);
+        st7789_draw_string_centered(&display, 90, "SYSTEM READY!", ST7789_YELLOW, ST7789_BLACK, FONT_SCALE);
     }
 
     // Short delay for stabilization
@@ -320,8 +319,6 @@ void app_main(void) {
     // Clear screen for data display
     if (display.initialized) {
         st7789_fill_screen(&display, ST7789_BLACK);
-        st7789_draw_string(&display, 30, 10, "ESP32 CONTROLLER", ST7789_CYAN, ST7789_BLACK);
-        st7789_draw_string(&display, 50, 30, "Live Data:", ST7789_WHITE, ST7789_BLACK);
     }
 
     // Create main task

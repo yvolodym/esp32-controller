@@ -110,6 +110,23 @@ Buttons use internal pull-up; active-low logic is inverted in software.
 > ADC values and a stick that "did not react"; fixed by moving joy1 to
 > GPIO32/33 (the pins the schematic actually wires to U2).
 
+#### Measured deflection range (post-calibration, after boot zero-reference)
+
+The firmware maps each axis to nominal **−512…+512** with a deadzone around
+zero (see `calibrateJoystick` in `main/main.c`). Measured per-axis full-swing
+extremes on the current hardware (PS5-style Hall-effect modules) are:
+
+| Joystick | X min | X max | Y min | Y max |
+|---|---|---|---|---|
+| RIGHT (joy1, U2) | −464 | +453 | −476 | +441 |
+| LEFT  (joy2, U3) | −479 | +439 | −461 | +457 |
+
+These are useful for downstream model/vehicle control: the sticks don't reach
+the theoretical ±512 limit, so any actuator-mapping curve should clamp/scale
+against the table above rather than ±512. Values are asymmetric (offset of
+~10–20 counts between positive and negative directions) — apply per-direction
+scaling if symmetric output is required.
+
 ### ST7789 Display (SPI / VSPI)
 | Signal | GPIO |
 |---|---|
