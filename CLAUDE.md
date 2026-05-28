@@ -88,16 +88,27 @@ idf.py fullclean         # removes sdkconfig too
 ## Hardware Pin Assignments
 
 ### Joysticks (PS5-style Hall-effect)
-| Signal | GPIO | ADC |
-|---|---|---|
-| Joystick 1 X | GPIO36 | ADC1_CH0 |
-| Joystick 1 Y | GPIO39 | ADC1_CH3 |
-| Joystick 1 Button | GPIO25 | — |
-| Joystick 2 X | GPIO34 | ADC1_CH6 |
-| Joystick 2 Y | GPIO35 | ADC1_CH7 |
-| Joystick 2 Button | GPIO26 | — |
+
+Physical placement (from schematic): **U2 = right stick**, **U3 = left stick**.
+The firmware names `joy1` = U2 (right) and `joy2` = U3 (left); the display
+labels `RIGHT` (line for joy1) and `LEFT` (line for joy2) match this mapping.
+
+| Signal | GPIO | WROVER pin name | Module pin # | ADC |
+|---|---|---|---|---|
+| Joystick 1 (RIGHT, U2) X — net `/VRx` | GPIO32 | GPIO32 | 8 | ADC1_CH4 |
+| Joystick 1 (RIGHT, U2) Y — net `/VRy` | GPIO33 | GPIO33 | 9 | ADC1_CH5 |
+| Joystick 1 (RIGHT, U2) Button | GPIO25 | GPIO25 | 10 | — |
+| Joystick 2 (LEFT,  U3) X — net `/HRx` | GPIO34 | GPIO34 | 6 | ADC1_CH6 |
+| Joystick 2 (LEFT,  U3) Y — net `/HRy` | GPIO35 | GPIO35 | 7 | ADC1_CH7 |
+| Joystick 2 (LEFT,  U3) Button | GPIO26 | GPIO26 | 11 | — |
 
 Buttons use internal pull-up; active-low logic is inverted in software.
+
+> SENSOR_VP (GPIO36, module pin 4) and SENSOR_VN (GPIO39, module pin 5) are
+> **not connected** in the schematic — explicit `no_connect` markers at U1.
+> Earlier firmware versions read joy1 from GPIO36/39, which produced floating
+> ADC values and a stick that "did not react"; fixed by moving joy1 to
+> GPIO32/33 (the pins the schematic actually wires to U2).
 
 ### ST7789 Display (SPI / VSPI)
 | Signal | GPIO |

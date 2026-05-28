@@ -18,10 +18,10 @@
 static const char *TAG = "ESP32_CONTROLLER";
 
 // ========== CONFIGURATION ========== //
-// Joystick 1 (Left Stick)
-#define JOY1_X_PIN ADC_CHANNEL_0  // GPIO36 - X-axis joystick 1
-#define JOY1_Y_PIN ADC_CHANNEL_3  // GPIO39 - Y-axis joystick 1
-// Joystick 2 (Right Stick)
+// Joystick 1 (U2 in schematic, net /VRx /VRy)
+#define JOY1_X_PIN ADC_CHANNEL_4  // GPIO32 - X-axis joystick 1
+#define JOY1_Y_PIN ADC_CHANNEL_5  // GPIO33 - Y-axis joystick 1
+// Joystick 2 (U3 in schematic, net /HRx /HRy)
 #define JOY2_X_PIN ADC_CHANNEL_6  // GPIO34 - X-axis joystick 2
 #define JOY2_Y_PIN ADC_CHANNEL_7  // GPIO35 - Y-axis joystick 2
 // Joystick buttons
