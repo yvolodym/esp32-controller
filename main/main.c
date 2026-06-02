@@ -28,6 +28,14 @@ static const char *TAG = "ESP32_CONTROLLER";
 #define JOY1_BTN_PIN GPIO_NUM_25  // Joystick 1 button
 #define JOY2_BTN_PIN GPIO_NUM_26  // Joystick 2 button
 
+// Battery voltage sense — VBAT through a 220k/100k divider into GPIO36.
+// HW prerequisite: R17/R18/C9 (net VBAT_SENSE) on supply.kicad_sch.
+#define BATT_SENSE_PIN   ADC_CHANNEL_0  // GPIO36 (SENSOR_VP) - VBAT divider tap
+#define BATT_DIVIDER_NUM 320            // 220k + 100k
+#define BATT_DIVIDER_DEN 100            // 100k
+#define BATT_FULL_MV     4200           // LiPo at 100%
+#define BATT_EMPTY_MV    3000           // LiPo at 0% (ESP32 brown-out region)
+
 const uint32_t SEND_DELAY_MS = CONFIG_CONTROLLER_SEND_DELAY_MS; // Delay between transmissions (ms)
 const int DEADZONE = CONFIG_CONTROLLER_JOYSTICK_DEADZONE;      // Joystick deadzone
 
@@ -150,6 +158,7 @@ static void init_adc(void) {
     ESP_ERROR_CHECK(adc_oneshot_config_channel(adc1_handle, JOY1_Y_PIN, &config));
     ESP_ERROR_CHECK(adc_oneshot_config_channel(adc1_handle, JOY2_X_PIN, &config));
     ESP_ERROR_CHECK(adc_oneshot_config_channel(adc1_handle, JOY2_Y_PIN, &config));
+    ESP_ERROR_CHECK(adc_oneshot_config_channel(adc1_handle, BATT_SENSE_PIN, &config));
 
     // Initialize ADC calibration
 #if ADC_CALI_SCHEME_CURVE_FITTING_SUPPORTED
@@ -208,6 +217,36 @@ static void init_wifi_espnow(void) {
     ESP_LOGI(TAG, "ESP-NOW initialized and peer added");
 }
 
+// Read VBAT through the resistor divider and map to a 0..100% LiPo estimate.
+// Reuses the joystick ADC calibration (same unit/atten/bitwidth). The 100nF on
+// the divider keeps the tap stable, so no inter-sample delay is needed.
+static uint8_t read_battery_level(void) {
+    const int SAMPLES = 32;
+    int raw_sum = 0;
+    for (int i = 0; i < SAMPLES; i++) {
+        int raw;
+        if (adc_oneshot_read(adc1_handle, BATT_SENSE_PIN, &raw) == ESP_OK) {
+            raw_sum += raw;
+        }
+    }
+    int raw_avg = raw_sum / SAMPLES;
+
+    // Voltage at the ADC pin (mV).
+    int pin_mv;
+    if (adc_calibrated && adc1_cali_handle != NULL) {
+        adc_cali_raw_to_voltage(adc1_cali_handle, raw_avg, &pin_mv);
+    } else {
+        pin_mv = raw_avg * 3300 / 4095;  // crude fallback without calibration
+    }
+
+    // Undo the divider to recover VBAT, then map to percent (linear first cut).
+    int vbat_mv = pin_mv * BATT_DIVIDER_NUM / BATT_DIVIDER_DEN;
+    int pct = (vbat_mv - BATT_EMPTY_MV) * 100 / (BATT_FULL_MV - BATT_EMPTY_MV);
+    if (pct < 0) pct = 0;
+    if (pct > 100) pct = 100;
+    return (uint8_t)pct;
+}
+
 // Data transmission
 static void send_data(void) {
     int raw_value;
@@ -229,18 +268,12 @@ static void send_data(void) {
     txData.joy1_btn = !gpio_get_level(JOY1_BTN_PIN);
     txData.joy2_btn = !gpio_get_level(JOY2_BTN_PIN);
 
-    // TODO(battery-sense): replace the hardcoded 100% with a real VBAT reading.
-    //   Hardware prerequisite: 220k/100k divider from VBAT to GPIO36 (SENSOR_VP,
-    //   ADC1_CH0) with 100nF to GND — added on supply.kicad_sch (R17/R18/C9,
-    //   net VBAT_SENSE). Ratio 0.3125: VBAT 4.2V→1.31V, 3.0V→0.94V (within the
-    //   linear ADC region at ATTEN_DB_12).
-    //   Software steps when hardware is populated:
-    //     1. Add ADC_CHANNEL_0 (GPIO36) to adc1_handle init in init_adc().
-    //     2. Calibrate with the existing curve/line-fit fallback used for the joysticks.
-    //     3. Average 16–64 samples, then map mV → percent via LiPo discharge curve
-    //        (or linear 3.0V=0%, 4.2V=100% as a first cut).
-    //     4. Replace the literal below with the result.
-    txData.batteryLevel = 100;
+    // Battery level from the VBAT divider on GPIO36 (see read_battery_level).
+    // NOTE: requires R17/R18/C9 (net VBAT_SENSE) populated on supply.kicad_sch;
+    // without the divider GPIO36 floats and the reading is meaningless.
+    // TODO(battery-sense): replace the linear 3.0–4.2 V map with a real LiPo
+    //   discharge curve for a more accurate percentage.
+    txData.batteryLevel = read_battery_level();
 
     // Send data
     esp_err_t result = esp_now_send(receiverMac, (uint8_t *)&txData, sizeof(txData));
