@@ -178,19 +178,28 @@ graph LR
     V33(["＋3.3 V"])
 
     USB  -->|"D5 SS14\nVf ≈ 0.3 V"| VPWR
-    VBAT -->|"D6 SS14 + Q3 Si2319CDS (LTC4412 U12)\nVf ≈ 0.3 V + Vds ≈ 20 mV"| VPWR
+    VBAT -->|"Q3 Si2319CDS (LTC4412 U12)\nVds ≈ 20 mV"| VPWR
     VPWR -->|"U11 AP2112K-3.3\nLDO 600 mA · 250 mV dropout"| V33
     USB  -->|"U5 TP4056\nCC/CV 1 A charger"| VBAT
 ```
 
-D6 is an inline Schottky between VBAT and Q3 source. It blocks Q3's intrinsic
-body diode from injecting current into the battery whenever USB pulls VPWR
-above VBAT — without this diode the TP4056 charge path would be bypassed
-during bulk charging. Cost: an extra ~0.3 V drop in the battery → load path;
-see voltage budget below.
+Q3 is oriented per the LTC4412 datasheet (Figure 1): **drain → VBAT (battery
+side), source → VPWR (load side)**. Its intrinsic drain-to-source body diode
+therefore points battery → load, so it is *reverse-biased* whenever USB pulls
+VPWR above VBAT — no current can be injected back into the battery and the
+TP4056 charge path is never bypassed. This makes the earlier inline Schottky
+**D6 unnecessary; it has been removed** (2026-06-03), recovering ~0.3 V of
+battery-path headroom. See voltage budget below.
 
-- **When USB present**: D5 conducts (VPWR ≈ +5 V − Vf ≈ 4.7 V), the LTC4412 senses VPWR > VBAT and turns Q3 off → battery isolated.
-- **When USB absent**: LTC4412 turns Q3 on, current flows VBAT → D6 → Q3.S → Q3.D → VPWR (≈ VBAT − 0.3 V); D5 is reverse-biased.
+> **History:** an earlier revision had Q3 wired backwards (source → battery,
+> drain → load). That reversed the body diode (load → battery), which *would*
+> inject USB current into the cell and bypass the charger, so a series Schottky
+> D6 was added to block it. Flipping Q3 to the canonical orientation eliminates
+> the root cause and the extra ~0.3 V drop. Do **not** re-introduce D6 unless Q3
+> is reverted.
+
+- **When USB present**: D5 conducts (VPWR ≈ +5 V − Vf ≈ 4.7 V), the LTC4412 senses VPWR > VBAT and turns Q3 off → battery isolated; Q3 body diode reverse-biased.
+- **When USB absent**: LTC4412 turns Q3 on, current flows VBAT → Q3.D → Q3.S → VPWR (≈ VBAT − Vds ≈ VBAT − 20 mV); D5 is reverse-biased.
 
 ### Components
 
@@ -206,7 +215,7 @@ see voltage budget below.
 | U12 | LTC4412ES6 (marking **LTA2**) | TSOT-23-6 | PowerPath controller |
 | Q3  | Si2319CDS | SOT-23 | P-ch MOSFET (VDS −40 V, ID −4.4 A, RDS_on ≈ 100 mΩ at VGS −10 V) |
 | D5  | SS14 | SMA | USB-side Schottky (VBUS → VPWR) |
-| D6  | SS14 | SMA | Battery-side Schottky (VBAT → Q3 source) |
+| ~~D6~~ | ~~SS14~~ | — | **Removed 2026-06-03** — Q3 reoriented per datasheet, body diode now blocks reverse current natively |
 | D3  | LED red | 0603 | TP4056 ~CHRG indicator (lit while charging) |
 | D4  | LED blue | 0603 | +3.3 V power-on indicator |
 
@@ -219,34 +228,42 @@ see voltage budget below.
 - **CTL (pin 3) → GND** — CTL is active-low; tying it high *forces* the PFET off (V_IH ≥ 0.9 V per datasheet).
 - **STAT (pin 4) → not connected**.
 - **GATE (pin 5) → Q3 gate** (net `Q1_GATE` — the name is historical, this is Q3's gate, not Q1's).
-- **SENSE (pin 6) → VPWR** — load side of Q3 (Q3 drain). The chip switches Q3 off when V_SENSE − V_IN > 20 mV, which is how it detects "USB has pulled VPWR above VBAT".
+- **SENSE (pin 6) → VPWR** — load side of Q3 (Q3 **source**). The chip switches Q3 off when V_SENSE − V_IN > 20 mV, which is how it detects "USB has pulled VPWR above VBAT".
 - PWR_FLAG `#FLG04` on VPWR (declares the rail as externally supplied for ERC).
 
-### Q3 PMOS (Si2319CDS)
-- Source → D6 cathode (battery-side Schottky), anode of D6 → VBAT.
-- Drain → VPWR.
-- Gate → `Q1_GATE` (driven by U12 GATE).
+### Q3 PMOS (Si2319CDS) — canonical LTC4412 orientation
+- **Drain (pin 3) → VBAT / `HVBAT`** (battery side, direct — no series diode).
+- **Source (pin 2) → VPWR** (load side).
+- Gate (pin 1) → `Q1_GATE` (driven by U12 GATE).
+- The drain-to-source body diode (anode = drain = battery, cathode = source =
+  load) points battery → load: forward only while the battery supplies the
+  load, reverse-biased the instant USB raises VPWR above VBAT. This is the exact
+  wiring the LTC4412 datasheet calls for, and is why no battery-side Schottky is
+  needed.
 
 ### Why AP2112K instead of AMS1117
 AMS1117 has 1.3 V dropout — cannot regulate from a depleted Li-ion cell
 (needs ≥ 4.6 V in). AP2112K has 250 mV dropout — usable across the cell
-range, but only marginally with D6 inline; see budget below.
+range. With D6 removed the only series element in the battery → load path is
+Q3 (R_DS(on) ≈ 100 mΩ), so the dropout margin below is now ~0.3 V better than
+the earlier D6-inline design.
 
 ### Battery-path voltage budget
 
-VPWR (battery side) = VBAT − Vf(D6) − Vds(Q3) ≈ VBAT − 0.32 V at light load.
+VPWR (battery side) = VBAT − Vds(Q3) ≈ VBAT − 0.02 V at light load (D6 removed).
 
 | VBAT | VPWR | AP2112K +3.3V output | Notes |
 |---|---|---|---|
-| 4.20 V (full) | ≈ 3.88 V | 3.30 V (in regulation) | margin 330 mV |
-| 3.70 V (nominal) | ≈ 3.38 V | ≈ 3.13 V (in dropout) | ESP32 still functional |
-| 3.30 V (low) | ≈ 2.98 V | ≈ 2.73 V | below ESP32 brown-out (~3.0 V), system shuts down |
+| 4.20 V (full) | ≈ 4.18 V | 3.30 V (in regulation) | margin 880 mV |
+| 3.70 V (nominal) | ≈ 3.68 V | 3.30 V (in regulation) | comfortable margin |
+| 3.30 V (low) | ≈ 3.28 V | ≈ 3.03 V (in dropout) | just above ESP32 brown-out (~3.0 V) |
+| 3.10 V (depleted) | ≈ 3.08 V | ≈ 2.83 V | below brown-out, system shuts down |
 
-D6's ~0.3 V drop costs roughly 0.3 V of usable battery range compared to a
-no-Schottky design. If that becomes a problem, two options without the
-dropout penalty: (a) replace D6 with a low-Vf SBR (e.g. SBR05U30LP, Vf ≈
-0.21 V at 0.5 A), or (b) drop D6 entirely and add a back-to-back PMOS pair
-so neither body diode can conduct in the unwanted direction.
+The previous design had a battery-side Schottky (D6) in series with Q3, costing
+~0.3 V of usable battery range. It has been removed: orienting Q3 per the
+LTC4412 datasheet (drain → battery, source → load) makes the body diode block
+reverse current natively, so no series diode and no back-to-back PMOS pair is
+required. The single Q3 (R_DS(on) ≈ 100 mΩ) is now the only series element.
 
 ### TP4056 (U5) notes
 - TEMP (pin 1) → VCC — NTC disabled by design (TEMP = GND would permanently disable charging).
@@ -293,18 +310,21 @@ brought across as a hierarchical sheet pin. The firmware's `read_battery_level`
 recovers VBAT from the divider, smooths it with an EMA, and maps it through a
 LiPo discharge curve to a 0–100 % estimate.
 
-**Tap point (verified against the exported netlist 2026-06-03):** the divider's
-top (R17.2) sits on net `/HVBAT`, whose members are `U10.1` (the raw 18650 +
-terminal), `U5.5` (TP4056 BAT), `U12.1` (LTC4412 VIN), `D6.2` (D6 anode) and
-`R16.1`. The mid-tap (R17.1 / R18.1 / C9.1) goes to `U1.4` (SENSOR_VP), and
-R18.2 / C9.2 go to GND.
+**Tap point:** the divider's top sits on net `/HVBAT`, whose members are
+`U10.1` (the raw 18650 + terminal), `U5.5` (TP4056 BAT), `U12.1` (LTC4412 VIN),
+`Q3.3` (Q3 drain — direct battery connection after the D6 removal) and the
+DW01A supply resistor. The mid-tap goes to `U1.4` (SENSOR_VP), and the bottom
+leg + filter cap go to GND.
 
-> **The sense taps the raw cell, *upstream* of the powerpath — D6 and Q3 are
-> NOT in the measured path.** The discharge path is `HVBAT → D6 → Q3 → VPWR`,
-> so the ~0.3 V D6 drop, Q3 R_DS(on) and the AP2112K dropout are all *load-side*
-> of the tap and do not affect the reading. (An earlier note here blamed
-> "LTC4412/Q3/D6 drop under load" for SoC under-reporting — that was wrong; they
-> are downstream of the tap.) The only error sources in the measured loop are
+> **Note:** the supply sheet was re-annotated on 2026-06-03; the exact R/C
+> reference designators for the divider (formerly R17/R18/C9) and the DW01A
+> supply resistor (formerly R16) have shifted — re-verify against the current
+> schematic before quoting specific designators.
+
+> **The sense taps the raw cell, *upstream* of the powerpath — Q3 is NOT in the
+> measured path.** The discharge path is now `HVBAT → Q3 → VPWR` (D6 removed),
+> so Q3 R_DS(on) and the AP2112K dropout are all *load-side* of the tap and do
+> not affect the reading. The only error sources in the measured loop are
 > the cell's own internal resistance and the IR drop across the low-side
 > protection FETs (8205A, in the GND return) — both tens of mV. A genuine
 > concern *is* the divider's high Thévenin source impedance (R17‖R18 ≈ 69 kΩ,
