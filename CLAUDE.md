@@ -91,7 +91,7 @@ idf.py fullclean         # removes sdkconfig too
 
 ## Hardware Pin Assignments
 
-### Joysticks (PS5-style Hall-effect)
+### Joysticks (resistive / potentiometer-based)
 
 Physical placement (from schematic): **U2 = right stick**, **U3 = left stick**.
 The firmware names `joy1` = U2 (right) and `joy2` = U3 (left); the display
@@ -127,7 +127,8 @@ Buttons use internal pull-up; active-low logic is inverted in software.
 
 The firmware maps each axis to nominal **−512…+512** with a deadzone around
 zero (see `calibrateJoystick` in `main/main.c`). Measured per-axis full-swing
-extremes on the current hardware (PS5-style Hall-effect modules) are:
+extremes on the current hardware (resistive thumbstick modules with two
+potentiometers per stick) are:
 
 | Joystick | X min | X max | Y min | Y max |
 |---|---|---|---|---|

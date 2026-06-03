@@ -1,8 +1,9 @@
 ## Controller
 
-ESP32-WROVER based wireless game controller. Two analog (Hall-effect) joysticks
-plus an ST7789 SPI display, transmitting over ESP-NOW. Firmware uses native
-ESP-IDF — see `CLAUDE.md` for architecture and pin layout details.
+ESP32-WROVER based wireless game controller. Two resistive (potentiometer)
+analog joysticks plus an ST7789 SPI display, transmitting over ESP-NOW.
+Firmware uses native ESP-IDF — see `CLAUDE.md` for architecture and pin
+layout details.
 
 ### References
 
@@ -12,10 +13,8 @@ ESP-IDF — see `CLAUDE.md` for architecture and pin layout details.
 * https://wolles-elektronikkiste.de/esp-now
 * https://github.com/SolderedElectronics/USB-UART-CH340C-converter-board-hardware-design
 
-#### Joysticks
+#### Joysticks (resistive thumbstick modules)
 * https://tech.alpsalpine.com/e/products/detail/RKJXV122400R/
-* https://hackaday.io/project/199327-tetizmol-gd0153/log/237836-e1r-hall-tmr-joystick-electrical-properties
-* https://hackaday.io/project/199327-tetizmol-gd0153/log/237786-br-ps5-hall-joysticks-and-espressif-adcs
 * https://github.com/dbenoy/thumbstick-breakout/blob/main/docs/board.png
 
 #### LiPo charging module
