@@ -258,16 +258,60 @@ so neither body diode can conduct in the unwanted direction.
 - BAT (pin 5) → VBAT through the DW01A + 8205A protection cell.
 - USB-C connector P1: CC1/CC2 each have a 5.1 kΩ pull-down to GND (sink-mode requirement).
 
+### Battery protection cell (DW01A U8 + 8205A U7)
+Textbook single-cell Li-ion protection in the cell-negative path (verified
+against the exported netlist 2026-06-03). Cell + (`U10.1`) ties straight to
+`HVBAT`/pack+; the two series N-FETs sit in the negative return:
+
+```
+Zelle− (U10.2) ─ U9(switch) ─ S2(B−) ─┤8205A FET2├─ common drain ─┤FET1├─ S1 ─ GND(P−)
+DW01A: VCC ← R16(100Ω) ← HVBAT · GND = S2(B−) · CS ← R15(1k) ← GND(P−)
+       OC → G1(FET1, overcharge) · OD → G2(FET2, overdischarge) · TD = NC
+```
+
+- **R16 = 100 Ω** — DW01A VCC supply resistor (B+ → VCC). ✓
+- **R15 = 1 kΩ** — overcurrent sense resistor (CS → P−/GND). ✓
+- **C6 = 100 nF** — DW01A VCC↔GND bypass. *(Was 100 pF in the schematic — a
+  ~1000× undersized bypass that barely decouples the IC and risks nuisance
+  protection trips; corrected to 100 nF 2026-06-03.)*
+- **U7 8205A** — common-drain pair: `D1`/`D2` tied internally only (correct for
+  this config — the shared drain node deliberately goes nowhere else).
+- The `OC→G1 / OD→G2` mapping and `GND=B− / CS=P−` references match the DW01A
+  datasheet application circuit.
+
+> TODO(supply): **U9 master switch sits in the cell-negative (B−) path**
+> (`U10.2 → U9 → S2`). It works as a hard battery cutoff, but (a) the full
+> load *and* charge current runs through the mechanical contacts, and (b) with
+> U9 open the TP4056 charge return is also interrupted, so the pack cannot
+> charge while switched off. Consider relocating the on/off switch to VPWR or
+> to the LTC4412 CTL pin instead. U9 pin 1 is unconnected (fine for SPST use).
+
 ### VBAT sense to MCU
 A 220 kΩ / 100 kΩ divider (R17/R18) with 100 nF filter (C9) taps `HVBAT` and
 feeds GPIO36 (SENSOR_VP, ADC1_CH0) on U1. `HVBAT` is the same net as VBAT,
 brought across as a hierarchical sheet pin. The firmware's `read_battery_level`
-samples this divider and maps 4200 mV → 100 %, 3000 mV → 0 % linearly.
+recovers VBAT from the divider, smooths it with an EMA, and maps it through a
+LiPo discharge curve to a 0–100 % estimate.
 
-> Caveat: the divider taps the VBAT rail *after* the protection cell, not the
-> raw cell. Under load the LTC4412/Q3/D6/protection FET path causes a visible
-> drop, so the reading underestimates SoC during current spikes (boot, WiFi
-> start). Documented behaviour, not a bug.
+**Tap point (verified against the exported netlist 2026-06-03):** the divider's
+top (R17.2) sits on net `/HVBAT`, whose members are `U10.1` (the raw 18650 +
+terminal), `U5.5` (TP4056 BAT), `U12.1` (LTC4412 VIN), `D6.2` (D6 anode) and
+`R16.1`. The mid-tap (R17.1 / R18.1 / C9.1) goes to `U1.4` (SENSOR_VP), and
+R18.2 / C9.2 go to GND.
+
+> **The sense taps the raw cell, *upstream* of the powerpath — D6 and Q3 are
+> NOT in the measured path.** The discharge path is `HVBAT → D6 → Q3 → VPWR`,
+> so the ~0.3 V D6 drop, Q3 R_DS(on) and the AP2112K dropout are all *load-side*
+> of the tap and do not affect the reading. (An earlier note here blamed
+> "LTC4412/Q3/D6 drop under load" for SoC under-reporting — that was wrong; they
+> are downstream of the tap.) The only error sources in the measured loop are
+> the cell's own internal resistance and the IR drop across the low-side
+> protection FETs (8205A, in the GND return) — both tens of mV. A genuine
+> concern *is* the divider's high Thévenin source impedance (R17‖R18 ≈ 69 kΩ,
+> above Espressif's ADC recommendation), but C9 (100 nF) buffers the sample/hold
+> so this is acceptable for the slow battery poll. Net: the 50 %→85 % boot
+> climb is a measurement/mapping artifact, not a real powerpath collapse — hence
+> the firmware-side EMA + boot-settle + non-linear curve in `read_battery_level`.
 
 ### ERC pin-type tweaks (embedded library copies)
 A few stock symbols had `pin_type` annotations that triggered ERC false
@@ -282,6 +326,6 @@ hence the resulting `lib_symbol_mismatch` warnings are expected):
 
 - ADC uses `esp_adc/adc_oneshot` API with automatic calibration (curve fitting preferred, falls back to line fitting, then raw).
 - WiFi is initialized in STA mode solely to enable the ESP-NOW radio — no network association.
-- Battery level is computed from the GPIO36 / `HVBAT` divider (see *Power Supply Design → VBAT sense to MCU*).
+- Battery level is computed from the GPIO36 / `HVBAT` divider, smoothed with an EMA and mapped through a non-linear LiPo discharge curve (see *Power Supply Design → VBAT sense to MCU*).
 - `sdkconfig.defaults` enables SPIRAM, 240 MHz CPU, 80 MHz flash/SPIRAM, and WiFi buffer tuning.
 - Hardware reference datasheets are in `doc/`.

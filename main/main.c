@@ -30,11 +30,15 @@ static const char *TAG = "ESP32_CONTROLLER";
 
 // Battery voltage sense — VBAT through a 220k/100k divider into GPIO36.
 // HW prerequisite: R17/R18/C9 (net VBAT_SENSE) on supply.kicad_sch.
+// The divider taps HVBAT = the raw 18650 + terminal (verified against the
+// netlist: net /HVBAT = U10.1 / U5.BAT / U12.VIN / D6.anode). D6 and Q3 are
+// downstream of the tap, so this reads true battery voltage, not the VPWR rail.
 #define BATT_SENSE_PIN   ADC_CHANNEL_0  // GPIO36 (SENSOR_VP) - VBAT divider tap
 #define BATT_DIVIDER_NUM 320            // 220k + 100k
 #define BATT_DIVIDER_DEN 100            // 100k
-#define BATT_FULL_MV     4200           // LiPo at 100%
-#define BATT_EMPTY_MV    3000           // LiPo at 0% (ESP32 brown-out region)
+// EMA smoothing across calls: tau ~= SEND_DELAY_MS * 2^SHIFT. At 20 ms/call,
+// SHIFT=6 -> ~1.3 s, enough to ride out boot / WiFi-TX current spikes.
+#define BATT_EMA_SHIFT   6
 
 const uint32_t SEND_DELAY_MS = CONFIG_CONTROLLER_SEND_DELAY_MS; // Delay between transmissions (ms)
 const int DEADZONE = CONFIG_CONTROLLER_JOYSTICK_DEADZONE;      // Joystick deadzone
@@ -217,9 +221,40 @@ static void init_wifi_espnow(void) {
     ESP_LOGI(TAG, "ESP-NOW initialized and peer added");
 }
 
+// LiPo open-circuit-voltage -> state-of-charge curve. LiPo discharge is
+// strongly non-linear, so the old linear 3.0-4.2 V map badly mis-reported the
+// mid-range. Points are descending in voltage; values between are interpolated.
+static const struct { int mv; int pct; } BATT_CURVE[] = {
+    { 4200, 100 },
+    { 4000,  85 },
+    { 3800,  60 },
+    { 3700,  40 },
+    { 3600,  20 },
+    { 3300,   5 },
+    { 3000,   0 },
+};
+
+static uint8_t vbat_mv_to_percent(int mv) {
+    const int n = sizeof(BATT_CURVE) / sizeof(BATT_CURVE[0]);
+    if (mv >= BATT_CURVE[0].mv)     return 100;
+    if (mv <= BATT_CURVE[n - 1].mv) return 0;
+    for (int i = 0; i < n - 1; i++) {
+        int hi_mv = BATT_CURVE[i].mv,     hi_pct = BATT_CURVE[i].pct;
+        int lo_mv = BATT_CURVE[i + 1].mv, lo_pct = BATT_CURVE[i + 1].pct;
+        if (mv <= hi_mv && mv >= lo_mv) {
+            return (uint8_t)(lo_pct + (mv - lo_mv) * (hi_pct - lo_pct) / (hi_mv - lo_mv));
+        }
+    }
+    return 0;
+}
+
+// Running EMA of the recovered VBAT (mV); -1 until seeded by the first read.
+static int batt_ema_mv = -1;
+
 // Read VBAT through the resistor divider and map to a 0..100% LiPo estimate.
 // Reuses the joystick ADC calibration (same unit/atten/bitwidth). The 100nF on
-// the divider keeps the tap stable, so no inter-sample delay is needed.
+// the divider keeps the tap stable within a call; the EMA below smooths across
+// calls so transient load (boot, WiFi TX) doesn't swing the reported level.
 static uint8_t read_battery_level(void) {
     const int SAMPLES = 32;
     int raw_sum = 0;
@@ -239,12 +274,27 @@ static uint8_t read_battery_level(void) {
         pin_mv = raw_avg * 3300 / 4095;  // crude fallback without calibration
     }
 
-    // Undo the divider to recover VBAT, then map to percent (linear first cut).
+    // Undo the divider to recover VBAT, then smooth over time.
     int vbat_mv = pin_mv * BATT_DIVIDER_NUM / BATT_DIVIDER_DEN;
-    int pct = (vbat_mv - BATT_EMPTY_MV) * 100 / (BATT_FULL_MV - BATT_EMPTY_MV);
-    if (pct < 0) pct = 0;
-    if (pct > 100) pct = 100;
-    return (uint8_t)pct;
+    if (batt_ema_mv < 0) {
+        batt_ema_mv = vbat_mv;  // seed on first call
+    } else {
+        batt_ema_mv += (vbat_mv - batt_ema_mv) >> BATT_EMA_SHIFT;
+    }
+
+    return vbat_mv_to_percent(batt_ema_mv);
+}
+
+// Pre-charge the divider filter and converge the EMA before the main loop, so
+// the first reported level reflects a settled VBAT rather than the boot-time
+// current spike (which otherwise reads low and "climbs" over the first seconds
+// as the supply settles). Runs after the ~2 s ready screen, i.e. well past the
+// WiFi/display init surge.
+static void battery_sense_seed(void) {
+    for (int i = 0; i < 16; i++) {
+        read_battery_level();
+        vTaskDelay(pdMS_TO_TICKS(20));
+    }
 }
 
 // Data transmission
@@ -268,11 +318,10 @@ static void send_data(void) {
     txData.joy1_btn = !gpio_get_level(JOY1_BTN_PIN);
     txData.joy2_btn = !gpio_get_level(JOY2_BTN_PIN);
 
-    // Battery level from the VBAT divider on GPIO36 (see read_battery_level).
-    // NOTE: requires R17/R18/C9 (net VBAT_SENSE) populated on supply.kicad_sch;
-    // without the divider GPIO36 floats and the reading is meaningless.
-    // TODO(battery-sense): replace the linear 3.0–4.2 V map with a real LiPo
-    //   discharge curve for a more accurate percentage.
+    // Battery level from the VBAT divider on GPIO36 (see read_battery_level):
+    // EMA-smoothed VBAT mapped through the non-linear LiPo curve. Requires
+    // R17/R18/C9 (net VBAT_SENSE) populated on supply.kicad_sch; without the
+    // divider GPIO36 floats and the reading is meaningless.
     txData.batteryLevel = read_battery_level();
 
     // Send data
@@ -294,6 +343,10 @@ static void send_data(void) {
 // Main controller task
 static void controller_task(void *pvParameters) {
     ESP_LOGI(TAG, "Controller ready to work");
+
+    // Seed the battery EMA on settled VBAT before the loop so the first
+    // reported level doesn't reflect the boot current spike.
+    battery_sense_seed();
 
     uint32_t display_update_counter = 0;
 
