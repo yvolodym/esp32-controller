@@ -1,48 +1,63 @@
 ## Controller
 
-### ESP now
+ESP32-WROVER based wireless game controller. Two analog (Hall-effect) joysticks
+plus an ST7789 SPI display, transmitting over ESP-NOW. Firmware uses native
+ESP-IDF — see `CLAUDE.md` for architecture and pin layout details.
+
+### References
+
+#### ESP-NOW
 * https://randomnerdtutorials.com/esp32-cyd-esp-now-receive-data/
 * https://habr.com/ru/companies/beget/articles/929336/
 * https://wolles-elektronikkiste.de/esp-now
 * https://github.com/SolderedElectronics/USB-UART-CH340C-converter-board-hardware-design
 
-### Joystik
+#### Joysticks
 * https://tech.alpsalpine.com/e/products/detail/RKJXV122400R/
 * https://hackaday.io/project/199327-tetizmol-gd0153/log/237836-e1r-hall-tmr-joystick-electrical-properties
 * https://hackaday.io/project/199327-tetizmol-gd0153/log/237786-br-ps5-hall-joysticks-and-espressif-adcs
 * https://github.com/dbenoy/thumbstick-breakout/blob/main/docs/board.png
 
-### LiPo-Lademodul
+#### LiPo charging module
 * https://elektro.turanis.de/html/prj224/index.html
 
-### PINS
+### Pin assignments
 
-##### ST7789 Display (SPI)
-```
-VCC → 3.3V
-GND → GND
-SCL/SCK → GPIO 18 (VSPI SCK)
-SDA/MOSI → GPIO 23 (VSPI MOSI)
-RES/RST → GPIO 4
-DC → GPIO 2
-CS → GPIO 5
-BLK → GPIO 15 (oder 3.3V für dauerhaft an)
-```
+`CLAUDE.md` is the source of truth — the lists below are a quick reference.
+All pins verified against `kicad/esp32-controller.kicad_sch` and
+`kicad/supply.kicad_sch`.
 
-##### PS5 Joystick 1 (Linker Stick)
-```
-VCC → 3.3V
-GND → GND
-VRx → GPIO 36 (ADC1_CH0)
-VRy → GPIO 39 (ADC1_CH3)
-SW → GPIO 25 (Button)
-```
+#### ST7789 display (J1, 8-pin header — VSPI)
 
-##### PS5 Joystick 2 (Rechter Stick)
-```
-VCC → 3.3V
-GND → GND
-VRx → GPIO 34 (ADC1_CH6)
-VRy → GPIO 35 (ADC1_CH7)
-SW → GPIO 26 (Button)
-```
+| J1 pin | Signal | GPIO |
+|---|---|---|
+| 1 | BL (backlight) | GPIO15 |
+| 2 | CS  | GPIO5  |
+| 3 | DC  | GPIO2  |
+| 4 | RST | GPIO4  |
+| 5 | MOSI / SDA | GPIO23 |
+| 6 | SCK / SCL  | GPIO18 |
+| 7 | VCC | +3.3 V |
+| 8 | GND | GND |
+
+#### Joystick 1 — RIGHT stick (U2 in schematic)
+
+| Signal | GPIO | ADC |
+|---|---|---|
+| VRx (X axis) | GPIO32 | ADC1_CH4 |
+| VRy (Y axis) | GPIO33 | ADC1_CH5 |
+| Button (SEL) | GPIO25 | — *(not wired in hardware, see CLAUDE.md)* |
+
+#### Joystick 2 — LEFT stick (U3 in schematic)
+
+| Signal | GPIO | ADC |
+|---|---|---|
+| HRx (X axis) | GPIO34 | ADC1_CH6 |
+| HRy (Y axis) | GPIO35 | ADC1_CH7 |
+| Button (SEL) | GPIO26 | — *(not wired in hardware, see CLAUDE.md)* |
+
+#### Battery sense
+
+| Signal | GPIO | ADC |
+|---|---|---|
+| VBAT divider (R17 220 kΩ / R18 100 kΩ, net `HVBAT`) | GPIO36 (SENSOR_VP) | ADC1_CH0 |

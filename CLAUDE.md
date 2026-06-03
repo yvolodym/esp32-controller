@@ -35,15 +35,19 @@ flowchart TD
     TASK --> loop
 ```
 
-`ControllerData` struct (7 bytes sent over ESP-NOW):
+`ControllerData` struct (sent over ESP-NOW):
 ```c
 typedef struct {
     int16_t joy1_x, joy1_y;
     int16_t joy2_x, joy2_y;
     bool joy1_btn, joy2_btn;
-    uint8_t batteryLevel;  // hardcoded to 100 — not yet implemented
+    uint8_t batteryLevel;
 } ControllerData;
 ```
+
+`batteryLevel` is derived in software from a 220 kΩ / 100 kΩ divider on `HVBAT`
+(R17/R18/C9 in `supply.kicad_sch`) feeding GPIO36 / ADC1_CH0 (SENSOR_VP).
+Mapping is linear: 4200 mV → 100 %, 3000 mV → 0 %.
 
 Joystick calibration pipeline:
 
@@ -95,20 +99,29 @@ labels `RIGHT` (line for joy1) and `LEFT` (line for joy2) match this mapping.
 
 | Signal | GPIO | WROVER pin name | Module pin # | ADC |
 |---|---|---|---|---|
-| Joystick 1 (RIGHT, U2) X — net `/VRx` | GPIO32 | GPIO32 | 8 | ADC1_CH4 |
-| Joystick 1 (RIGHT, U2) Y — net `/VRy` | GPIO33 | GPIO33 | 9 | ADC1_CH5 |
+| Joystick 1 (RIGHT, U2) X — net `VRx` | GPIO32 | GPIO32 | 8 | ADC1_CH4 |
+| Joystick 1 (RIGHT, U2) Y — net `VRy` | GPIO33 | GPIO33 | 9 | ADC1_CH5 |
 | Joystick 1 (RIGHT, U2) Button | GPIO25 | GPIO25 | 10 | — |
-| Joystick 2 (LEFT,  U3) X — net `/HRx` | GPIO34 | GPIO34 | 6 | ADC1_CH6 |
-| Joystick 2 (LEFT,  U3) Y — net `/HRy` | GPIO35 | GPIO35 | 7 | ADC1_CH7 |
+| Joystick 2 (LEFT,  U3) X — net `HRx` | GPIO34 | GPIO34 | 6 | ADC1_CH6 |
+| Joystick 2 (LEFT,  U3) Y — net `HRy` | GPIO35 | GPIO35 | 7 | ADC1_CH7 |
 | Joystick 2 (LEFT,  U3) Button | GPIO26 | GPIO26 | 11 | — |
 
 Buttons use internal pull-up; active-low logic is inverted in software.
 
-> SENSOR_VP (GPIO36, module pin 4) and SENSOR_VN (GPIO39, module pin 5) are
-> **not connected** in the schematic — explicit `no_connect` markers at U1.
-> Earlier firmware versions read joy1 from GPIO36/39, which produced floating
-> ADC values and a stick that "did not react"; fixed by moving joy1 to
-> GPIO32/33 (the pins the schematic actually wires to U2).
+> **Joystick buttons are not wired in hardware (status 2026-06-03).** All four
+> SEL+/SEL− pins on U2 and U3 carry explicit `no_connect` markers, and the
+> matching ESP32 pins (GPIO25 pin 10, GPIO26 pin 11) are also marked
+> `no_connect` on U1. The firmware still configures both GPIOs as inputs with
+> internal pull-ups and reads them every cycle, so they always report HIGH
+> (i.e. "not pressed"). The button logic in software is correct and ready —
+> only the schematic/PCB is missing the routes.
+
+> SENSOR_VN (GPIO39, module pin 5) is **not connected** in the schematic —
+> explicit `no_connect` marker at U1. SENSOR_VP (GPIO36, module pin 4) is the
+> ADC tap of the VBAT divider (R17/R18/C9, net `HVBAT`). Earlier firmware
+> versions read joy1 from GPIO36/39, which produced floating ADC values and a
+> stick that "did not react"; fixed by moving joy1 to GPIO32/33 (the pins the
+> schematic actually wires to U2).
 
 #### Measured deflection range (post-calibration, after boot zero-reference)
 
@@ -128,75 +141,99 @@ against the table above rather than ±512. Values are asymmetric (offset of
 scaling if symmetric output is required.
 
 ### ST7789 Display (SPI / VSPI)
-| Signal | GPIO |
-|---|---|
-| SCK | GPIO18 |
-| MOSI | GPIO23 |
-| CS | GPIO5 |
-| DC | GPIO2 |
-| RST | GPIO4 |
-| Backlight | GPIO15 |
+
+8-pin header J1 (`Conn_01x08_Pin`, schematic location top-of-board):
+
+| J1 pin | Signal | GPIO |
+|---|---|---|
+| 1 | Backlight | GPIO15 |
+| 2 | CS  | GPIO5  |
+| 3 | DC  | GPIO2  |
+| 4 | RST | GPIO4  |
+| 5 | MOSI / SDA | GPIO23 |
+| 6 | SCK / SCL  | GPIO18 |
+| 7 | VCC | +3.3 V |
+| 8 | GND | GND |
 
 ## Power Supply Design (supply.kicad_sch)
 
-Automatic USB/battery switching — no manual intervention required.
+Automatic USB/battery switching — no manual intervention required. Reference
+designators below match the current schematic exactly (verified by walking
+`supply.kicad_sch` 2026-06-03).
 
 ### Requirements
 
-1. **USB connected** → ESP32 is powered from USB **and** the LiPo cell is charged.
-2. **USB disconnected** → ESP32 is powered from the LiPo cell.
+1. **USB connected** → ESP32 is powered from USB **and** the Li-ion cell is charged.
+2. **USB disconnected** → ESP32 is powered from the Li-ion cell (NCR18650B).
 3. The crossover between USB and battery must happen **automatically**, with **no external control** (no switch, no MCU GPIO, no jumper). It must be fully analog/self-contained on the supply schematic.
 
 ### Topology
 
 ```mermaid
 graph LR
-    USB["USB 5V"]
-    VBAT["VBAT\nLiPo"]
+    USB["USB 5V (+5V)"]
+    VBAT["VBAT\nNCR18650B"]
     VPWR(["VPWR"])
     V33(["＋3.3 V"])
 
-    USB  -->|"D6 SS14\nVf ≈ 0.3 V"| VPWR
-    VBAT -->|"D7 SS14 + Q3 SI2305 (LTC4412)\nVf ≈ 0.3 V + Vds ≈ 20 mV"| VPWR
-    VPWR -->|"U9 AP2112K-3.3\nLDO 600 mA · 250 mV dropout"| V33
+    USB  -->|"D5 SS14\nVf ≈ 0.3 V"| VPWR
+    VBAT -->|"D6 SS14 + Q3 Si2319CDS (LTC4412 U12)\nVf ≈ 0.3 V + Vds ≈ 20 mV"| VPWR
+    VPWR -->|"U11 AP2112K-3.3\nLDO 600 mA · 250 mV dropout"| V33
     USB  -->|"U5 TP4056\nCC/CV 1 A charger"| VBAT
 ```
 
-D7 is an inline Schottky between VBAT and Q3 source. It blocks Q3's intrinsic body-diode from injecting current into the battery whenever USB pulls VPWR above VBAT — without this diode the TP4056 charge path is bypassed during bulk charging. Cost: an extra ~0.3 V drop in the battery → load path; see voltage budget below.
+D6 is an inline Schottky between VBAT and Q3 source. It blocks Q3's intrinsic
+body diode from injecting current into the battery whenever USB pulls VPWR
+above VBAT — without this diode the TP4056 charge path would be bypassed
+during bulk charging. Cost: an extra ~0.3 V drop in the battery → load path;
+see voltage budget below.
 
-- **When USB present**: D6 conducts (VPWR ≈ 4.7V), Q3 is reverse-biased by LTC4412 → battery isolated
-- **When USB absent**: Q3 conducts (VPWR ≈ VBAT − 20mV), D6 reverse-biased → battery powers system
+- **When USB present**: D5 conducts (VPWR ≈ +5 V − Vf ≈ 4.7 V), the LTC4412 senses VPWR > VBAT and turns Q3 off → battery isolated.
+- **When USB absent**: LTC4412 turns Q3 on, current flows VBAT → D6 → Q3.S → Q3.D → VPWR (≈ VBAT − 0.3 V); D5 is reverse-biased.
 
 ### Components
 
 | Ref | Part | Package | Function |
 |---|---|---|---|
-| U5 | TP4056-42-ESOP8 | ESOP-8 | LiPo charger (1A, CC/CV) |
-| D5 | — | — | removed; replaced by LTC4412 + Q3 (SI2305) |
-| D6 | SS14 | SMA | USB path diode |
-| D7 | SS14 | SMA | Battery path series Schottky — blocks Q3 body-diode reverse current |
-| U13 | LTC4412ES6 (marking: **LTA2**) | TSOT-23-6 | PowerPath controller |
-| Q3 | SI2305 | SOT-23 | P-ch MOSFET (VDS −20V, ID −4.1A, RDS 105–130mΩ) |
-| U9 | AP2112K-3.3 | SOT-23-5 | LDO 3.3V, 600mA, 250mV dropout |
+| U5  | TP4056-42-ESOP8 | SOIC-8 EP | Li-ion charger, 1 A CC/CV, 4.2 V |
+| U6  | USBLC6-2P6 | SOT-23-6 | USB D+/D− ESD protection |
+| U7  | 8205A | SOT-23-6 | Dual N-MOSFET, battery protection switch |
+| U8  | DW01A | SOT-23-6 | Single-cell Li-ion protection IC (drives U7) |
+| U9  | tactile switch (small) | — | (mechanical, see schematic) |
+| U10 | NCR18650B holder | — | 18650 Li-ion cell, 3.6 V nominal, 4.2 V max |
+| U11 | AP2112K-3.3 | SOT-23-5 | LDO 3.3 V, 600 mA, 250 mV dropout |
+| U12 | LTC4412ES6 (marking **LTA2**) | TSOT-23-6 | PowerPath controller |
+| Q3  | Si2319CDS | SOT-23 | P-ch MOSFET (VDS −40 V, ID −4.4 A, RDS_on ≈ 100 mΩ at VGS −10 V) |
+| D5  | SS14 | SMA | USB-side Schottky (VBUS → VPWR) |
+| D6  | SS14 | SMA | Battery-side Schottky (VBAT → Q3 source) |
+| D3  | LED red | 0603 | TP4056 ~CHRG indicator (lit while charging) |
+| D4  | LED blue | 0603 | +3.3 V power-on indicator |
 
-> Q1 and Q2 are NPN BJTs (BCW66G) used by the CH340C UART auto-reset circuit, so the PowerPath PMOS is **Q3**.
+> Q1 and Q2 (BCW66G NPN BJTs) live on the **main** schematic and are part of
+> the CH340C UART auto-reset circuit. The supply schematic only contains Q3.
 
-### LTC4412 wiring
-- VIN → VBAT (chip is powered from the battery so it remains alive when USB is absent)
-- SENSE → VPWR (load-side / Q3 drain — required for the chip to detect when USB pulls VPWR above VBAT and turn Q3 off; do **not** tie SENSE to VBAT)
-- CTL → GND (CTL is active-low: low or open allows the PFET to switch normally; CTL high *forces* the PFET off — datasheet Description and CTL section, V_IH ≥ 0.9 V)
-- GATE → Q3 (SI2305) Gate (net `Q1_GATE`)
-- STAT → not connected
-- Q3 (SI2305): Source → VBAT, Drain → VPWR
-- PWR_FLAG #FLG04 on VPWR (declares the rail as externally supplied for ERC)
+### LTC4412 (U12) wiring
+- **VIN (pin 1) → VBAT** — the chip is powered from the battery so it stays alive when USB is absent.
+- **GND (pin 2) → GND**.
+- **CTL (pin 3) → GND** — CTL is active-low; tying it high *forces* the PFET off (V_IH ≥ 0.9 V per datasheet).
+- **STAT (pin 4) → not connected**.
+- **GATE (pin 5) → Q3 gate** (net `Q1_GATE` — the name is historical, this is Q3's gate, not Q1's).
+- **SENSE (pin 6) → VPWR** — load side of Q3 (Q3 drain). The chip switches Q3 off when V_SENSE − V_IN > 20 mV, which is how it detects "USB has pulled VPWR above VBAT".
+- PWR_FLAG `#FLG04` on VPWR (declares the rail as externally supplied for ERC).
+
+### Q3 PMOS (Si2319CDS)
+- Source → D6 cathode (battery-side Schottky), anode of D6 → VBAT.
+- Drain → VPWR.
+- Gate → `Q1_GATE` (driven by U12 GATE).
 
 ### Why AP2112K instead of AMS1117
-AMS1117 has 1.3V dropout — cannot regulate from LiPo (needs ≥4.6V in).
-AP2112K has 250mV dropout — usable across the LiPo range, but only marginally now that D7 is inline; see budget below.
+AMS1117 has 1.3 V dropout — cannot regulate from a depleted Li-ion cell
+(needs ≥ 4.6 V in). AP2112K has 250 mV dropout — usable across the cell
+range, but only marginally with D6 inline; see budget below.
 
-### Battery-path voltage budget (with D7 inline)
+### Battery-path voltage budget
 
-VPWR (battery side) = VBAT − Vf(D7) − Vds(Q3) ≈ VBAT − 0.32 V at light load.
+VPWR (battery side) = VBAT − Vf(D6) − Vds(Q3) ≈ VBAT − 0.32 V at light load.
 
 | VBAT | VPWR | AP2112K +3.3V output | Notes |
 |---|---|---|---|
@@ -204,52 +241,46 @@ VPWR (battery side) = VBAT − Vf(D7) − Vds(Q3) ≈ VBAT − 0.32 V at light l
 | 3.70 V (nominal) | ≈ 3.38 V | ≈ 3.13 V (in dropout) | ESP32 still functional |
 | 3.30 V (low) | ≈ 2.98 V | ≈ 2.73 V | below ESP32 brown-out (~3.0 V), system shuts down |
 
-D7's ~0.3 V drop costs roughly 0.3 V of usable battery range compared to a no-Schottky design. If that becomes a problem, two options that don't have the dropout penalty: (a) replace D7 with a low-Vf SBR (e.g. SBR05U30LP, Vf ≈ 0.21 V at 0.5 A), or (b) drop D7 entirely and add a back-to-back PMOS pair so neither body diode can conduct in the unwanted direction.
+D6's ~0.3 V drop costs roughly 0.3 V of usable battery range compared to a
+no-Schottky design. If that becomes a problem, two options without the
+dropout penalty: (a) replace D6 with a low-Vf SBR (e.g. SBR05U30LP, Vf ≈
+0.21 V at 0.5 A), or (b) drop D6 entirely and add a back-to-back PMOS pair
+so neither body diode can conduct in the unwanted direction.
 
-### TP4056 notes
-- TEMP pin → VCC (not GND) when no NTC thermistor used; TEMP=GND permanently disables charging
-- EPAD → GND
-- CC1/CC2 on USB-C connector → 5.1kΩ pull-downs to GND (sink mode, required for USB-C chargers)
-- ~STDBY (pin 6) is `no_connect` — no charge-complete LED indicator wired in this design
+### TP4056 (U5) notes
+- TEMP (pin 1) → VCC — NTC disabled by design (TEMP = GND would permanently disable charging).
+- CE (pin 8) → VCC — charger always enabled when VBUS is present.
+- ~CHRG (pin 7) → D3 (red LED) via R10 to +5 V — lit while charging.
+- ~STDBY (pin 6) → no-connect — no charge-complete LED is wired in this design.
+- EPAD (pin 9) → GND.
+- VBUS / VCC (pin 4) → +5 V via the USB connector.
+- BAT (pin 5) → VBAT through the DW01A + 8205A protection cell.
+- USB-C connector P1: CC1/CC2 each have a 5.1 kΩ pull-down to GND (sink-mode requirement).
 
-### Verification against requirements (status: 2026-05-08)
+### VBAT sense to MCU
+A 220 kΩ / 100 kΩ divider (R17/R18) with 100 nF filter (C9) taps `HVBAT` and
+feeds GPIO36 (SENSOR_VP, ADC1_CH0) on U1. `HVBAT` is the same net as VBAT,
+brought across as a hierarchical sheet pin. The firmware's `read_battery_level`
+samples this divider and maps 4200 mV → 100 %, 3000 mV → 0 % linearly.
 
-Source of truth: `kicad-cli sch export netlist --format kicadsexpr` against `kicad/esp32-controller.kicad_sch`. Reviewed only the schematic, not the PCB.
-
-**What is correctly implemented:**
-- USB → VPWR path: D6 (SS14) anode on VBUS, cathode on VPWR; AP2112K Vin/EN tied to VPWR. Forward-biased with USB present, reverse-biased without. ✓
-- TP4056 charge path: VBUS → U5 V_CC, CE tied high (always enabled), TEMP tied high (NTC disabled by design), PROG resistor sets I_CHG. BAT pin → VBAT through DW01A + 8205A protection cell. Charges whenever USB is present. ✓
-- VPWR → +3.3V via U9 AP2112K-3.3, EN tied to Vin (regulator always on). ✓
-- Switching strategy is fully analog (LTC4412 + PMOS + Schottky); no GPIO, switch, or jumper involved → satisfies the "no external control" requirement at the topology level. ✓
-
-**Resolved — `U13` SENSE pin wiring (fixed 2026-05-08):**
-
-Per the LTC4412 datasheet (Figure 1 and Electrical Characteristics V_FR / V_RTO), `SENSE` must be connected to the **load side of the external PMOS** (i.e. Q3 drain = VPWR). The chip switches the PMOS off when `V_SENSE − V_IN > 20 mV` — that is what gives "auxiliary supply detected → disconnect battery from load".
-
-Previously `SENSE` (U13 pin 6) was tied to **VBAT** (same net as VIN + CTL). With that wiring the chip could not detect USB presence and kept Q3 fully on, short-circuiting the TP4056 charge path through Q3's channel.
-
-The fix relabelled U13's SENSE stub wire to `VPWR` and added a matching `VPWR` net label on the D6→AP2112K rail, so SENSE now joins the same net as Q3 drain, D6 cathode, and U9 Vin/EN. Verified via `kicad-cli sch export netlist`: U13 pin 6 is on `/supply/VPWR`; VBAT contains only VIN, CTL, Q3 source, and the TP4056 BAT pin.
-
-**Resolved — PMOS body-diode path (fixed 2026-05-08):**
-
-D7 (SS14) was added in series between VBAT and Q3 source (anode = VBAT, cathode = Q3 source). The Schottky is reverse-biased whenever VPWR > VBAT, so Q3's body-diode current path back into the battery is blocked. Verified via netlist: `Net-(D7-K)` contains exactly D7 K and Q3 S; VBAT now contains D7 A in place of the former direct Q3-source connection. Trade-off: ~0.3 V additional drop in the battery → load path, documented in the voltage budget table above.
-
-**Resolved — U12 CTL pin tied to VBAT (fixed 2026-05-08):**
-
-The LTC4412 CTL pin is active-low: a logic high *forces* the external PFET off (datasheet, Description, page 1: "The control (CTL) input enables the user to force the primary MOSFET off"). Previously U12 pin 3 (CTL) was wired to the same net as VIN (VBAT, ≈ 3.7–4.2 V) — well above V_IH = 0.9 V — so the chip held GATE deasserted and Q3 was permanently off. With USB unplugged the load saw no battery path and the system did not power up.
-
-The fix removed the vertical stub between U12 pin 1 and pin 3 and tied CTL directly to GND via a power symbol. Verified via netlist: U12 pin 3 (CTL) is now on `GND`; VBAT no longer lists U12 pin 3.
+> Caveat: the divider taps the VBAT rail *after* the protection cell, not the
+> raw cell. Under load the LTC4412/Q3/D6/protection FET path causes a visible
+> drop, so the reading underestimates SoC during current spikes (boot, WiFi
+> start). Documented behaviour, not a bug.
 
 ### ERC pin-type tweaks (embedded library copies)
-A few stock symbols had `pin_type` annotations that triggered ERC false-positives once the supply network was complete. The **embedded** copies in the schematic file have been adjusted (the upstream libraries are unchanged, hence the resulting `lib_symbol_mismatch` warnings are expected):
-- `Simulation_SPICE:NPN` — Q1/Q2 collector & emitter `open_collector`/`open_emitter` → `passive`
+A few stock symbols had `pin_type` annotations that triggered ERC false
+positives once the supply network was complete. The **embedded** copies in
+the schematic file have been adjusted (the upstream libraries are unchanged,
+hence the resulting `lib_symbol_mismatch` warnings are expected):
+- `Simulation_SPICE:NPN` — Q1/Q2 collector & emitter `open_collector` / `open_emitter` → `passive`
 - `PCM_yvolodym:8205A` — D1/D2 drains `output` → `passive`
-- `Interface_USB:CH340C` — V3 pin `power_output` → `power_input` (CH340C runs in self-power mode with V3 tied to VCC externally)
+- `Interface_USB:CH340C` — V3 pin `power_output` → `power_input` (CH340C runs in self-powered mode with V3 tied to VCC externally)
 
 ## Key Notes
 
 - ADC uses `esp_adc/adc_oneshot` API with automatic calibration (curve fitting preferred, falls back to line fitting, then raw).
 - WiFi is initialized in STA mode solely to enable the ESP-NOW radio — no network association.
-- Battery level is **not implemented** (`batteryLevel` is hardcoded to 100).
+- Battery level is computed from the GPIO36 / `HVBAT` divider (see *Power Supply Design → VBAT sense to MCU*).
 - `sdkconfig.defaults` enables SPIRAM, 240 MHz CPU, 80 MHz flash/SPIRAM, and WiFi buffer tuning.
 - Hardware reference datasheets are in `doc/`.
