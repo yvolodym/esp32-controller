@@ -46,7 +46,7 @@ typedef struct {
 ```
 
 `batteryLevel` is derived in software from a 220 kΩ / 100 kΩ divider on `HVBAT`
-(R17/R18/C9 in `supply.kicad_sch`) feeding GPIO36 / ADC1_CH0 (SENSOR_VP).
+(R1/R2/C1 in `supply.kicad_sch`) feeding GPIO36 / ADC1_CH0 (SENSOR_VP).
 Mapping is linear: 4200 mV → 100 %, 3000 mV → 0 %.
 
 Joystick calibration pipeline:
@@ -118,7 +118,7 @@ Buttons use internal pull-up; active-low logic is inverted in software.
 
 > SENSOR_VN (GPIO39, module pin 5) is **not connected** in the schematic —
 > explicit `no_connect` marker at U1. SENSOR_VP (GPIO36, module pin 4) is the
-> ADC tap of the VBAT divider (R17/R18/C9, net `HVBAT`). Earlier firmware
+> ADC tap of the VBAT divider (R1/R2/C1, net `HVBAT`). Earlier firmware
 > versions read joy1 from GPIO36/39, which produced floating ADC values and a
 > stick that "did not react"; fixed by moving joy1 to GPIO32/33 (the pins the
 > schematic actually wires to U2).
@@ -282,13 +282,13 @@ against the exported netlist 2026-06-03). Cell + (`U10.1`) ties straight to
 
 ```
 Zelle− (U10.2) ─ U9(switch) ─ S2(B−) ─┤8205A FET2├─ common drain ─┤FET1├─ S1 ─ GND(P−)
-DW01A: VCC ← R16(100Ω) ← HVBAT · GND = S2(B−) · CS ← R15(1k) ← GND(P−)
+DW01A: VCC ← R18(100Ω) ← HVBAT · GND = S2(B−) · CS ← R17(1k) ← GND(P−)
        OC → G1(FET1, overcharge) · OD → G2(FET2, overdischarge) · TD = NC
 ```
 
-- **R16 = 100 Ω** — DW01A VCC supply resistor (B+ → VCC). ✓
-- **R15 = 1 kΩ** — overcurrent sense resistor (CS → P−/GND). ✓
-- **C6 = 100 nF** — DW01A VCC↔GND bypass. *(Was 100 pF in the schematic — a
+- **R18 = 100 Ω** — DW01A VCC supply resistor (B+ → VCC). ✓
+- **R17 = 1 kΩ** — overcurrent sense resistor (CS → P−/GND). ✓
+- **C7 = 100 nF** — DW01A VCC↔GND bypass. *(Was 100 pF in the schematic — a
   ~1000× undersized bypass that barely decouples the IC and risks nuisance
   protection trips; corrected to 100 nF 2026-06-03.)*
 - **U7 8205A** — common-drain pair: `D1`/`D2` tied internally only (correct for
@@ -304,7 +304,7 @@ DW01A: VCC ← R16(100Ω) ← HVBAT · GND = S2(B−) · CS ← R15(1k) ← GND(
 > to the LTC4412 CTL pin instead. U9 pin 1 is unconnected (fine for SPST use).
 
 ### VBAT sense to MCU
-A 220 kΩ / 100 kΩ divider (R17/R18) with 100 nF filter (C9) taps `HVBAT` and
+A 220 kΩ / 100 kΩ divider (R1/R2) with 100 nF filter (C1) taps `HVBAT` and
 feeds GPIO36 (SENSOR_VP, ADC1_CH0) on U1. `HVBAT` is the same net as VBAT,
 brought across as a hierarchical sheet pin. The firmware's `read_battery_level`
 recovers VBAT from the divider, smooths it with an EMA, and maps it through a
@@ -316,10 +316,12 @@ LiPo discharge curve to a 0–100 % estimate.
 DW01A supply resistor. The mid-tap goes to `U1.4` (SENSOR_VP), and the bottom
 leg + filter cap go to GND.
 
-> **Note:** the supply sheet was re-annotated on 2026-06-03; the exact R/C
-> reference designators for the divider (formerly R17/R18/C9) and the DW01A
-> supply resistor (formerly R16) have shifted — re-verify against the current
-> schematic before quoting specific designators.
+> **Note:** the supply sheet was re-annotated on 2026-06-03; the R/C reference
+> designators shifted from the original layout. Re-verified against the current
+> schematic 2026-06-07: divider = **R1 (220 k) / R2 (100 k)**, filter = **C1
+> (100 nF)** (the old `C9` is now a 100 nF decoupling cap on `+5V`); DW01A VCC
+> supply resistor = **R18 (100 Ω)** (was R16), CS resistor = **R17 (1 k)** (was
+> R15), VCC bypass = **C7 (100 nF)** (was C6). The mapping below is current.
 
 > **The sense taps the raw cell, *upstream* of the powerpath — Q3 is NOT in the
 > measured path.** The discharge path is now `HVBAT → Q3 → VPWR` (D6 removed),
@@ -327,8 +329,8 @@ leg + filter cap go to GND.
 > not affect the reading. The only error sources in the measured loop are
 > the cell's own internal resistance and the IR drop across the low-side
 > protection FETs (8205A, in the GND return) — both tens of mV. A genuine
-> concern *is* the divider's high Thévenin source impedance (R17‖R18 ≈ 69 kΩ,
-> above Espressif's ADC recommendation), but C9 (100 nF) buffers the sample/hold
+> concern *is* the divider's high Thévenin source impedance (R1‖R2 ≈ 69 kΩ,
+> above Espressif's ADC recommendation), but C1 (100 nF) buffers the sample/hold
 > so this is acceptable for the slow battery poll. Net: the 50 %→85 % boot
 > climb is a measurement/mapping artifact, not a real powerpath collapse — hence
 > the firmware-side EMA + boot-settle + non-linear curve in `read_battery_level`.
