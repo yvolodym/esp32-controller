@@ -217,7 +217,19 @@ battery-path headroom. See voltage budget below.
 | D5  | SS14 | SMA | USB-side Schottky (VBUS → VPWR) |
 | ~~D6~~ | ~~SS14~~ | — | **Removed 2026-06-03** — Q3 reoriented per datasheet, body diode now blocks reverse current natively |
 | D3  | LED red | 0603 | TP4056 ~CHRG indicator (lit while charging) |
-| D4  | LED blue | 0603 | +3.3 V power-on indicator |
+| D4  | LED blue | 0603 | +3.3 V power-on indicator (on `+3.3V` via R16 470 Ω → GND) |
+
+> **D4 is the +3.3 V power-on indicator** (rewired 2026-06-07: `+3.3V` →
+> R16 470 Ω → D4 → GND, verified in `supply.kicad_sch` — D4 at 209.55/54.61,
+> GND symbol at 219.71/87.63, isolated from the `+5V` rail). It lights in
+> *both* USB and battery operation, since `+3.3V` is always present. An earlier
+> revision wired D4 across `+5V`/VBUS (with R16 = 2 kΩ), so it only lit with USB
+> and was dark on battery — that has been corrected. R16 was lowered from 2 kΩ
+> to **470 Ω** at the same time: a blue LED's Vf ≈ 2.7–3.0 V leaves only
+> ~0.3–0.5 V across R16 at 3.3 V, so 470 Ω gives ~1 mA (was ~0.25 mA at 2 kΩ).
+> Current is sensitive to Vf spread at this low headroom, but that is uncritical
+> for a status LED. D3 (red) is the TP4056 ~CHRG indicator and is *expected* to
+> be lit only while charging (USB present).
 
 > Q1 and Q2 (BCW66G NPN BJTs) live on the **main** schematic and are part of
 > the CH340C UART auto-reset circuit. The supply schematic only contains Q3.
