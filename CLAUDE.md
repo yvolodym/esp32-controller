@@ -12,6 +12,10 @@ An ESP32-based wireless game controller using ESP-NOW for low-latency peer-to-pe
 - **Protocol**: ESP-NOW (no pairing, channel 1, no encryption)
 - **Display**: ST7789 320×240 SPI — driven by `main/st7789_display.c`
 
+### Messungen an Schematic
+- Lasestrom - von 15 bis 20 mA es wird langsam hoch und dann wieder herunter gegangen
+- Entladestrom - 37,51 mA 
+
 ### Data flow
 
 ```mermaid
