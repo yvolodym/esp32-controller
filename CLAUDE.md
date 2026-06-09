@@ -184,7 +184,7 @@ graph LR
     USB  -->|"D5 SS14\nVf ≈ 0.3 V"| VPWR
     VBAT -->|"Q3 Si2319CDS (LTC4412 U12)\nVds ≈ 20 mV"| VPWR
     VPWR -->|"U11 AP2112K-3.3\nLDO 600 mA · 250 mV dropout"| V33
-    USB  -->|"U5 TP4056\nCC/CV 1 A charger"| VBAT
+    USB  -->|"U5 TP4056\nCC/CV 600 mA charger (R15 = 2 kΩ)"| VBAT
 ```
 
 Q3 is oriented per the LTC4412 datasheet (Figure 1): **drain → VBAT (battery
@@ -209,7 +209,7 @@ battery-path headroom. See voltage budget below.
 
 | Ref | Part | Package | Function |
 |---|---|---|---|
-| U5  | TP4056-42-ESOP8 | SOIC-8 EP | Li-ion charger, 1 A CC/CV, 4.2 V |
+| U5  | TP4056-42-ESOP8 | SOIC-8 EP | Li-ion charger, CC/CV 4.2 V, **600 mA** (R15 = 2 kΩ on PROG; `I_CHG = 1200 V·Ω / R_PROG`) |
 | U6  | USBLC6-2P6 | SOT-23-6 | USB D+/D− ESD protection |
 | U7  | 8205A | SOT-23-6 | Dual N-MOSFET, battery protection switch |
 | U8  | DW01A | SOT-23-6 | Single-cell Li-ion protection IC (drives U7) |
@@ -220,8 +220,8 @@ battery-path headroom. See voltage budget below.
 | Q3  | Si2319CDS | SOT-23 | P-ch MOSFET (VDS −40 V, ID −4.4 A, RDS_on ≈ 100 mΩ at VGS −10 V) |
 | D5  | SS14 | SMA | USB-side Schottky (VBUS → VPWR) |
 | ~~D6~~ | ~~SS14~~ | — | **Removed 2026-06-03** — Q3 reoriented per datasheet, body diode now blocks reverse current natively |
-| D3  | LED red | 0603 | TP4056 ~CHRG indicator (lit while charging) |
-| D4  | LED blue | 0603 | +3.3 V power-on indicator (on `+3.3V` via R16 470 Ω → GND) |
+| D3  | LED red (schematic value `LED_RED`) | 0603 | TP4056 ~CHRG indicator (lit while charging) |
+| D4  | LED green (schematic value `LED_GREEN`) | 0603 | +3.3 V power-on indicator (on `+3.3V` via R16 470 Ω → GND) |
 
 > **D4 is the +3.3 V power-on indicator** (rewired 2026-06-07: `+3.3V` →
 > R16 470 Ω → D4 → GND, verified in `supply.kicad_sch` — D4 at 209.55/54.61,
@@ -229,11 +229,17 @@ battery-path headroom. See voltage budget below.
 > *both* USB and battery operation, since `+3.3V` is always present. An earlier
 > revision wired D4 across `+5V`/VBUS (with R16 = 2 kΩ), so it only lit with USB
 > and was dark on battery — that has been corrected. R16 was lowered from 2 kΩ
-> to **470 Ω** at the same time: a blue LED's Vf ≈ 2.7–3.0 V leaves only
-> ~0.3–0.5 V across R16 at 3.3 V, so 470 Ω gives ~1 mA (was ~0.25 mA at 2 kΩ).
-> Current is sensitive to Vf spread at this low headroom, but that is uncritical
-> for a status LED. D3 (red) is the TP4056 ~CHRG indicator and is *expected* to
-> be lit only while charging (USB present).
+> to **470 Ω** at the same time. The colour was switched from blue to **green**
+> on 2026-06-09 (schematic value `LED_GREEN`, suggested LCSC C72043 / Everlight
+> 19-217/GHC-YR1S2/3T) so it is unambiguously distinguishable from the red CHRG
+> LED (D3) and operates with comfortable Vf headroom: at Vf ≈ 2.1 V the 470 Ω
+> resistor gives ~2.6 mA — bright, Vf-tolerance-insensitive, and well within
+> 0603 LED ratings. (The earlier blue-LED choice was current-starved at the
+> same R16 because 2.7–3.0 V Vf left only ~0.3–0.5 V across R16, so the
+> brightness was Vf-spread-sensitive; the value switch removes that risk.)
+> D3 (red, schematic value `LED_RED`, e.g. Kingbright KP-1608SURCK) is the
+> TP4056 ~CHRG indicator and is *expected* to be lit only while charging
+> (USB present).
 
 > Q1 and Q2 (BCW66G NPN BJTs) live on the **main** schematic and are part of
 > the CH340C UART auto-reset circuit. The supply schematic only contains Q3.
@@ -284,7 +290,8 @@ required. The single Q3 (R_DS(on) ≈ 100 mΩ) is now the only series element.
 ### TP4056 (U5) notes
 - TEMP (pin 1) → VCC — NTC disabled by design (TEMP = GND would permanently disable charging).
 - CE (pin 8) → VCC — charger always enabled when VBUS is present.
-- ~CHRG (pin 7) → D3 (red LED) via R10 to +5 V — lit while charging.
+- ~CHRG (pin 7) → R12 (1 kΩ) → D3 cathode; D3 anode → +5 V — open-collector pulls D3 low while charging (LED current ≈ (5 V − Vf − V_OL) / 1 kΩ ≈ 3 mA).
+- PROG (pin 2) → R15 (2 kΩ) → GND — sets `I_CHG = 1200 V·Ω / 2 kΩ = 600 mA`. To increase to 1 A, swap R15 to 1.2 kΩ (and verify EPAD thermal headroom: P_diss = (V_BUS − V_BAT) · I_CHG, ~1.7 W at 5 V → 3.3 V, 1 A).
 - ~STDBY (pin 6) → no-connect — no charge-complete LED is wired in this design.
 - EPAD (pin 9) → GND.
 - VBUS / VCC (pin 4) → +5 V via the USB connector.

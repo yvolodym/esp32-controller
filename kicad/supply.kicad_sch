@@ -5086,7 +5086,7 @@
 				(justify right)
 			)
 		)
-		(property "Value" "BATT"
+		(property "Value" "LED_RED"
 			(at 85.09 115.8874 90)
 			(effects
 				(font
@@ -5989,7 +5989,7 @@
 				(justify right)
 			)
 		)
-		(property "Value" "NET"
+		(property "Value" "LED_GREEN"
 			(at 202.692 55.88 90)
 			(effects
 				(font
