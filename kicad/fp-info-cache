@@ -1,4 +1,4 @@
-27367672416243197
+27367707588226677
 Audio_Module
 Reverb_BTDR-1H
 Digital Reverberation Unit, http://www.belton.co.kr/inc/downfile.php?seq=17&file=pdf (footprint from http://www.uk-electronic.de/PDF/BTDR-1.pdf)
@@ -75859,7 +75859,7 @@ QFN NoLead
 37
 33
 PCM_yvolodym
-ESP32-WROVER-B
+ESP32-WROVER-IB
 
 
 0
@@ -75880,7 +75880,7 @@ Joystick_PS5
 14
 14
 PCM_yvolodym
-MOUDLE-SEEEDUINO-XIAO-ESP32C3
+MODULE-SEEEDUINO-XIAO-ESP32C3
 
 
 0
@@ -107723,7 +107723,7 @@ Joystick_PS5
 14
 14
 eugen
-MOUDLE-SEEEDUINO-XIAO-ESP32C3
+MODULE-SEEEDUINO-XIAO-ESP32C3
 
 
 0
