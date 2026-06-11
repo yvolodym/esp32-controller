@@ -5541,7 +5541,7 @@
 				)
 			)
 		)
-		(property "Footprint" "PCM_yvolodym:Switch"
+		(property "Footprint" "Button_Switch_SMD:SW_SPDT_PCM12"
 			(at 182.626 134.366 0)
 			(effects
 				(font
