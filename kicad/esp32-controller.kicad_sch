@@ -7301,7 +7301,7 @@
 				)
 			)
 		)
-		(property "Footprint" "PCM_yvolodym:ESP32-WROVER-B"
+		(property "Footprint" "PCM_yvolodym:ESP32-WROVER-IB"
 			(at 88.9 86.36 0)
 			(effects
 				(font
