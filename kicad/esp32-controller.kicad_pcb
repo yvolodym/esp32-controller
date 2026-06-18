@@ -6479,7 +6479,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Analog thumb joystick module (2-axis + push button)"
 			(at 0.000001 1.561971 0)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -7394,7 +7394,7 @@
 				)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "https://www.espressif.com/sites/default/files/documentation/esp32-wrover-b_datasheet_en.pdf"
 			(at 25.03 -76.37 180)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -7407,7 +7407,7 @@
 				)
 			)
 		)
-		(property "Description" "ESP32-WROVER-IB"
+		(property "Description" "Espressif ESP32-WROVER-IB Wi-Fi/Bluetooth module with IPEX antenna connector"
 			(at 25.03 -76.37 180)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -7496,7 +7496,7 @@
 			(roundrect_rratio 0.15)
 			(net 4 "/EN")
 			(pinfunction "EN")
-			(pintype "bidirectional")
+			(pintype "input")
 			(uuid "12f6fe2c-24bd-4bf2-9989-1415dce77663")
 		)
 		(pad "4" smd roundrect
@@ -7506,7 +7506,7 @@
 			(roundrect_rratio 0.15)
 			(net 9 "Net-(U1-SENSOR_VP)")
 			(pinfunction "SENSOR_VP")
-			(pintype "bidirectional")
+			(pintype "input")
 			(uuid "6e747109-3943-41ee-a46f-c42b9fb61b94")
 		)
 		(pad "5" smd roundrect
@@ -7516,7 +7516,7 @@
 			(roundrect_rratio 0.15)
 			(net 53 "unconnected-(U1-SENSOR_VN-Pad5)")
 			(pinfunction "SENSOR_VN")
-			(pintype "bidirectional+no_connect")
+			(pintype "input+no_connect")
 			(uuid "df99d4a5-141a-47ac-9208-1e024f0389aa")
 		)
 		(pad "6" smd roundrect
@@ -7526,7 +7526,7 @@
 			(roundrect_rratio 0.15)
 			(net 56 "/HRx")
 			(pinfunction "GPIO34")
-			(pintype "bidirectional")
+			(pintype "input")
 			(uuid "e59d06d1-9977-44a8-a200-7a05f70b7cfe")
 		)
 		(pad "7" smd roundrect
@@ -7536,7 +7536,7 @@
 			(roundrect_rratio 0.15)
 			(net 42 "/HRy")
 			(pinfunction "GPIO35")
-			(pintype "bidirectional")
+			(pintype "input")
 			(uuid "33102366-3af9-4360-9513-6d9699376e3c")
 		)
 		(pad "8" smd roundrect
@@ -7676,7 +7676,7 @@
 			(roundrect_rratio 0.15)
 			(net 45 "unconnected-(U1-SDO{slash}SD0-Pad21)")
 			(pinfunction "SDO/SD0")
-			(pintype "power_in+no_connect")
+			(pintype "bidirectional+no_connect")
 			(uuid "633808ce-8ee9-4e96-af2f-043ecafb4e37")
 		)
 		(pad "22" smd roundrect
@@ -7796,7 +7796,7 @@
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.15)
 			(net 31 "/RXD0")
-			(pinfunction "U0RDX")
+			(pinfunction "U0RXD")
 			(pintype "bidirectional")
 			(uuid "36e9117d-d9ca-4d33-ae32-d743b0093733")
 		)
@@ -7806,7 +7806,7 @@
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.15)
 			(net 32 "/TXD0")
-			(pinfunction "U0TDX")
+			(pinfunction "U0TXD")
 			(pintype "bidirectional")
 			(uuid "f0106612-e198-47b6-ba0b-fa3f22d22878")
 		)
@@ -9299,7 +9299,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Analog thumb joystick module (2-axis + push button)"
 			(at 0.000001 1.561971 0)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -14685,7 +14685,7 @@
 				(justify mirror)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "https://www.batteryspace.com/prod-specs/NCR18650B.pdf"
 			(at 0.15 0.35 0)
 			(unlocked yes)
 			(layer "B.Fab")
@@ -14699,7 +14699,7 @@
 				(justify mirror)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Panasonic NCR18650B 3.7V Li-ion 18650 cell"
 			(at 0.15 0.35 0)
 			(unlocked yes)
 			(layer "B.Fab")
@@ -14805,7 +14805,8 @@
 			(layers "*.Cu" "*.Mask")
 			(remove_unused_layers no)
 			(net 46 "/HVBAT")
-			(pintype "input")
+			(pinfunction "+")
+			(pintype "power_out")
 			(uuid "c44e835d-3c25-4ef5-ace6-77845ae2083b")
 		)
 		(pad "2" thru_hole oval
@@ -14815,7 +14816,8 @@
 			(layers "*.Cu" "*.Mask")
 			(remove_unused_layers no)
 			(net 77 "Net-(U10-Pad2)")
-			(pintype "output")
+			(pinfunction "-")
+			(pintype "passive")
 			(uuid "a5d7d1ca-45da-4e4c-adfa-f524cec1c6e7")
 		)
 		(embedded_fonts no)

@@ -1803,7 +1803,7 @@
 			(exclude_from_sim no)
 			(in_bom yes)
 			(on_board yes)
-			(property "Reference" "U"
+			(property "Reference" "BT"
 				(at 0 4.572 0)
 				(effects
 					(font
@@ -1811,7 +1811,7 @@
 					)
 				)
 			)
-			(property "Value" ""
+			(property "Value" "NCR18650B"
 				(at 0 0 0)
 				(effects
 					(font
@@ -1828,7 +1828,7 @@
 					(hide yes)
 				)
 			)
-			(property "Datasheet" ""
+			(property "Datasheet" "https://www.batteryspace.com/prod-specs/NCR18650B.pdf"
 				(at 0 0 0)
 				(effects
 					(font
@@ -1837,7 +1837,16 @@
 					(hide yes)
 				)
 			)
-			(property "Description" ""
+			(property "Description" "Panasonic NCR18650B 3.7V Li-ion 18650 cell"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_keywords" "battery li-ion 18650 cell panasonic NCR18650B"
 				(at 0 0 0)
 				(effects
 					(font
@@ -1873,10 +1882,10 @@
 				)
 			)
 			(symbol "NCR18650B_1_1"
-				(pin output line
+				(pin passive line
 					(at -2.54 0 0)
 					(length 2.54)
-					(name ""
+					(name "-"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -1891,10 +1900,10 @@
 						)
 					)
 				)
-				(pin input line
+				(pin power_out line
 					(at 3.81 0 180)
 					(length 2.54)
-					(name ""
+					(name "+"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -5199,7 +5208,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "https://www.batteryspace.com/prod-specs/NCR18650B.pdf"
 			(at 187.96 129.54 0)
 			(effects
 				(font
@@ -5208,7 +5217,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Panasonic NCR18650B 3.7V Li-ion 18650 cell"
 			(at 187.96 129.54 0)
 			(effects
 				(font
