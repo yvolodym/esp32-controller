@@ -3732,6 +3732,12 @@
 		(uuid "368d3b4e-f703-4518-bb01-dce52323ee37")
 	)
 	(junction
+		(at 127 148.59)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "4067de2f-fcf7-43c9-b252-0f5ba0882250")
+	)
+	(junction
 		(at 119.38 148.59)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -4022,6 +4028,16 @@
 			(type default)
 		)
 		(uuid "1cc53d08-f8c6-44eb-b313-286f70464a35")
+	)
+	(wire
+		(pts
+			(xy 127 148.59) (xy 130.81 148.59)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "1f9c35aa-8c28-4cdb-8cf7-7a9e73ab6359")
 	)
 	(wire
 		(pts
@@ -4425,7 +4441,7 @@
 	)
 	(wire
 		(pts
-			(xy 120.65 133.35) (xy 114.3 133.35)
+			(xy 114.3 133.35) (xy 127 133.35)
 		)
 		(stroke
 			(width 0)
@@ -4575,7 +4591,7 @@
 	)
 	(wire
 		(pts
-			(xy 119.38 148.59) (xy 130.81 148.59)
+			(xy 119.38 148.59) (xy 127 148.59)
 		)
 		(stroke
 			(width 0)
@@ -4722,6 +4738,16 @@
 			(type default)
 		)
 		(uuid "b4d13e10-f90b-4f2a-b365-343f90ac8213")
+	)
+	(wire
+		(pts
+			(xy 127 133.35) (xy 127 148.59)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "b7942914-46df-475c-8059-c0c2cb6c7dc0")
 	)
 	(wire
 		(pts
@@ -6818,73 +6844,6 @@
 			(project "esp32-controller"
 				(path "/1b61a099-fa01-45c5-bfa6-c1f023697108/13eaefed-e598-4605-b03d-de27b94da232"
 					(reference "U7")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "power:+5V")
-		(at 120.65 133.35 270)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "a1b2c3d4-e5f6-4789-abcd-ee0000000004")
-		(property "Reference" "#PWR029"
-			(at 116.84 133.35 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Value" "+5V"
-			(at 124.46 133.3499 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" ""
-			(at 120.65 133.35 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" ""
-			(at 120.65 133.35 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "Power symbol creates a global label with name \"+5V\""
-			(at 120.65 133.35 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "a1b2c3d4-e5f6-4789-abcd-ee0000000005")
-		)
-		(instances
-			(project "esp32-controller"
-				(path "/1b61a099-fa01-45c5-bfa6-c1f023697108/13eaefed-e598-4605-b03d-de27b94da232"
-					(reference "#PWR029")
 					(unit 1)
 				)
 			)
