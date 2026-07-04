@@ -86,7 +86,7 @@ static void parse_mac_address(void) {
 }
 
 // ESP-NOW Send Callback
-static void espnow_send_cb(const uint8_t *mac_addr, esp_now_send_status_t status) {
+static void espnow_send_cb(const wifi_tx_info_t *tx_info, esp_now_send_status_t status) {
     if (status == ESP_NOW_SEND_SUCCESS) {
         send_success_count++;
     } else {
@@ -155,7 +155,7 @@ static void init_adc(void) {
 
     adc_oneshot_chan_cfg_t config = {
         .bitwidth = ADC_BITWIDTH_12,
-        .atten = ADC_ATTEN_DB_11,
+        .atten = ADC_ATTEN_DB_12,
     };
 
     ESP_ERROR_CHECK(adc_oneshot_config_channel(adc1_handle, JOY1_X_PIN, &config));
@@ -168,7 +168,7 @@ static void init_adc(void) {
 #if ADC_CALI_SCHEME_CURVE_FITTING_SUPPORTED
     adc_cali_curve_fitting_config_t cali_config = {
         .unit_id = ADC_UNIT_1,
-        .atten = ADC_ATTEN_DB_11,
+        .atten = ADC_ATTEN_DB_12,
         .bitwidth = ADC_BITWIDTH_12,
     };
     esp_err_t ret = adc_cali_create_scheme_curve_fitting(&cali_config, &adc1_cali_handle);
@@ -179,7 +179,7 @@ static void init_adc(void) {
 #elif ADC_CALI_SCHEME_LINE_FITTING_SUPPORTED
     adc_cali_line_fitting_config_t cali_config = {
         .unit_id = ADC_UNIT_1,
-        .atten = ADC_ATTEN_DB_11,
+        .atten = ADC_ATTEN_DB_12,
         .bitwidth = ADC_BITWIDTH_12,
     };
     esp_err_t ret = adc_cali_create_scheme_line_fitting(&cali_config, &adc1_cali_handle);

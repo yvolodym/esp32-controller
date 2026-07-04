@@ -128,7 +128,7 @@ esp_err_t st7789_init(st7789_display_t *display) {
         .max_transfer_sz = ST7789_WIDTH * ST7789_HEIGHT * 2,
     };
 
-    ret = spi_bus_initialize(VSPI_HOST, &buscfg, SPI_DMA_CH_AUTO);
+    ret = spi_bus_initialize(SPI3_HOST, &buscfg, SPI_DMA_CH_AUTO);
     if (ret != ESP_OK) {
         ESP_LOGE(TAG, "Failed to initialize SPI bus: %s", esp_err_to_name(ret));
         return ret;
@@ -143,7 +143,7 @@ esp_err_t st7789_init(st7789_display_t *display) {
         .pre_cb = NULL,
     };
 
-    ret = spi_bus_add_device(VSPI_HOST, &devcfg, &display->spi_handle);
+    ret = spi_bus_add_device(SPI3_HOST, &devcfg, &display->spi_handle);
     if (ret != ESP_OK) {
         ESP_LOGE(TAG, "Failed to add SPI device: %s", esp_err_to_name(ret));
         return ret;

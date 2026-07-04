@@ -6,3 +6,4 @@ kicad/jlcpcb/
 **/*.lck
 *.rpt
 analysis/
+.cache/
