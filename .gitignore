@@ -7,3 +7,4 @@ kicad/jlcpcb/
 *.rpt
 analysis/
 .cache/
+.clangd
