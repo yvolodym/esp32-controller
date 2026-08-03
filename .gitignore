@@ -8,3 +8,4 @@ kicad/jlcpcb/
 analysis/
 .cache/
 .clangd
+*.csv
