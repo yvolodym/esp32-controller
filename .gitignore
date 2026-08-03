@@ -9,3 +9,10 @@ analysis/
 .cache/
 .clangd
 *.csv
+
+
+kicad/fp-info-cache
+kicad/*.kicad_prl
+kicad/*.net
+kicad/*.dsn
+kicad/*.ses
