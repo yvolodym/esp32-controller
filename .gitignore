@@ -16,3 +16,4 @@ kicad/*.kicad_prl
 kicad/*.net
 kicad/*.dsn
 kicad/*.ses
+kicad/.history/
