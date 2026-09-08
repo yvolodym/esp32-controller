@@ -17,3 +17,5 @@ kicad/*.net
 kicad/*.dsn
 kicad/*.ses
 kicad/.history/
+
+*.code-workspace
